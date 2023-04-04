@@ -1,0 +1,14 @@
+[
+  {
+    "name": "John",
+    "dialogueOptions": [ "Hello!", "How are you?", "Nice to meet you." ]
+  },
+  {
+    "name": "Jane",
+    "dialogueOptions": [
+      "Hi there!",
+      "What brings you here?",
+      "I'm glad to see you."
+    ]
+  }
+]

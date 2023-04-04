@@ -1,0 +1,79 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using CookingGame.Enum;
+using CookingGame.Managers;
+using CookingGame.Objects;
+
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace CookingGame.States
+{
+    public abstract class BaseState
+    {
+        private protected readonly List<BaseSprite> GameObjects = new List<BaseSprite>();
+
+        private const string FallbackTexture = "Empty";
+        private ContentManager _contentManager;
+
+        public void Initialize(ContentManager contentManager)
+        {
+            _contentManager = contentManager;
+        }
+
+        public abstract void LoadContent();
+        public abstract void Update();
+
+        public void UnloadContent()
+        {
+            _contentManager.Unload();
+        }
+
+        public abstract void HandleInput();
+
+        public event EventHandler<BaseState> OnStateSwitched;
+
+        public event EventHandler<Events> OnEventNotification;
+
+        protected void NotifyEvent(Events eventType, object argument = null)
+        {
+            OnEventNotification?.Invoke(this, eventType);
+
+            foreach (var gameObject in GameObjects) 
+                gameObject.OnNotify(eventType);
+        }
+
+        protected void SwitchState(BaseState gameState)
+        {
+            OnStateSwitched?.Invoke(this, gameState);
+        }
+
+        protected void AddGameObject(BaseSprite gameObject)
+        {
+            GameObjects.Add(gameObject);
+        }
+
+        protected void RemoveGameObject(BaseSprite gameObject)
+        {
+            GameObjects.Remove(gameObject);
+        }
+
+        public void Render(SpriteBatch spriteBatch)
+        {
+            foreach (var gameObject in GameObjects.OrderBy(a => a.zIndex))
+            {
+                gameObject.Render(spriteBatch);
+            }
+        }
+        protected Texture2D LoadTexture(string textureName)
+        {
+            var texture = _contentManager.Load<Texture2D>(textureName);
+            return texture ?? _contentManager.Load<Texture2D>
+                (FallbackTexture);
+        }
+    }
+}
