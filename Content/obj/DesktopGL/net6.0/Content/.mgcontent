@@ -11,11 +11,13 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GameplayState.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/menu_btn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Menu.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/MyFont.spritefont</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/orderStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/orderStation_order.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Splash.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

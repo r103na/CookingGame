@@ -8,6 +8,8 @@ using CookingGame.Managers;
 using CookingGame.Objects;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.States
@@ -19,7 +21,10 @@ namespace CookingGame.States
         private Shawarma _currentShawarma = new Shawarma();
         private Order _currentOrder = null;
 
+        private Text _scoreText;
         private int score = 0;
+
+        private Text _timeText;
         private int timeMin = 0;
         
         private const float PatienceDecreaseRate = 0.25f;
@@ -32,8 +37,11 @@ namespace CookingGame.States
             gameTime = new GameTime();
             Trace.Listeners.Add(new ConsoleTraceListener());
 
+            var font = _contentManager.Load<SpriteFont>("MyFont");
+            _scoreText = new Text(font, $"{score}", new Vector2(10, 10));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
+            AddText(_scoreText);
 
             AddVisitorStation();
             AddOrderStation();
@@ -64,6 +72,14 @@ namespace CookingGame.States
                 clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
             }
 
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                RemoveText(_scoreText);
+                score += 20;
+                _scoreText = new Text(_scoreText.Font, $"{score}", new Vector2(10, 10));
+                AddText(_scoreText);
+            }
+
             if (keyboardState.IsKeyDown(Keys.Enter))
             {
                 NotifyEvent(Events.GAME_QUIT);
@@ -73,11 +89,13 @@ namespace CookingGame.States
         private void IncreaseScore(object sender, EventArgs e)
         {
             score += _currentCustomer.Order.Price;
+            ChangeScoreText();
         }
 
         private void DecreaseScore(object sender, EventArgs e)
         {
             score -= _currentCustomer.Order.Price;
+            ChangeScoreText();
         }
 
         public void GradeOrder()
@@ -182,9 +200,11 @@ namespace CookingGame.States
             AddGameObject(menuBtn);
         }
 
-        private void AddText()
+        private void ChangeScoreText()
         {
-            
+            RemoveText(_scoreText);
+            _scoreText = new Text(_scoreText.Font, $"{score}", new Vector2(10, 10));
+            AddText(_scoreText);
         }
 
         #endregion

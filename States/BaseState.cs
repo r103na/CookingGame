@@ -16,9 +16,10 @@ namespace CookingGame.States
     public abstract class BaseState
     {
         private protected readonly List<BaseSprite> GameObjects = new List<BaseSprite>();
+        private protected readonly List<Text> Texts = new List<Text>();
 
         private const string FallbackTexture = "Empty";
-        private ContentManager _contentManager;
+        protected ContentManager _contentManager;
 
         public void Initialize(ContentManager contentManager)
         {
@@ -68,12 +69,27 @@ namespace CookingGame.States
             {
                 gameObject.Render(spriteBatch);
             }
+
+            foreach (var text in Texts)
+            {
+                text.Render(spriteBatch);
+            }
         }
         protected Texture2D LoadTexture(string textureName)
         {
             var texture = _contentManager.Load<Texture2D>(textureName);
             return texture ?? _contentManager.Load<Texture2D>
                 (FallbackTexture);
+        }
+
+        protected void AddText(Text text)
+        {
+            Texts.Add(text);
+        }
+
+        protected void RemoveText(Text text)
+        {
+            Texts.Remove(text);
         }
     }
 }
