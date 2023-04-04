@@ -21,6 +21,7 @@ public class StationItem : ClickableSprite
     {
         if (IsInBounds(clickPosition))
         {
+            OnClicked();
             _position.X = clickPosition.X;
             _position.Y = clickPosition.Y;
         }

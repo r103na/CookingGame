@@ -13,11 +13,8 @@ namespace CookingGame.States
 {
     public class SplashState : BaseState
     {
-        private const string SplashTextureName = "Splash";
-
         public override void LoadContent()
         {
-            AddGameObject(new SplashImage(LoadTexture(SplashTextureName)));
         }
 
         public override void Update()

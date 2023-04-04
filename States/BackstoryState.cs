@@ -16,10 +16,7 @@ namespace CookingGame.States
         private bool IsBackstoryOver => _backstoryImages.Count == 0;
         public override void LoadContent()
         {
-            _backstoryImages.Enqueue(new SplashImage(LoadTexture("Backstory1")));
-            _backstoryImages.Enqueue(new SplashImage(LoadTexture("Backstory2")));
-            _backstoryImages.Enqueue(new SplashImage(LoadTexture("Backstory1")));
-            LoadImage();
+            //LoadImage();
         }
 
         public override void Update()

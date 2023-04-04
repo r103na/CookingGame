@@ -1,6 +1,18 @@
-﻿namespace CookingGame.Objects;
+﻿using CookingGame.Managers;
+using Microsoft.Xna.Framework;
 
-public class Dialogue
+namespace CookingGame.Objects;
+
+public class Dialogue : ClickableSprite
 {
-    
+    private DialogueManager dialogueManager;
+    public override void HandleClick(Point clickPosition)
+    {
+        
+    }
+
+    public override void HandleRelease(Point clickPosition)
+    {
+        
+    }
 }
