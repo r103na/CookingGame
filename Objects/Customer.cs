@@ -39,10 +39,8 @@ namespace CookingGame.Objects
             if (IsInBounds(clickPosition))
             {
                 OnClicked();
-                if (Order.State == OrderState.NotTaken)
-                {
-                    Order.Take();
-                }
+                Order.Take();
+
             }
         }
 

@@ -127,9 +127,9 @@ namespace CookingGame.States
 
         private void RemoveCurrentCustomer(object sender, EventArgs e)
         {
-            _currentCustomer.Order.OnOrderCooked -= IncreaseScore;
-            _currentCustomer.Order.OnOrderCooked -= RemoveCurrentCustomer;
-            _currentCustomer.Order.OnOrderCooked -= RemoveCurrentShawarma;
+            _currentCustomer.Order.OrderCooked -= IncreaseScore;
+            _currentCustomer.Order.OrderCooked -= RemoveCurrentCustomer;
+            _currentCustomer.Order.OrderCooked -= RemoveCurrentShawarma;
             _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
             _currentCustomer.Clicked -= AddOrder;
@@ -149,7 +149,7 @@ namespace CookingGame.States
         private void RemoveCurrentShawarma(object sender, EventArgs e)
         {
             _currentShawarma = new Shawarma();
-            _currentCustomer.Order.OnOrderCooked -= RemoveCurrentShawarma;
+            _currentCustomer.Order.OrderCooked -= RemoveCurrentShawarma;
         }
 
         private void DoSomething(object sender, EventArgs e)
@@ -162,9 +162,9 @@ namespace CookingGame.States
         {
             _currentCustomer = new Customer(LoadTexture("Character"));
             _customerList.Enqueue(_currentCustomer);
-            _currentCustomer.Order.OnOrderCooked += IncreaseScore;
-            _currentCustomer.Order.OnOrderCooked += RemoveCurrentCustomer;
-            _currentCustomer.Order.OnOrderCooked += RemoveCurrentShawarma;
+            _currentCustomer.Order.OrderCooked += IncreaseScore;
+            _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
+            _currentCustomer.Order.OrderCooked += RemoveCurrentShawarma;
 
             _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
@@ -178,7 +178,7 @@ namespace CookingGame.States
 
         public void AddOrder(object sender, EventArgs e)
         {
-            if (_currentCustomer.Order.State == OrderState.NotTaken || _currentOrder != null) return;
+            if (_currentOrder != null) return;
             _currentCustomer.Order.AddTexture(LoadTexture("orderStation_order"));
             _currentOrder = _currentCustomer.Order;
             AddGameObject(_currentOrder);
