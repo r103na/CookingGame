@@ -31,6 +31,7 @@ namespace CookingGame.States
 
         private GameTime gameTime;
         private float elapsedTime = 0;
+        private int waitTime = 0;
 
         public override void LoadContent()
         {
@@ -38,7 +39,7 @@ namespace CookingGame.States
             Trace.Listeners.Add(new ConsoleTraceListener());
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
-            _scoreText = new Text(font, $"{score}", new Vector2(10, 10));
+            _scoreText = new Text(font, $"{score}", new Vector2(10, 690));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
             AddText(_scoreText);
@@ -55,6 +56,17 @@ namespace CookingGame.States
         public override void Update()
         {
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (_customerList.Count == 0)
+            {
+                waitTime++;
+                if (waitTime == 200)
+                {
+                    AddCustomer();
+                    waitTime = 0;
+                }
+            }
+
             UpdateTime();
             DecreasePatience();
         }
@@ -70,14 +82,6 @@ namespace CookingGame.States
             {
                 var clickPosition = new Point(mouseState.X, mouseState.Y);
                 clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
-            }
-
-            if (mouseState.RightButton == ButtonState.Pressed)
-            {
-                RemoveText(_scoreText);
-                score += 20;
-                _scoreText = new Text(_scoreText.Font, $"{score}", new Vector2(10, 10));
-                AddText(_scoreText);
             }
 
             if (keyboardState.IsKeyDown(Keys.Enter))
@@ -129,9 +133,6 @@ namespace CookingGame.States
 
             if (_customerList.Count > 0)
                 _customerList.Dequeue();
-
-            elapsedTime = 0f;
-            WaitForOtherCustomer();
         }
 
         private void RemoveCurrentShawarma(object sender, EventArgs e)
@@ -203,7 +204,7 @@ namespace CookingGame.States
         private void ChangeScoreText()
         {
             RemoveText(_scoreText);
-            _scoreText = new Text(_scoreText.Font, $"{score}", new Vector2(10, 10));
+            _scoreText = new Text(_scoreText.Font, $"{score}", _scoreText.Position);
             AddText(_scoreText);
         }
 
@@ -223,24 +224,6 @@ namespace CookingGame.States
             if (_currentCustomer.Patience <= 0)
             {
                 _currentCustomer.OnPatienceRunOut();
-            }
-        }
-
-        private void WaitForOtherCustomer()
-        {
-            float seconds = 5f;
-
-            if (_customerList.Count == 0 )
-            {
-                if (elapsedTime <= seconds)
-                {
-                    AddCustomer();
-                    elapsedTime = 0;
-                }
-                else
-                {
-                    WaitForOtherCustomer();
-                }
             }
         }
 

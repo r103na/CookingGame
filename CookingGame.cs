@@ -40,7 +40,7 @@ namespace CookingGame
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             
-            _graphics.IsFullScreen = false;
+            _graphics.IsFullScreen = true;
             
             _graphics.ApplyChanges();
 
