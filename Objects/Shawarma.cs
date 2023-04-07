@@ -11,12 +11,15 @@ public class Shawarma : ClickableSprite
     private readonly Vector2 shawarmaPosition = new Vector2(100, 200);
     private int timeToGrill = 10;
     public int burntMeter = 0;
-    
+
+    // TODO circle bounds
+
     public Shawarma()
     {
         _texture = _texture;
         _position = shawarmaPosition;
     }
+
     public override void HandleClick(Point clickPosition)
     {
         if (Bounds.Contains(clickPosition))

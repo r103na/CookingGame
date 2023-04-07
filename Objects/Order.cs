@@ -14,6 +14,7 @@ namespace CookingGame.Objects
         private List<Ingredient> ingredients;
         public OrderState State = OrderState.NotTaken;
         public int Price = 10;
+        public string OrderText = "Flatbread, please";
 
         private Vector2 orderPosition = new Vector2(50, 120);
 

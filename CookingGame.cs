@@ -40,7 +40,7 @@ namespace CookingGame
             _graphics.PreferredBackBufferWidth = 1280;
             _graphics.PreferredBackBufferHeight = 720;
             
-            _graphics.IsFullScreen = true;
+            _graphics.IsFullScreen = false;
             
             _graphics.ApplyChanges();
 
@@ -67,7 +67,7 @@ namespace CookingGame
                 var presentHeight = (int)(Window.ClientBounds.Width /
                     RESOLUTION_ASPECT_RATIO + variance);
                 var barHeight = (Window.ClientBounds.Height -
-                                 presentHeight) / 2;
+                                 presentHeight) / 1;
                 scaleRectangle = new Rectangle(0, barHeight, Window.
                     ClientBounds.Width, presentHeight);
             }
@@ -76,7 +76,7 @@ namespace CookingGame
                 var presentWidth = (int)(Window.ClientBounds.Height *
                     RESOLUTION_ASPECT_RATIO + variance);
                 var barWidth = (Window.ClientBounds.Width -
-                                presentWidth) / 2;
+                                presentWidth) / 1;
                 scaleRectangle = new Rectangle(barWidth, 0,
                     presentWidth, Window.ClientBounds.Height);
             }

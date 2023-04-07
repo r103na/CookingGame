@@ -24,8 +24,8 @@ namespace CookingGame.States
         private Text _scoreText;
         private int score = 0;
 
-        private Text _timeText;
-        private int timeMin = 0;
+
+        private Text orderText;
         
         private const float PatienceDecreaseRate = 0.25f;
 
@@ -40,9 +40,11 @@ namespace CookingGame.States
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
             _scoreText = new Text(font, $"{score}", new Vector2(10, 690));
+            orderText = new Text(font, "", new Vector2(100, 60));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
             AddText(_scoreText);
+            AddText(orderText);
 
             AddVisitorStation();
             AddOrderStation();
@@ -67,7 +69,6 @@ namespace CookingGame.States
                 }
             }
 
-            UpdateTime();
             DecreasePatience();
         }
 
@@ -116,7 +117,9 @@ namespace CookingGame.States
         private void CookShawarma(object sender, EventArgs e)
         {
             _currentCustomer.Order.Cook();
+            ChangeText(ref orderText, "");
         }
+
         private void RemoveCurrentCustomer(object sender, EventArgs e)
         {
             _currentCustomer.Order.OnOrderCooked -= IncreaseScore;
@@ -125,11 +128,14 @@ namespace CookingGame.States
             _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
             _currentCustomer.Clicked -= AddOrder;
+            _currentCustomer.Clicked -= ClearOrderText;
 
             RemoveGameObject(_currentCustomer);
             RemoveGameObject(_currentOrder);
 
             _currentOrder = null;
+
+            ChangeText(ref orderText, "");
 
             if (_customerList.Count > 0)
                 _customerList.Dequeue();
@@ -159,7 +165,9 @@ namespace CookingGame.States
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
 
             _currentCustomer.Clicked += AddOrder;
+            _currentCustomer.Clicked += ClearOrderText;
 
+            ChangeText(ref orderText, _currentCustomer.Order.OrderText);
             AddGameObject(_currentCustomer);
         }
 
@@ -201,6 +209,18 @@ namespace CookingGame.States
             AddGameObject(menuBtn);
         }
 
+        private void ClearOrderText(object sender, EventArgs e)
+        {
+            ChangeText(ref orderText, "");
+        }
+
+        private void ChangeText(ref Text text, string newText)
+        {
+            RemoveText(text);
+            text = new Text(text.Font, newText, text.Position);
+            AddText(text);
+        }
+
         private void ChangeScoreText()
         {
             RemoveText(_scoreText);
@@ -209,13 +229,6 @@ namespace CookingGame.States
         }
 
         #endregion
-        private void UpdateTime()
-        {
-            if (gameTime.TotalGameTime.TotalSeconds % 15 == 0)
-            {
-                timeMin++;
-            }
-        }
 
         private void DecreasePatience()
         {
