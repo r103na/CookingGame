@@ -27,7 +27,7 @@ namespace CookingGame.States
 
         private Text orderText;
         
-        private const float PatienceDecreaseRate = 0.25f;
+        private const float PatienceDecreaseRate = 0.2f;
 
         private GameTime gameTime;
         private float elapsedTime = 0;
@@ -67,6 +67,11 @@ namespace CookingGame.States
                     AddCustomer();
                     waitTime = 0;
                 }
+            }
+
+            if (score >= 50)
+            {
+                SwitchState(new SplashState());
             }
 
             DecreasePatience();
@@ -234,7 +239,7 @@ namespace CookingGame.States
         {
             _currentCustomer.Patience -= PatienceDecreaseRate;
 
-            if (_currentCustomer.Patience <= 22f)
+            if (_currentCustomer.Patience <= 30f)
             {
                 _currentCustomer.ChangeTexture(LoadTexture("charactermad"));
             }
