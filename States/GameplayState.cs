@@ -40,7 +40,7 @@ namespace CookingGame.States
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
             _scoreText = new Text(font, $"{score}", new Vector2(10, 690));
-            orderText = new Text(font, "", new Vector2(100, 60));
+            orderText = new Text(font, "", new Vector2(350, 60));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
             AddText(_scoreText);
@@ -233,6 +233,11 @@ namespace CookingGame.States
         private void DecreasePatience()
         {
             _currentCustomer.Patience -= PatienceDecreaseRate;
+
+            if (_currentCustomer.Patience <= 22f)
+            {
+                _currentCustomer.ChangeTexture(LoadTexture("charactermad"));
+            }
 
             if (_currentCustomer.Patience <= 0)
             {

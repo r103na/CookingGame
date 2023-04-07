@@ -7,6 +7,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/background.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/CabbageStationItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Character.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/CharacterMad.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/cookButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GameplayState.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/menu_btn.png</File>
@@ -17,6 +18,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Splash.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

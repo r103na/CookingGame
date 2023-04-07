@@ -36,3 +36,4 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\orde
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\orderStation_order.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\menu_btn.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\MyFont.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\CharacterMad.xnb

@@ -54,5 +54,10 @@ namespace CookingGame.Objects
         {
             OnCustomerPatienceRunOut?.Invoke(this, EventArgs.Empty);
         }
+
+        public void ChangeTexture(Texture2D texture)
+        {
+            _texture = texture;
+        }
     }
 }
