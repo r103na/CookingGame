@@ -25,6 +25,11 @@ namespace CookingGame.Objects.Base
             }
         }
 
+        public override void OnHover(Point clickPosition)
+        {
+            
+        }
+
         public override void HandleClick(Point clickPosition)
         {
             

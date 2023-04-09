@@ -9,12 +9,12 @@ namespace CookingGame.Managers
 {
     public class InputManager
     {
-        private List<ClickableSprite> _clickableSprites = new List<ClickableSprite>();
+        private List<ClickableSprite> _clickableSprites;
         private MouseState _mouseState;
         private MouseState _lastMouseState;
         private KeyboardState _keyboardState;
 
-        public Point scaledMousePosition;
+        public Point ScaledMousePosition;
 
         public InputManager(List<ClickableSprite> gameObjects)
         {
@@ -39,7 +39,7 @@ namespace CookingGame.Managers
         {
             var clientMouse = new Vector2(_mouseState.X, _mouseState.Y);
             var scaledMouseVector = Vector2.Transform(clientMouse, transform);
-            scaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
+            ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
 
         }
 
@@ -48,7 +48,7 @@ namespace CookingGame.Managers
             if (LeftMouseButton(true))
             {
                 var clickPosition = new Point(_mouseState.X, _mouseState.Y);
-                _clickableSprites.ToList().ForEach(x => x.HandleClick(scaledMousePosition));
+                _clickableSprites.ToList().ForEach(x => x.HandleClick(ScaledMousePosition));
             }
         }
 
@@ -57,13 +57,19 @@ namespace CookingGame.Managers
             if (LeftMouseButton())
             {
                 var clickPosition = new Point(_mouseState.X, _mouseState.Y);
-                _clickableSprites.ToList().ForEach(x => x.HandleHold(scaledMousePosition));
+                _clickableSprites.ToList().ForEach(x => x.HandleHold(ScaledMousePosition));
             }
         }
         public void HandleKey()
         {
 
         }
+
+        public void HandleHover()
+        {
+            _clickableSprites.ToList().ForEach(x => x.OnHover(ScaledMousePosition));
+        }
+
         public bool LeftMouseButton(bool single = false)
         {
             if (single) return _mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;

@@ -18,6 +18,12 @@ public class StationItem : ClickableSprite
         BoundX = 30;
         BoundY = 30;
     }
+
+    public override void OnHover(Point clickPosition)
+    {
+        
+    }
+
     public override void HandleClick(Point clickPosition)
     {
         if (IsInBounds(clickPosition))

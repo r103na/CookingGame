@@ -122,7 +122,6 @@ namespace CookingGame
             _currentGameState.LoadContent();
             _currentGameState.OnStateSwitched += CurrentGameState_OnStateSwitched;
             _currentGameState.OnEventNotification += _currentGameState_OnEventNotification;
-
         }
 
         private void _currentGameState_OnEventNotification(object sender, Enum.Events e)
@@ -164,7 +163,12 @@ namespace CookingGame
             GraphicsDevice.SetRenderTarget(null); // Sets target to back buffer
             GraphicsDevice.Clear(Color.Black); // Clears for black windowboxing
 
-            _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
+            _spriteBatch.Begin(SpriteSortMode.Immediate,
+                null,
+                SamplerState.PointClamp,
+                DepthStencilState.Default,
+                RasterizerState.CullNone,
+                null);
             _spriteBatch.Draw(_nativeRenderTarget, _windowBoxingRect, Color.White); // Draw the _nativeRenderTarget as a texture
             _spriteBatch.End();
 

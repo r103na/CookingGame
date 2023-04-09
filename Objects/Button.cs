@@ -12,6 +12,14 @@ public class Button : ClickableSprite
         _position = position;
     }
 
+    public override void OnHover(Point clickPosition)
+    {
+        if (IsInBounds(clickPosition))
+        {
+
+        }
+    }
+
     public override void HandleClick(Point clickPosition)
     {
         if (IsInBounds(clickPosition))

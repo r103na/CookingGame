@@ -83,6 +83,7 @@ namespace CookingGame.States
             InputManager.UpdateStates();
             InputManager.HandleLeftClick();
             InputManager.HandleHold();
+            InputManager.HandleHover();
         }
         #endregion
 

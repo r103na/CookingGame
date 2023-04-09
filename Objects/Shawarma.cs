@@ -21,6 +21,11 @@ public class Shawarma : ClickableSprite
         _position = shawarmaPosition;
     }
 
+    public override void OnHover(Point clickPosition)
+    {
+        
+    }
+
     public override void HandleClick(Point clickPosition)
     {
         if (Bounds.Contains(clickPosition))

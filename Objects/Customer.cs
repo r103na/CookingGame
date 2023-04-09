@@ -34,6 +34,11 @@ namespace CookingGame.Objects
             Order = new Order();
         }
 
+        public override void OnHover(Point clickPosition)
+        {
+            
+        }
+
         public override void HandleClick(Point clickPosition)
         {
             if (IsInBounds(clickPosition))
