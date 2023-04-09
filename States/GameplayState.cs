@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 using CookingGame.Managers;
@@ -30,7 +31,6 @@ namespace CookingGame.States
         private int _customerWaitTime;
 
         private SplashImage _dialogueBox;
-
 
         public override void LoadContent()
         {
@@ -79,6 +79,7 @@ namespace CookingGame.States
         #region  INPUT
         public override void HandleInput()
         {
+            InputManager.UpdateMouseScale(TransformMatrix);
             InputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
             InputManager.UpdateStates();
             InputManager.HandleLeftClick();

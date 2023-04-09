@@ -14,7 +14,7 @@ namespace CookingGame.Managers
         private MouseState _lastMouseState;
         private KeyboardState _keyboardState;
 
-        public Vector2 scaledMouse;
+        public Point scaledMousePosition;
 
         public InputManager(List<ClickableSprite> gameObjects)
         {
@@ -35,9 +35,12 @@ namespace CookingGame.Managers
             _mouseState = Mouse.GetState();
         }
 
-        public void UpdateMouseScale(Vector2 clientMouse, Matrix transform)
+        public void UpdateMouseScale(Matrix transform)
         {
-            scaledMouse = Vector2.Transform(clientMouse, transform);
+            var clientMouse = new Vector2(_mouseState.X, _mouseState.Y);
+            var scaledMouseVector = Vector2.Transform(clientMouse, transform);
+            scaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
+
         }
 
         public void HandleLeftClick()
@@ -45,7 +48,7 @@ namespace CookingGame.Managers
             if (LeftMouseButton(true))
             {
                 var clickPosition = new Point(_mouseState.X, _mouseState.Y);
-                _clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
+                _clickableSprites.ToList().ForEach(x => x.HandleClick(scaledMousePosition));
             }
         }
 
@@ -54,7 +57,7 @@ namespace CookingGame.Managers
             if (LeftMouseButton())
             {
                 var clickPosition = new Point(_mouseState.X, _mouseState.Y);
-                _clickableSprites.ToList().ForEach(x => x.HandleHold(clickPosition));
+                _clickableSprites.ToList().ForEach(x => x.HandleHold(scaledMousePosition));
             }
         }
         public void HandleKey()

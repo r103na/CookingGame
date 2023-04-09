@@ -8,6 +8,7 @@ using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -21,6 +22,8 @@ namespace CookingGame.States
         private const string FallbackTexture = "Empty";
         protected ContentManager ContentManager;
         protected InputManager InputManager;
+
+        public Matrix TransformMatrix;
 
         public void Initialize(ContentManager contentManager)
         {
