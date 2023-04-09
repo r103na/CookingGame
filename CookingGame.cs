@@ -37,11 +37,13 @@ namespace CookingGame
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = RESOLUTION_WIDTH; //1280
+            _graphics.PreferredBackBufferHeight = RESOLUTION_HEIGHT;// 720
             
-            _graphics.IsFullScreen = false;
-            
+            _graphics.IsFullScreen = true;
+            _graphics.HardwareModeSwitch = true;
+            _graphics.SynchronizeWithVerticalRetrace = false;
+
             _graphics.ApplyChanges();
 
             _renderTarget = new RenderTarget2D(_graphics.GraphicsDevice,
@@ -57,7 +59,7 @@ namespace CookingGame
 
         private Rectangle GetScaleRectangle()
         {
-            const double variance = 1.5;
+            const double variance = 0.5;
             var actualAspectRatio = Window.ClientBounds.Width / (float)
                 Window.ClientBounds.Height;
             Rectangle scaleRectangle;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CookingGame.Enum;
+using CookingGame.Objects.Base;
 using CookingGame.States;
 using Microsoft.Xna.Framework;
 

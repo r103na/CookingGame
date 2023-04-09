@@ -5,7 +5,7 @@ using System.IO;
 using System.Text.Json;
 
 using CookingGame.Enum;
-
+using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;

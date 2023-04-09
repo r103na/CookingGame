@@ -1,4 +1,5 @@
 ﻿using CookingGame.Managers;
+using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
 
 namespace CookingGame.Objects;

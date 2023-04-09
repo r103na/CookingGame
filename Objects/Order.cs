@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using CookingGame.Enum;
-
+using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

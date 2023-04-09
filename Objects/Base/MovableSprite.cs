@@ -3,7 +3,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace CookingGame.Objects
+namespace CookingGame.Objects.Base
 {
     public class MovableSprite : ClickableSprite
     {

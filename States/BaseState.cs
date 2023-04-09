@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
-
+using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 

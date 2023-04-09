@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace CookingGame.Objects
+namespace CookingGame.Objects.Base
 {
     public abstract class ClickableSprite : BaseSprite
     {
@@ -9,7 +9,7 @@ namespace CookingGame.Objects
         protected int BoundX = 0;
         protected int BoundY = 0;
 
-        protected Rectangle Bounds => 
+        protected Rectangle Bounds =>
             new Rectangle(
                 (int)_position.X - BoundX,
                 (int)_position.Y - BoundY,

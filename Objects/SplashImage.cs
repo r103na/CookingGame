@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using CookingGame.Objects.Base;
 
 namespace CookingGame.Objects
 {

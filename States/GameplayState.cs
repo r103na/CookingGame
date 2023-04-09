@@ -4,11 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 
 using CookingGame.Enum;
-using CookingGame.Managers;
 using CookingGame.Objects;
-
+using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -22,18 +20,17 @@ namespace CookingGame.States
         private Order _currentOrder = null;
 
         private Text _scoreText;
-        private int score = 0;
+        private int _score = 0;
 
-        private Text orderText;
+        private Text _orderText;
         
         private const float PatienceDecreaseRate = 0.2f;
 
         private GameTime gameTime;
-        private float elapsedTime = 0;
-        private int waitTime = 0;
-        private int customerWaitTime = 5;
+        private int _waitTime = 0;
+        private int _customerWaitTime = 70;
 
-        private SplashImage dialogueBox;
+        private SplashImage _dialogueBox;
 
         public override void LoadContent()
         {
@@ -41,14 +38,14 @@ namespace CookingGame.States
             Trace.Listeners.Add(new ConsoleTraceListener());
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
-            _scoreText = new Text(font, $"{score}", new Vector2(10, 690));
-            orderText = new Text(font, "", new Vector2(340, 95));
+            _scoreText = new Text(font, $"{_score}", new Vector2(10, 690));
+            _orderText = new Text(font, "", new Vector2(340, 95));
 
-            dialogueBox = new SplashImage(LoadTexture("dialogue_box"), new Vector2(320, 80));
+            _dialogueBox = new SplashImage(LoadTexture("dialogue_box"), new Vector2(320, 80));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
             AddText(_scoreText);
-            AddText(orderText);
+            AddText(_orderText);
 
             AddVisitorStation();
             AddOrderStation();
@@ -61,19 +58,17 @@ namespace CookingGame.States
 
         public override void Update()
         {
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             if (_customerList.Count == 0)
             {
-                waitTime++;
-                if (waitTime == customerWaitTime)
+                _waitTime++;
+                if (_waitTime == _customerWaitTime)
                 {
                     AddCustomer();
-                    waitTime = 0;
+                    _waitTime = 0;
                 }
             }
 
-            if (score >= 50)
+            if (_score >= 50)
             {
                 SwitchState(new SplashState());
             }
@@ -102,13 +97,13 @@ namespace CookingGame.States
 
         private void IncreaseScore(object sender, EventArgs e)
         {
-            score += _currentCustomer.Order.Price;
+            _score += _currentCustomer.Order.Price;
             ChangeScoreText();
         }
 
         private void DecreaseScore(object sender, EventArgs e)
         {
-            score -= _currentCustomer.Order.Price;
+            _score -= _currentCustomer.Order.Price;
             ChangeScoreText();
         }
 
@@ -140,11 +135,11 @@ namespace CookingGame.States
 
             RemoveGameObject(_currentCustomer);
             RemoveGameObject(_currentOrder);
-            RemoveGameObject(dialogueBox);
+            RemoveGameObject(_dialogueBox);
 
             _currentOrder = null;
 
-            ChangeText(ref orderText, "");
+            ChangeText(ref _orderText, "");
 
             if (_customerList.Count > 0)
                 _customerList.Dequeue();
@@ -154,11 +149,6 @@ namespace CookingGame.States
         {
             _currentShawarma = new Shawarma();
             _currentCustomer.Order.OrderCooked -= RemoveCurrentShawarma;
-        }
-
-        private void DoSomething(object sender, EventArgs e)
-        {
-            AddGameObject(new Station(LoadTexture("background")));
         }
 
         #region ADD OBJECTS
@@ -180,7 +170,7 @@ namespace CookingGame.States
             _currentCustomer.Clicked += ClearOrderText;
             _currentCustomer.Clicked += RemoveDialogueBox;
 
-            ChangeText(ref orderText, _currentCustomer.Order.OrderText);
+            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
             AddGameObject(_currentCustomer);
             AddDialogueBox();
         }
@@ -217,23 +207,25 @@ namespace CookingGame.States
 
         private void AddStationItems()
         {
-            var cabbage_station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755, 70));
-            var cheese_station = new SplashImage(LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
-            var potato_station = new SplashImage(LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
+            var cabbageStation = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755, 70));
+            var cheeseStation = new SplashImage(LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
+            var potatoStation = new SplashImage(LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
+            var station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 70));
 
-            var tomato_station = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
-            var onion_station = new SplashImage(LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
-            var carrot_station = new SplashImage(LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
-            var cucumber_station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
+            var tomatoStation = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
+            var onionStation = new SplashImage(LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
+            var carrotStation = new SplashImage(LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
+            var cucumberStation = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
 
-            AddGameObject(cabbage_station);
-            AddGameObject(cheese_station);
-            AddGameObject(potato_station);
+            AddGameObject(cabbageStation);
+            AddGameObject(cheeseStation);
+            AddGameObject(potatoStation);
+            AddGameObject(station);
 
-            AddGameObject(tomato_station);
-            AddGameObject(onion_station);
-            AddGameObject(carrot_station);
-            AddGameObject(cucumber_station);
+            AddGameObject(tomatoStation);
+            AddGameObject(onionStation);
+            AddGameObject(carrotStation);
+            AddGameObject(cucumberStation);
         }
 
         private void AddGUI()
@@ -260,17 +252,17 @@ namespace CookingGame.States
 
         private void AddDialogueBox()
         {
-            AddGameObject(dialogueBox);
+            AddGameObject(_dialogueBox);
         }
 
         private void RemoveDialogueBox(object sender, EventArgs e)
         {
-            RemoveGameObject(dialogueBox);
+            RemoveGameObject(_dialogueBox);
         }
 
         private void ClearOrderText(object sender, EventArgs e)
         {
-            ChangeText(ref orderText, "");
+            ChangeText(ref _orderText, "");
         }
 
         private void ChangeText(ref Text text, string newText)
@@ -283,7 +275,7 @@ namespace CookingGame.States
         private void ChangeScoreText()
         {
             RemoveText(_scoreText);
-            _scoreText = new Text(_scoreText.Font, $"{score}", _scoreText.Position);
+            _scoreText = new Text(_scoreText.Font, $"{_score}", _scoreText.Position);
             AddText(_scoreText);
         }
 
@@ -307,7 +299,7 @@ namespace CookingGame.States
 
         private void ChangeWaitTime(object sender, EventArgs e)
         {
-            customerWaitTime = GetRandomWaitTime();
+            _customerWaitTime = GetRandomWaitTime();
         }
 
         private int GetRandomWaitTime()
