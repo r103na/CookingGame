@@ -65,7 +65,7 @@ namespace CookingGame.States
             if (_customerList.Count == 0)
             {
                 _waitTime++;
-                if (_waitTime == _customerWaitTime)
+                if (_waitTime >= _customerWaitTime)
                 {
                     AddCustomer();
                     _waitTime = 0;
