@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
-using System;
 using CookingGame.States;
 using CookingGame.Enum;
 
@@ -17,14 +15,11 @@ namespace CookingGame
 
         private RenderTarget2D _renderTarget;
         private Rectangle _renderScaleRectangle;
-        private const int RESOLUTION_WIDTH = 1280;
-        private const int RESOLUTION_HEIGHT = 720;
+        private const int ResolutionWidth = 1280;
+        private const int ResolutionHeight = 720;
 
-        private const float RESOLUTION_ASPECT_RATIO =
-            RESOLUTION_WIDTH / (float)RESOLUTION_HEIGHT;
-
-
-        public event EventHandler<Events> OnEventNotification;
+        private const float ResolutionAspectRatio =
+            ResolutionWidth / (float)ResolutionHeight;
 
         public CookingGame()
         {
@@ -37,8 +32,8 @@ namespace CookingGame
 
         protected override void Initialize()
         {
-            _graphics.PreferredBackBufferWidth = RESOLUTION_WIDTH; //1280
-            _graphics.PreferredBackBufferHeight = RESOLUTION_HEIGHT;// 720
+            _graphics.PreferredBackBufferWidth = ResolutionWidth; //1280
+            _graphics.PreferredBackBufferHeight = ResolutionHeight;// 720
             
             _graphics.IsFullScreen = false;
             _graphics.HardwareModeSwitch = true;
@@ -49,7 +44,7 @@ namespace CookingGame
             _graphics.ApplyChanges();
 
             _renderTarget = new RenderTarget2D(_graphics.GraphicsDevice,
-                RESOLUTION_WIDTH, RESOLUTION_HEIGHT,
+                ResolutionWidth, ResolutionHeight,
                 false,
                 SurfaceFormat.Color, DepthFormat.None, 0,
                 RenderTargetUsage.DiscardContents);
@@ -66,10 +61,10 @@ namespace CookingGame
                 Window.ClientBounds.Height;
             Rectangle scaleRectangle;
 
-            if (actualAspectRatio <= RESOLUTION_ASPECT_RATIO)
+            if (actualAspectRatio <= ResolutionAspectRatio)
             {
                 var presentHeight = (int)(Window.ClientBounds.Width /
-                    RESOLUTION_ASPECT_RATIO + variance);
+                    ResolutionAspectRatio + variance);
                 var barHeight = (Window.ClientBounds.Height -
                                  presentHeight) / 1;
                 scaleRectangle = new Rectangle(0, barHeight, Window.
@@ -78,7 +73,7 @@ namespace CookingGame
             else
             {
                 var presentWidth = (int)(Window.ClientBounds.Height *
-                    RESOLUTION_ASPECT_RATIO + variance);
+                    ResolutionAspectRatio + variance);
                 var barWidth = (Window.ClientBounds.Width -
                                 presentWidth) / 1;
                 scaleRectangle = new Rectangle(barWidth, 0,
@@ -86,6 +81,8 @@ namespace CookingGame
             }
             return scaleRectangle;
         }
+
+
 
         protected override void LoadContent()
         {

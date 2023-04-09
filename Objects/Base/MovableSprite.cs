@@ -15,19 +15,24 @@ namespace CookingGame.Objects.Base
             BoundY = 50;
         }
 
-        public override void HandleClick(Point clickPosition)
+        public override void HandleHold(Point clickPosition)
         {
             if (IsInBounds(clickPosition))
             {
                 OnClicked();
-                _position.X = clickPosition.X;
-                _position.Y = clickPosition.Y;
+                _position.X = clickPosition.X - 20;
+                _position.Y = clickPosition.Y - 50;
             }
+        }
+
+        public override void HandleClick(Point clickPosition)
+        {
+            
         }
 
         public override void HandleRelease(Point clickPosition)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

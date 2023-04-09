@@ -44,6 +44,11 @@ namespace CookingGame.Objects
             }
         }
 
+        public override void HandleHold(Point clickPosition)
+        {
+            
+        }
+
         public override void HandleRelease(Point clickPosition)
         {
         }

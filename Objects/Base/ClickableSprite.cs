@@ -19,6 +19,7 @@ namespace CookingGame.Objects.Base
         protected bool IsInBounds(Point mousePosition) => Bounds.Contains(mousePosition);
 
         public abstract void HandleClick(Point clickPosition);
+        public abstract void HandleHold(Point clickPosition);
         public abstract void HandleRelease(Point clickPosition);
 
 

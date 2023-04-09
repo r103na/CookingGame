@@ -12,6 +12,11 @@ public class Dialogue : ClickableSprite
         
     }
 
+    public override void HandleHold(Point clickPosition)
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void HandleRelease(Point clickPosition)
     {
         

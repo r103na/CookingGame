@@ -20,6 +20,11 @@ public class Button : ClickableSprite
         }
     }
 
+    public override void HandleHold(Point clickPosition)
+    {
+        
+    }
+
     public override void HandleRelease(Point clickPosition)
     {
 

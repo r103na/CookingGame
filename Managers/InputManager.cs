@@ -9,52 +9,67 @@ namespace CookingGame.Managers
 {
     public class InputManager
     {
-        private List<ClickableSprite> clickableSprites = new List<ClickableSprite>();
-        private MouseState mouseState;
-        private MouseState lastMouseState;
-        private KeyboardState keyboardState;
+        private List<ClickableSprite> _clickableSprites = new List<ClickableSprite>();
+        private MouseState _mouseState;
+        private MouseState _lastMouseState;
+        private KeyboardState _keyboardState;
 
-        public InputManager(List<ClickableSprite> GameObjects)
+        public Vector2 scaledMouse;
+
+        public InputManager(List<ClickableSprite> gameObjects)
         {
-            keyboardState = Keyboard.GetState();
-            mouseState = Mouse.GetState();
-            clickableSprites = GameObjects;
+            _keyboardState = Keyboard.GetState();
+            _mouseState = Mouse.GetState();
+            _clickableSprites = gameObjects;
         }
 
-        public void UpdateGameObjects(List<ClickableSprite> GameObjects)
+        public void UpdateGameObjects(List<ClickableSprite> gameObjects)
         {
-            clickableSprites = GameObjects;
+            _clickableSprites = gameObjects;
         }
 
         public void UpdateStates()
         {
-            keyboardState = Keyboard.GetState();
-            lastMouseState = mouseState;
-            mouseState = Mouse.GetState();
+            _keyboardState = Keyboard.GetState();
+            _lastMouseState = _mouseState;
+            _mouseState = Mouse.GetState();
+        }
+
+        public void UpdateMouseScale(Vector2 clientMouse, Matrix transform)
+        {
+            scaledMouse = Vector2.Transform(clientMouse, transform);
         }
 
         public void HandleLeftClick()
         {
             if (LeftMouseButton(true))
             {
-                var clickPosition = new Point(mouseState.X, mouseState.Y);
-                clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
+                var clickPosition = new Point(_mouseState.X, _mouseState.Y);
+                _clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
             }
         }
 
+        public void HandleHold()
+        {
+            if (LeftMouseButton())
+            {
+                var clickPosition = new Point(_mouseState.X, _mouseState.Y);
+                _clickableSprites.ToList().ForEach(x => x.HandleHold(clickPosition));
+            }
+        }
         public void HandleKey()
         {
 
         }
         public bool LeftMouseButton(bool single = false)
         {
-            if (single) return mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released;
-            else return (mouseState.LeftButton == ButtonState.Pressed);
+            if (single) return _mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
+            else return (_mouseState.LeftButton == ButtonState.Pressed);
         }
         public bool RightMouseButton(bool single = false)
         {
-            if (single) return mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
-            else return (mouseState.RightButton == ButtonState.Pressed);
+            if (single) return _mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
+            else return (_mouseState.RightButton == ButtonState.Pressed);
         }
     }
 

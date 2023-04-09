@@ -19,11 +19,12 @@ namespace CookingGame.States
         private protected readonly List<Text> Texts = new List<Text>();
 
         private const string FallbackTexture = "Empty";
-        protected ContentManager _contentManager;
+        protected ContentManager ContentManager;
+        protected InputManager InputManager;
 
         public void Initialize(ContentManager contentManager)
         {
-            _contentManager = contentManager;
+            ContentManager = contentManager;
         }
 
         public abstract void LoadContent();
@@ -31,7 +32,7 @@ namespace CookingGame.States
 
         public void UnloadContent()
         {
-            _contentManager.Unload();
+            ContentManager.Unload();
         }
 
         public abstract void HandleInput();
@@ -77,8 +78,8 @@ namespace CookingGame.States
         }
         protected Texture2D LoadTexture(string textureName)
         {
-            var texture = _contentManager.Load<Texture2D>(textureName);
-            return texture ?? _contentManager.Load<Texture2D>
+            var texture = ContentManager.Load<Texture2D>(textureName);
+            return texture ?? ContentManager.Load<Texture2D>
                 (FallbackTexture);
         }
 

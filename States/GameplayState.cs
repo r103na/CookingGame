@@ -3,45 +3,41 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.States
 {
     public class GameplayState : BaseState
     {
-        private readonly Queue<Customer> _customerList = new Queue<Customer>();
+        private readonly Queue<Customer> _customerList = new();
         private Customer _currentCustomer;
-        private Shawarma _currentShawarma = new Shawarma();
-        private Order _currentOrder = null;
+        private Shawarma _currentShawarma = new();
+        private Order _currentOrder;
 
         private Text _scoreText;
-        private int _score = 0;
+        private int _score;
 
         private Text _orderText;
         
         private const float PatienceDecreaseRate = 0.2f;
 
-        private GameTime gameTime;
         private int _waitTime = 0;
         private int _customerWaitTime = 70;
 
         private SplashImage _dialogueBox;
 
-        private InputManager _inputManager;
 
         public override void LoadContent()
         {
-            gameTime = new GameTime();
-            _inputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
+            InputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
             Trace.Listeners.Add(new ConsoleTraceListener());
 
-            var font = _contentManager.Load<SpriteFont>("MyFont");
+            var font = ContentManager.Load<SpriteFont>("MyFont");
             _scoreText = new Text(font, $"{_score}", new Vector2(10, 690));
             _orderText = new Text(font, "", new Vector2(340, 95));
 
@@ -83,9 +79,10 @@ namespace CookingGame.States
         #region  INPUT
         public override void HandleInput()
         {
-            _inputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
-            _inputManager.UpdateStates();
-            _inputManager.HandleLeftClick();
+            InputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
+            InputManager.UpdateStates();
+            InputManager.HandleLeftClick();
+            InputManager.HandleHold();
             //if (keyboardState.IsKeyDown(Keys.Enter))
             //{
                // NotifyEvent(Events.GAME_QUIT);
