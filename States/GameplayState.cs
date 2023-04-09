@@ -124,8 +124,7 @@ namespace CookingGame.States
         }
         private void CookShawarma(object sender, EventArgs e)
         {
-            _currentCustomer.Order.Cook();
-            ChangeText(ref orderText, "");
+            _currentCustomer?.Order.Cook();
         }
 
         private void RemoveCurrentCustomer(object sender, EventArgs e)
@@ -198,23 +197,40 @@ namespace CookingGame.States
 
         private void AddVisitorStation()
         {
-
+            var table = new SplashImage(LoadTexture("items/table"), new Vector2(260, 580));
+            AddGameObject(table);
         }
 
         private void AddCookingStation()
         {
-            var a = new StationItem(Ingredient.Cabbage, LoadTexture("CabbageStationItem"));
             var cookingTable = new SplashImage(LoadTexture("cookingtable"), new Vector2(724, 360));
             var sauce = new MovableSprite(LoadTexture("items/sauce"), new Vector2(755, 400));
 
-            AddGameObject(a);
             AddGameObject(cookingTable);
             AddGameObject(sauce);
+
+            AddStationItems();
         }
 
         private void AddStationItems()
         {
+            var cabbage_station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755, 70));
+            var cheese_station = new SplashImage(LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
+            var potato_station = new SplashImage(LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
 
+            var tomato_station = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
+            var onion_station = new SplashImage(LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
+            var carrot_station = new SplashImage(LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
+            var cucumber_station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
+
+            AddGameObject(cabbage_station);
+            AddGameObject(cheese_station);
+            AddGameObject(potato_station);
+
+            AddGameObject(tomato_station);
+            AddGameObject(onion_station);
+            AddGameObject(carrot_station);
+            AddGameObject(cucumber_station);
         }
 
         private void AddGUI()
@@ -285,7 +301,6 @@ namespace CookingGame.States
                 _currentCustomer.OnPatienceRunOut();
             }
         }
-
         private void SwitchToMenu(object sender, EventArgs e)
         {
             SwitchState(new MenuState());
