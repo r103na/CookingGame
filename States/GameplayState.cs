@@ -31,6 +31,7 @@ namespace CookingGame.States
         private GameTime gameTime;
         private float elapsedTime = 0;
         private int waitTime = 0;
+        private int customerWaitTime = 5;
 
         private SplashImage dialogueBox;
 
@@ -65,7 +66,7 @@ namespace CookingGame.States
             if (_customerList.Count == 0)
             {
                 waitTime++;
-                if (waitTime == 200)
+                if (waitTime == customerWaitTime)
                 {
                     AddCustomer();
                     waitTime = 0;
@@ -168,10 +169,12 @@ namespace CookingGame.States
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
             _currentCustomer.Order.OrderCooked += RemoveCurrentShawarma;
+            _currentCustomer.Order.OrderCooked += ChangeWaitTime;
 
             _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
             _currentCustomer.OnCustomerPatienceRunOut += RemoveDialogueBox;
+            _currentCustomer.OnCustomerPatienceRunOut += ChangeWaitTime;
 
             _currentCustomer.Clicked += AddOrder;
             _currentCustomer.Clicked += ClearOrderText;
@@ -300,6 +303,18 @@ namespace CookingGame.States
             {
                 _currentCustomer.OnPatienceRunOut();
             }
+        }
+
+        private void ChangeWaitTime(object sender, EventArgs e)
+        {
+            customerWaitTime = GetRandomWaitTime();
+        }
+
+        private int GetRandomWaitTime()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(75, 380);
+            return randomNumber;
         }
         private void SwitchToMenu(object sender, EventArgs e)
         {
