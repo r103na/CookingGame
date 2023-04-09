@@ -16,7 +16,7 @@ namespace CookingGame.States
     {
         private readonly Queue<Customer> _customerList = new();
         private Customer _currentCustomer;
-        private Shawarma _currentShawarma = new();
+        private Shawarma _currentShawarma;
         private Order _currentOrder;
 
         private Text _scoreText;
@@ -26,8 +26,8 @@ namespace CookingGame.States
         
         private const float PatienceDecreaseRate = 0.2f;
 
-        private int _waitTime = 0;
-        private int _customerWaitTime = 70;
+        private int _waitTime;
+        private int _customerWaitTime;
 
         private SplashImage _dialogueBox;
 
@@ -58,7 +58,7 @@ namespace CookingGame.States
 
         public override void Update()
         {
-            if (_customerList.Count == 0)
+            if (_customerList == null || _customerList.Count == 0)
             {
                 _waitTime++;
                 if (_waitTime >= _customerWaitTime)
