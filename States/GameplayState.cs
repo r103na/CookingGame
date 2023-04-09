@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 
 using CookingGame.Enum;
+using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
@@ -32,9 +33,12 @@ namespace CookingGame.States
 
         private SplashImage _dialogueBox;
 
+        private InputManager _inputManager;
+
         public override void LoadContent()
         {
             gameTime = new GameTime();
+            _inputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
             Trace.Listeners.Add(new ConsoleTraceListener());
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
@@ -76,24 +80,18 @@ namespace CookingGame.States
             DecreasePatience();
         }
 
+        #region  INPUT
         public override void HandleInput()
         {
-            var keyboardState = Keyboard.GetState();
-            var mouseState = Mouse.GetState();
-
-            var clickableSprites = GameObjects.OfType<ClickableSprite>();
-
-            if (mouseState.LeftButton == ButtonState.Pressed)
-            {
-                var clickPosition = new Point(mouseState.X, mouseState.Y);
-                clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Enter))
-            {
-                NotifyEvent(Events.GAME_QUIT);
-            }
+            _inputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
+            _inputManager.UpdateStates();
+            _inputManager.HandleLeftClick();
+            //if (keyboardState.IsKeyDown(Keys.Enter))
+            //{
+               // NotifyEvent(Events.GAME_QUIT);
+            //}
         }
+        #endregion
 
         private void IncreaseScore(object sender, EventArgs e)
         {

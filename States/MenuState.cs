@@ -5,6 +5,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using CookingGame.Enum;
+using CookingGame.Managers;
 using CookingGame.Objects;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,6 +15,7 @@ namespace CookingGame.States
     public class MenuState : BaseState
     {
         private SpriteFont spriteFont;
+        private InputManager _inputManager;
 
         private string[] menuItems =
         {

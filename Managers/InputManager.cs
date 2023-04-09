@@ -1,34 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using CookingGame.Objects.Base;
+using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.Managers
 {
     public class InputManager
     {
-        private readonly List<ClickableSprite> clickableSprites = new List<ClickableSprite>();
+        private List<ClickableSprite> clickableSprites = new List<ClickableSprite>();
+        private MouseState mouseState;
+        private MouseState lastMouseState;
+        private KeyboardState keyboardState;
 
-        public void RegisterClickableSprite(ClickableSprite sprite)
+        public InputManager(List<ClickableSprite> GameObjects)
         {
-            clickableSprites.Add(sprite);
-            //sprite.Clicked += OnClickableSpriteClicked;
+            keyboardState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
+            clickableSprites = GameObjects;
         }
 
-        private static void OnClickableSpriteClicked(object sender, EventArgs e)
+        public void UpdateGameObjects(List<ClickableSprite> GameObjects)
         {
-            // Handle the sprite click event
+            clickableSprites = GameObjects;
         }
 
-        public void HandleClick(Point clickPosition)
+        public void UpdateStates()
         {
-            foreach (var sprite in clickableSprites)
+            keyboardState = Keyboard.GetState();
+            lastMouseState = mouseState;
+            mouseState = Mouse.GetState();
+        }
+
+        public void HandleLeftClick()
+        {
+            if (LeftMouseButton(true))
             {
-                sprite.HandleClick(clickPosition);
+                var clickPosition = new Point(mouseState.X, mouseState.Y);
+                clickableSprites.ToList().ForEach(x => x.HandleClick(clickPosition));
             }
+        }
+
+        public void HandleKey()
+        {
+
+        }
+        public bool LeftMouseButton(bool single = false)
+        {
+            if (single) return mouseState.LeftButton == ButtonState.Pressed && lastMouseState.LeftButton == ButtonState.Released;
+            else return (mouseState.LeftButton == ButtonState.Pressed);
+        }
+        public bool RightMouseButton(bool single = false)
+        {
+            if (single) return mouseState.RightButton == ButtonState.Pressed && lastMouseState.RightButton == ButtonState.Released;
+            else return (mouseState.RightButton == ButtonState.Pressed);
         }
     }
 
