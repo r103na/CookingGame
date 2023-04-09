@@ -14,19 +14,17 @@ namespace CookingGame
         private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private RenderTarget2D _renderTarget;
-        private Rectangle _renderScaleRectangle;
         private const int ResolutionWidth = 1280;
         private const int ResolutionHeight = 720;
 
         private const float ResolutionAspectRatio =
             ResolutionWidth / (float)ResolutionHeight;
 
-        RenderTarget2D _nativeRenderTarget;
-        Rectangle nativeWindowRectangle;
-        Rectangle windowBoxingRect;
-        float WindowAspect => Window.ClientBounds.Width / (float)Window.ClientBounds.Height;
-        float nativeAspect;
+        private RenderTarget2D _nativeRenderTarget;
+        private Rectangle _nativeWindowRectangle;
+        private Rectangle _windowBoxingRect;
+        private float WindowAspect => Window.ClientBounds.Width / (float)Window.ClientBounds.Height;
+        private float _nativeAspect;
 
         public CookingGame()
         {
@@ -43,57 +41,21 @@ namespace CookingGame
             Window.ClientSizeChanged += UpdateWindowBoxingRect;
             //Window.ClientSizeChanged += UpdateMousePosition;
 
-            nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); // x y w h
-            nativeAspect = nativeWindowRectangle.Width / (float)nativeWindowRectangle.Height;
+            _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); // x y w h
+            _nativeAspect = _nativeWindowRectangle.Width / (float)_nativeWindowRectangle.Height;
             
-            _graphics.PreferredBackBufferWidth = nativeWindowRectangle.Width;
-            _graphics.PreferredBackBufferHeight = nativeWindowRectangle.Height;
+            _graphics.PreferredBackBufferWidth = _nativeWindowRectangle.Width;
+            _graphics.PreferredBackBufferHeight = _nativeWindowRectangle.Height;
             _graphics.SynchronizeWithVerticalRetrace = true; // Vsync, prevents screen tearing
             _graphics.HardwareModeSwitch = true; // false is borderless window fullscreen, true is true fullscreen
             //_graphics.IsFullScreen = true;
             
             _graphics.ApplyChanges(); // Makes the magic happen
 
-            _nativeRenderTarget = new RenderTarget2D(GraphicsDevice, nativeWindowRectangle.Width, nativeWindowRectangle.Height);
-            windowBoxingRect = nativeWindowRectangle;
-
-            _renderTarget = new RenderTarget2D(_graphics.GraphicsDevice,
-                ResolutionWidth, ResolutionHeight,
-                false,
-                SurfaceFormat.Color, DepthFormat.None, 0,
-                RenderTargetUsage.DiscardContents);
-
-            _renderScaleRectangle = GetScaleRectangle();
+            _nativeRenderTarget = new RenderTarget2D(GraphicsDevice, _nativeWindowRectangle.Width, _nativeWindowRectangle.Height);
+            _windowBoxingRect = _nativeWindowRectangle;
 
             base.Initialize();
-        }
-
-        private Rectangle GetScaleRectangle()
-        {
-            const double variance = 0.5;
-            var actualAspectRatio = Window.ClientBounds.Width / (float)
-                Window.ClientBounds.Height;
-            Rectangle scaleRectangle;
-
-            if (actualAspectRatio <= ResolutionAspectRatio)
-            {
-                var presentHeight = (int)(Window.ClientBounds.Width /
-                    ResolutionAspectRatio + variance);
-                var barHeight = (Window.ClientBounds.Height -
-                                 presentHeight) / 1;
-                scaleRectangle = new Rectangle(0, barHeight, Window.
-                    ClientBounds.Width, presentHeight);
-            }
-            else
-            {
-                var presentWidth = (int)(Window.ClientBounds.Height *
-                    ResolutionAspectRatio + variance);
-                var barWidth = (Window.ClientBounds.Width -
-                                presentWidth) / 1;
-                scaleRectangle = new Rectangle(barWidth, 0,
-                    presentWidth, Window.ClientBounds.Height);
-            }
-            return scaleRectangle;
         }
 
         private void UpdateWindowBoxingRect(object sender, EventArgs e) // Updates windowBoxingRect
@@ -112,27 +74,27 @@ namespace CookingGame
                 windowHeight = Window.ClientBounds.Height;
             }
 
-            if (WindowAspect <= nativeAspect)
+            if (WindowAspect <= _nativeAspect)
             {
                 //Smaller output means taller than native, meaning top bars
-                int presentHeight = (int)((windowWidth / nativeAspect) + variance);
-                int barHeight = (windowHeight - presentHeight) / 1;
-                windowBoxingRect = new Rectangle(0, barHeight, windowWidth, presentHeight);
+                var presentHeight = (int)((windowWidth / _nativeAspect) + variance);
+                var barHeight = (windowHeight - presentHeight) / 1;
+                _windowBoxingRect = new Rectangle(0, barHeight, windowWidth, presentHeight);
             }
             else
             {
                 //Larger output means wider than native, meaning side bars
-                int presentWidth = (int)((windowHeight * nativeAspect) + variance);
-                int barWidth = (windowWidth - presentWidth) / 2;
-                windowBoxingRect = new Rectangle(barWidth, 0, presentWidth, windowHeight);
+                var presentWidth = (int)((windowHeight * _nativeAspect) + variance);
+                var barWidth = (windowWidth - presentWidth) / 2;
+                _windowBoxingRect = new Rectangle(barWidth, 0, presentWidth, windowHeight);
             }
         }
 
         public Matrix GetResolutionMatrix() // Fixes the mouse
         {
-            float xRatio = (float)nativeWindowRectangle.Width / Window.ClientBounds.Width;
-            float yRatio = (float)nativeWindowRectangle.Height / Window.ClientBounds.Height;
-            return Matrix.CreateTranslation(windowBoxingRect.X, windowBoxingRect.Y, 0) *
+            var xRatio = (float)_nativeWindowRectangle.Width / Window.ClientBounds.Width;
+            var yRatio = (float)_nativeWindowRectangle.Height / Window.ClientBounds.Height;
+            return Matrix.CreateTranslation(_windowBoxingRect.X, _windowBoxingRect.Y, 0) *
                    Matrix.CreateScale(xRatio, yRatio, 1f);
         }
 
@@ -203,7 +165,7 @@ namespace CookingGame
             GraphicsDevice.Clear(Color.Black); // Clears for black windowboxing
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
-            _spriteBatch.Draw(_nativeRenderTarget, windowBoxingRect, Color.White); // Draw the _nativeRenderTarget as a texture
+            _spriteBatch.Draw(_nativeRenderTarget, _windowBoxingRect, Color.White); // Draw the _nativeRenderTarget as a texture
             _spriteBatch.End();
 
             base.Draw(gameTime);

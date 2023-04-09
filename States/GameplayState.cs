@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
 
 using CookingGame.Managers;
@@ -84,10 +83,6 @@ namespace CookingGame.States
             InputManager.UpdateStates();
             InputManager.HandleLeftClick();
             InputManager.HandleHold();
-            //if (keyboardState.IsKeyDown(Keys.Enter))
-            //{
-               // NotifyEvent(Events.GAME_QUIT);
-            //}
         }
         #endregion
 
@@ -298,10 +293,10 @@ namespace CookingGame.States
             _customerWaitTime = GetRandomWaitTime();
         }
 
-        private int GetRandomWaitTime()
+        private static int GetRandomWaitTime()
         {
-            Random random = new Random();
-            int randomNumber = random.Next(75, 380);
+            var random = new Random();
+            var randomNumber = random.Next(75, 380);
             return randomNumber;
         }
         private void SwitchToMenu(object sender, EventArgs e)
