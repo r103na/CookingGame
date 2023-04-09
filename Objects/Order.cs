@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using CookingGame.Enum;
-using CookingGame.Objects;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,7 +13,7 @@ namespace CookingGame.Objects
         private List<Ingredient> ingredients;
         public OrderState State;
         public int Price = 10;
-        public string OrderText = "Flatbread, please";
+        public string OrderText = "Flat bread, please";
 
         private Vector2 orderPosition = new Vector2(50, 120);
 
@@ -57,11 +55,11 @@ namespace CookingGame.Objects
 
     public abstract class OrderState
     {
-        protected Order _order;
+        protected Order Order;
 
         protected OrderState(Order order)
         {
-            _order = order;
+            Order = order;
         }
 
         public abstract void Take();
@@ -74,7 +72,7 @@ namespace CookingGame.Objects
 
         public override void Take()
         {
-            _order.State = new TakenState(_order);
+            Order.State = new TakenState(Order);
         }
 
         public override void Cook()
@@ -94,8 +92,8 @@ namespace CookingGame.Objects
 
         public override void Cook()
         {
-            _order.State = new DoneState(_order);
-            _order.OnOrderCooked();
+            Order.State = new DoneState(Order);
+            Order.OnOrderCooked();
         }
     }
 

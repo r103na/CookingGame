@@ -18,7 +18,7 @@ namespace CookingGame.Objects
         public List<string> DialogueOptions = new List<string>() {"Hello", "Bye"};
         private string jsonFilePath = "Customers.json";
         
-        private readonly Vector2 customerPosition = new Vector2(325, 170);
+        private readonly Vector2 customerPosition = new Vector2(325, 185);
         public Order Order;
         
         public float Patience = 100;

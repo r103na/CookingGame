@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace CookingGame.Objects
 {
@@ -12,6 +8,11 @@ namespace CookingGame.Objects
         public SplashImage(Texture2D texture)
         {
             _texture = texture;
+        }
+        public SplashImage(Texture2D texture, Vector2 position)
+        {
+            _texture = texture;
+            _position = position;
         }
     }
 }

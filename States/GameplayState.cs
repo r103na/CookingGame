@@ -24,7 +24,6 @@ namespace CookingGame.States
         private Text _scoreText;
         private int score = 0;
 
-
         private Text orderText;
         
         private const float PatienceDecreaseRate = 0.2f;
@@ -33,6 +32,8 @@ namespace CookingGame.States
         private float elapsedTime = 0;
         private int waitTime = 0;
 
+        private SplashImage dialogueBox;
+
         public override void LoadContent()
         {
             gameTime = new GameTime();
@@ -40,7 +41,9 @@ namespace CookingGame.States
 
             var font = _contentManager.Load<SpriteFont>("MyFont");
             _scoreText = new Text(font, $"{score}", new Vector2(10, 690));
-            orderText = new Text(font, "", new Vector2(350, 60));
+            orderText = new Text(font, "", new Vector2(340, 95));
+
+            dialogueBox = new SplashImage(LoadTexture("dialogue_box"), new Vector2(320, 80));
 
             AddGameObject(new SplashImage(LoadTexture("GameplayState")));
             AddText(_scoreText);
@@ -50,9 +53,9 @@ namespace CookingGame.States
             AddOrderStation();
             AddCookingStation();
 
-            AddCustomer();
 
             AddGUI();
+            AddExtra();
         }
 
         public override void Update()
@@ -137,6 +140,7 @@ namespace CookingGame.States
 
             RemoveGameObject(_currentCustomer);
             RemoveGameObject(_currentOrder);
+            RemoveGameObject(dialogueBox);
 
             _currentOrder = null;
 
@@ -160,7 +164,7 @@ namespace CookingGame.States
         #region ADD OBJECTS
         private void AddCustomer()
         {
-            _currentCustomer = new Customer(LoadTexture("Character"));
+            _currentCustomer = new Customer(LoadTexture("Characters/Tonya"));
             _customerList.Enqueue(_currentCustomer);
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
@@ -168,12 +172,15 @@ namespace CookingGame.States
 
             _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
+            _currentCustomer.OnCustomerPatienceRunOut += RemoveDialogueBox;
 
             _currentCustomer.Clicked += AddOrder;
             _currentCustomer.Clicked += ClearOrderText;
+            _currentCustomer.Clicked += RemoveDialogueBox;
 
             ChangeText(ref orderText, _currentCustomer.Order.OrderText);
             AddGameObject(_currentCustomer);
+            AddDialogueBox();
         }
 
         public void AddOrder(object sender, EventArgs e)
@@ -197,13 +204,23 @@ namespace CookingGame.States
         private void AddCookingStation()
         {
             var a = new StationItem(Ingredient.Cabbage, LoadTexture("CabbageStationItem"));
+            var cookingTable = new SplashImage(LoadTexture("cookingtable"), new Vector2(724, 360));
+            var sauce = new MovableSprite(LoadTexture("items/sauce"), new Vector2(755, 400));
+
             AddGameObject(a);
+            AddGameObject(cookingTable);
+            AddGameObject(sauce);
+        }
+
+        private void AddStationItems()
+        {
+
         }
 
         private void AddGUI()
         {
             var cookBtn = new Button(LoadTexture("cookButton"),
-                new Vector2(1200, 650));
+                new Vector2(1134, 660));
             var menuBtn = new Button(LoadTexture("menu_btn"),
                 new Vector2(20, 20));
 
@@ -212,6 +229,24 @@ namespace CookingGame.States
 
             AddGameObject(cookBtn);
             AddGameObject(menuBtn);
+        }
+
+        private void AddExtra()
+        {
+            var div1 = new SplashImage(LoadTexture("divider"), new Vector2(720, 0));
+            var div2 = new SplashImage(LoadTexture("divider"), new Vector2(272, 0));
+            AddGameObject(div1);
+            AddGameObject(div2);
+        }
+
+        private void AddDialogueBox()
+        {
+            AddGameObject(dialogueBox);
+        }
+
+        private void RemoveDialogueBox(object sender, EventArgs e)
+        {
+            RemoveGameObject(dialogueBox);
         }
 
         private void ClearOrderText(object sender, EventArgs e)
@@ -237,11 +272,12 @@ namespace CookingGame.States
 
         private void DecreasePatience()
         {
+            if (_currentCustomer == null) return;
             _currentCustomer.Patience -= PatienceDecreaseRate;
 
             if (_currentCustomer.Patience <= 30f)
             {
-                _currentCustomer.ChangeTexture(LoadTexture("charactermad"));
+                _currentCustomer.ChangeTexture(LoadTexture("Characters/Tonyamad"));
             }
 
             if (_currentCustomer.Patience <= 0)

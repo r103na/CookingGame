@@ -8,7 +8,7 @@ namespace CookingGame.Objects
         public SpriteFont Font { get; }
         private readonly string _text;
         public Vector2 Position { get; }
-        public Color color = new Color(0,0,0);
+        public Color color = new Color(82, 28, 32);
 
         public Text(SpriteFont font, string text, Vector2 position)
         {
