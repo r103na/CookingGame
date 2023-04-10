@@ -4,16 +4,23 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/background.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/CabbageStationItem.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/GameplayState.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/Menu.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/win.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonya.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonyamad.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/cookButton.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/cookingtable.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/dialogue_box.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Divider.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GameplayState.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Fonts/MyFont.spritefont</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/cookButton.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/dialogue_box.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Divider.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cookingtable.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_bg.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_order.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Sauce.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/station.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_carrot.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cheese.png</File>
@@ -22,13 +29,6 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_potato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_tomato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Table.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/menu_btn.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Menu.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/MyFont.spritefont</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/orderStation_bg.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/orderStation_order.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Splash.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/win.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

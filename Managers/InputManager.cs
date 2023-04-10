@@ -40,7 +40,6 @@ namespace CookingGame.Managers
             var clientMouse = new Vector2(_mouseState.X, _mouseState.Y);
             var scaledMouseVector = Vector2.Transform(clientMouse, transform);
             ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
-
         }
 
         public void HandleLeftClick()

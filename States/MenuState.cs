@@ -23,7 +23,7 @@ namespace CookingGame.States
 
         public override void LoadContent()
         {
-            AddGameObject(new SplashImage(LoadTexture("Menu")));
+            AddGameObject(new SplashImage(LoadTexture("backgrounds/Menu")));
         }
 
         public override void Update()

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CookingGame.Objects;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
+﻿using CookingGame.Objects;
+
 using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.States
@@ -15,7 +8,7 @@ namespace CookingGame.States
     {
         public override void LoadContent()
         {
-            AddGameObject(new SplashImage(LoadTexture("win")));
+            AddGameObject(new SplashImage(LoadTexture("backgrounds/win")));
         }
 
         public override void Update()

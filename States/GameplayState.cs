@@ -14,6 +14,7 @@ namespace CookingGame.States
 {
     public class GameplayState : BaseState
     {
+        #region  VARIABLES
         private readonly Queue<Customer> _customerList = new();
         private Customer _currentCustomer;
         private Shawarma _currentShawarma;
@@ -30,19 +31,20 @@ namespace CookingGame.States
         private int _customerWaitTime;
 
         private SplashImage _dialogueBox;
+        #endregion
 
         public override void LoadContent()
         {
             InputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
             Trace.Listeners.Add(new ConsoleTraceListener());
 
-            var font = ContentManager.Load<SpriteFont>("MyFont");
+            var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
             _scoreText = new Text(font, $"{_score}", new Vector2(10, 690));
             _orderText = new Text(font, "", new Vector2(340, 95));
 
-            _dialogueBox = new SplashImage(LoadTexture("dialogue_box"), new Vector2(320, 80));
+            _dialogueBox = new SplashImage(LoadTexture("gui/dialogue_box"), new Vector2(320, 80));
 
-            AddGameObject(new SplashImage(LoadTexture("GameplayState")));
+            AddGameObject(new SplashImage(LoadTexture("backgrounds/GameplayState")));
             AddText(_scoreText);
             AddText(_orderText);
 
@@ -50,6 +52,7 @@ namespace CookingGame.States
             AddOrderStation();
             AddCookingStation();
 
+            AddShawarma();
 
             AddGUI();
             AddExtra();
@@ -65,11 +68,6 @@ namespace CookingGame.States
                     AddCustomer();
                     _waitTime = 0;
                 }
-            }
-
-            if (_score >= 50)
-            {
-                SwitchState(new SplashState());
             }
 
             DecreasePatience();
@@ -91,6 +89,10 @@ namespace CookingGame.States
         {
             _score += _currentCustomer.Order.Price;
             ChangeScoreText();
+            if (_score >= 50)
+            {
+                SwitchState(new SplashState());
+            }
         }
 
         private void DecreaseScore(object sender, EventArgs e)
@@ -144,6 +146,12 @@ namespace CookingGame.States
         }
 
         #region ADD OBJECTS
+
+        private void AddShawarma()
+        {
+            var flatbread = new SplashImage(LoadTexture("items/flatbread"), new Vector2(920, 410));
+            AddGameObject(flatbread);
+        }
         private void AddCustomer()
         {
             _currentCustomer = new Customer(LoadTexture("Characters/Tonya"));
@@ -170,14 +178,14 @@ namespace CookingGame.States
         public void AddOrder(object sender, EventArgs e)
         {
             if (_currentOrder != null) return;
-            _currentCustomer.Order.AddTexture(LoadTexture("orderStation_order"));
+            _currentCustomer.Order.AddTexture(LoadTexture("items/orderStation_order"));
             _currentOrder = _currentCustomer.Order;
             AddGameObject(_currentOrder);
         }
 
         private void AddOrderStation()
         {
-            AddGameObject(new SplashImage(LoadTexture("orderStation_bg")));
+            AddGameObject(new SplashImage(LoadTexture("items/orderStation_bg")));
         }
 
         private void AddVisitorStation()
@@ -188,7 +196,7 @@ namespace CookingGame.States
 
         private void AddCookingStation()
         {
-            var cookingTable = new SplashImage(LoadTexture("cookingtable"), new Vector2(724, 360));
+            var cookingTable = new SplashImage(LoadTexture("items/cookingtable"), new Vector2(724, 360));
             var sauce = new MovableSprite(LoadTexture("items/sauce"), new Vector2(755, 400));
 
             AddGameObject(cookingTable);
@@ -199,32 +207,40 @@ namespace CookingGame.States
 
         private void AddStationItems()
         {
-            var cabbageStation = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755, 70));
+            var table = new SplashImage(LoadTexture("items/station"), new Vector2(730, 0));
+
+            var cabbageStation = new SplashImage(LoadTexture("items/stationitem_cabbage"), new Vector2(755, 70));
             var cheeseStation = new SplashImage(LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
             var potatoStation = new SplashImage(LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
-            var station = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 70));
+            var station = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755 + 330, 70));
+            var station2 = new SplashImage(LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 70));
 
             var tomatoStation = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
             var onionStation = new SplashImage(LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
             var carrotStation = new SplashImage(LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
             var cucumberStation = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
+            var station3 = new SplashImage(LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 194));
+
+            AddGameObject(table);
 
             AddGameObject(cabbageStation);
             AddGameObject(cheeseStation);
             AddGameObject(potatoStation);
             AddGameObject(station);
+            AddGameObject(station2);
 
             AddGameObject(tomatoStation);
             AddGameObject(onionStation);
             AddGameObject(carrotStation);
             AddGameObject(cucumberStation);
+            AddGameObject(station3);
         }
 
         private void AddGUI()
         {
-            var cookBtn = new Button(LoadTexture("cookButton"),
+            var cookBtn = new Button(LoadTexture("gui/cookButton"),
                 new Vector2(1134, 660));
-            var menuBtn = new Button(LoadTexture("menu_btn"),
+            var menuBtn = new Button(LoadTexture("gui/menu_btn"),
                 new Vector2(20, 20));
 
             cookBtn.Clicked += CookShawarma;
@@ -236,8 +252,8 @@ namespace CookingGame.States
 
         private void AddExtra()
         {
-            var div1 = new SplashImage(LoadTexture("divider"), new Vector2(720, 0));
-            var div2 = new SplashImage(LoadTexture("divider"), new Vector2(272, 0));
+            var div1 = new SplashImage(LoadTexture("gui/divider"), new Vector2(720, 0));
+            var div2 = new SplashImage(LoadTexture("gui/divider"), new Vector2(267, 0));
             AddGameObject(div1);
             AddGameObject(div2);
         }
