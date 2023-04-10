@@ -10,25 +10,25 @@ namespace CookingGame.Objects
 {
     public class Order : BaseSprite
     {
-        private List<Ingredient> ingredients;
+        private List<Ingredient> _ingredients;
         public OrderState State;
         public int Price = 10;
         public string OrderText = "Flat bread, please";
 
-        private Vector2 orderPosition = new Vector2(50, 120);
+        private readonly Vector2 _orderPosition = new(50, 120);
 
         public event EventHandler OrderCooked;
 
         public Order()
         {
-            _position = orderPosition;
+            _position = _orderPosition;
             State = new NotTakenState(this);
         }
 
         public Order(Texture2D texture)
         {
             _texture = texture;
-            _position = orderPosition;
+            _position = _orderPosition;
             State = new NotTakenState(this);
         }
 
