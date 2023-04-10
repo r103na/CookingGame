@@ -14,8 +14,7 @@ namespace CookingGame.States
 {
     public class MenuState : BaseState
     {
-        private SpriteFont spriteFont;
-        private InputManager _inputManager;
+        private SpriteFont _spriteFont;
 
         private string[] menuItems =
         {
@@ -42,8 +41,7 @@ namespace CookingGame.States
                 NotifyEvent(Events.GAME_QUIT);
             }
 
-            if (keyboardState.IsKeyDown(Keys.G) ||
-                mouseState.LeftButton == ButtonState.Pressed)
+            if (keyboardState.IsKeyDown(Keys.G))
             {
                 SwitchState(new GameplayState());
             }
