@@ -24,6 +24,7 @@ namespace CookingGame.States
         private int _score;
 
         private Text _orderText;
+        private Text _orderNameText;
         
         private const float PatienceDecreaseRate = 0.2f;
 
@@ -41,6 +42,7 @@ namespace CookingGame.States
             var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
             _scoreText = new Text(font, $"{_score}", new Vector2(10, 690));
             _orderText = new Text(font, "", new Vector2(340, 95));
+            _orderNameText = new Text(font, "", new Vector2(65, 135));
 
             _dialogueBox = new SplashImage(LoadTexture("gui/dialogue_box"), new Vector2(320, 80));
 
@@ -160,11 +162,13 @@ namespace CookingGame.States
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
             _currentCustomer.Order.OrderCooked += RemoveCurrentShawarma;
             _currentCustomer.Order.OrderCooked += ChangeWaitTime;
+            _currentCustomer.Order.OrderCooked += ClearOrderNameText;
 
             _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
             _currentCustomer.OnCustomerPatienceRunOut += RemoveDialogueBox;
             _currentCustomer.OnCustomerPatienceRunOut += ChangeWaitTime;
+            _currentCustomer.OnCustomerPatienceRunOut += ClearOrderNameText;
 
             _currentCustomer.Clicked += AddOrder;
             _currentCustomer.Clicked += ClearOrderText;
@@ -181,6 +185,7 @@ namespace CookingGame.States
             _currentCustomer.Order.AddTexture(LoadTexture("items/orderStation_order"));
             _currentOrder = _currentCustomer.Order;
             AddGameObject(_currentOrder);
+            ChangeText(ref _orderNameText, _currentCustomer.Order.OrderName);
         }
 
         private void AddOrderStation()
@@ -271,6 +276,11 @@ namespace CookingGame.States
         private void ClearOrderText(object sender, EventArgs e)
         {
             ChangeText(ref _orderText, "");
+        }
+
+        private void ClearOrderNameText(object sender, EventArgs e)
+        {
+            ChangeText(ref _orderNameText, "");
         }
 
         private void ChangeText(ref Text text, string newText)

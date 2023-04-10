@@ -27,7 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Items\" />
-    <Folder Include="Data" />
     <Folder Include="Screens" />
   </ItemGroup>
   <ItemGroup>

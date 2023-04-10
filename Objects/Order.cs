@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Text.Json;
 using CookingGame.Enum;
 using CookingGame.Objects.Base;
+using CookingGame.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,6 +13,8 @@ namespace CookingGame.Objects
     public class Order : BaseSprite
     {
         private List<Ingredient> _ingredients;
+        public string OrderName { get; set; }
+
         public OrderState State;
         public int Price = 10;
         public string OrderText = "Flat bread, please";
@@ -19,10 +23,13 @@ namespace CookingGame.Objects
 
         public event EventHandler OrderCooked;
 
+        private const string Filepath = "C:\\Users\\user\\source\\repos\\CookingGame\\CookingGame\\Data\\orders.json";
+
         public Order()
         {
             _position = _orderPosition;
             State = new NotTakenState(this);
+            LoadOrderFromJson(Filepath);
         }
 
         public Order(Texture2D texture)
@@ -51,65 +58,22 @@ namespace CookingGame.Objects
         {
             OrderCooked?.Invoke(this, EventArgs.Empty);
         }
-    }
 
-    public abstract class OrderState
-    {
-        protected Order Order;
-
-        protected OrderState(Order order)
+        public void LoadOrderFromJson(string filePath)
         {
-            Order = order;
-        }
-
-        public abstract void Take();
-        public abstract void Cook();
-    }
-
-    public class NotTakenState : OrderState
-    {
-        public NotTakenState(Order order) : base(order) { }
-
-        public override void Take()
-        {
-            Order.State = new TakenState(Order);
-        }
-
-        public override void Cook()
-        {
-            // Нельзя готовить заказ, который еще не взят
+            var jsonString = File.ReadAllText(filePath);
+            var orderData = JsonSerializer.Deserialize<OrderData>(jsonString);
+            OrderName = orderData?.OrderName;
+            if (orderData != null) 
+                OrderText = orderData.Dialogue;
+            //_ingredients = orderData?.Ingredients;
         }
     }
 
-    public class TakenState : OrderState
+    public class OrderData
     {
-        public TakenState(Order order) : base(order) { }
-
-        public override void Take()
-        {
-            // Заказ уже взят
-        }
-
-        public override void Cook()
-        {
-            Order.State = new DoneState(Order);
-            Order.OnOrderCooked();
-        }
-    }
-
-    public class DoneState : OrderState
-    {
-        public DoneState(Order order) : base(order) { }
-
-        public override void Take()
-        {
-            // Нельзя взять уже готовый заказ
-        }
-
-        public override void Cook()
-        {
-            // Заказ уже готов
-        }
+        public string OrderName { get; set; }
+        public string Dialogue { get; set; }
     }
 }
 
