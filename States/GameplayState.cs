@@ -32,15 +32,21 @@ namespace CookingGame.States
         private int _customerWaitTime = 45;
 
         private SplashImage _dialogueBox;
+
+        private int maxScore = 30;
+        private ScoreManager _scoreManager;
         #endregion
 
         public override void LoadContent()
         {
+            _scoreManager = new ScoreManager();
+            _scoreManager.ScoreIncreased += ChangeScoreText;
+            _scoreManager.ScoreDecreased += ChangeScoreText;
             InputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
             Trace.Listeners.Add(new ConsoleTraceListener());
 
             var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
-            _scoreText = new Text(font, $"{_score}", new Vector2(10, 690));
+            _scoreText = new Text(font, $"{_scoreManager.Score}", new Vector2(10, 690));
             _orderText = new Text(font, "", new Vector2(340, 95));
             _orderNameText = new Text(font, "", new Vector2(65, 135));
 
@@ -81,17 +87,14 @@ namespace CookingGame.States
             InputManager.UpdateMouseScale(TransformMatrix);
             InputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
             InputManager.UpdateStates();
-            InputManager.HandleLeftClick();
-            InputManager.HandleHold();
-            InputManager.HandleHover();
+            InputManager.HandleInput();
         }
         #endregion
 
         private void IncreaseScore(object sender, EventArgs e)
         {
-            _score += _currentCustomer.Order.Price;
-            ChangeScoreText();
-            if (_score >= 20)
+            _scoreManager.IncreaseScore();
+            if (_scoreManager.Score >= maxScore)
             {
                 SwitchState(new SplashState());
             }
@@ -99,21 +102,26 @@ namespace CookingGame.States
 
         private void DecreaseScore(object sender, EventArgs e)
         {
-            _score -= _currentCustomer.Order.Price;
-            ChangeScoreText();
+            _scoreManager.DecreaseScore();
         }
 
         public void GradeOrder()
         {
             var grade = 0f;
             grade += _currentCustomer.Patience;
-            grade -= _currentShawarma.burntMeter;
+            grade -= _currentShawarma.BurntMeter;
             // Check all the ingredients
             if (grade >= 80)
             {
                 // Perfect
             }
         }
+
+        public void TakeOrder(object sender, EventArgs e)
+        {
+            _currentCustomer?.Order.Take();
+        }
+
         private void CookShawarma(object sender, EventArgs e)
         {
             _currentCustomer?.Order.Cook();
@@ -171,6 +179,7 @@ namespace CookingGame.States
             _currentCustomer.OnCustomerPatienceRunOut += ClearOrderNameText;
 
             _currentCustomer.Clicked += AddOrder;
+            _currentCustomer.Clicked += TakeOrder;
             _currentCustomer.Clicked += ClearOrderText;
             _currentCustomer.Clicked += RemoveDialogueBox;
 
@@ -290,10 +299,10 @@ namespace CookingGame.States
             AddText(text);
         }
 
-        private void ChangeScoreText()
+        private void ChangeScoreText(object sender, EventArgs e)
         {
             RemoveText(_scoreText);
-            _scoreText = new Text(_scoreText.Font, $"{_score}", _scoreText.Position);
+            _scoreText = new Text(_scoreText.Font, $"{_scoreManager.Score}", _scoreText.Position);
             AddText(_scoreText);
         }
 

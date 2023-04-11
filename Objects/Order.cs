@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using CookingGame.Enum;
+
 using CookingGame.Objects.Base;
 using CookingGame.States;
 using Microsoft.Xna.Framework;
@@ -12,7 +11,6 @@ namespace CookingGame.Objects
 {
     public class Order : BaseSprite
     {
-        private List<Ingredient> _ingredients;
         public string OrderName { get; set; }
 
         public OrderState State;
@@ -30,13 +28,6 @@ namespace CookingGame.Objects
             _position = _orderPosition;
             State = new NotTakenState(this);
             LoadOrderFromJson(Filepath);
-        }
-
-        public Order(Texture2D texture)
-        {
-            _texture = texture;
-            _position = _orderPosition;
-            State = new NotTakenState(this);
         }
 
         public void Take()

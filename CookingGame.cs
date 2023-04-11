@@ -39,9 +39,8 @@ namespace CookingGame
         {
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += UpdateWindowBoxingRect;
-            //Window.ClientSizeChanged += UpdateMousePosition;
 
-            _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); // x y w h
+            _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); 
             _nativeAspect = _nativeWindowRectangle.Width / (float)_nativeWindowRectangle.Height;
             
             _graphics.PreferredBackBufferWidth = _nativeWindowRectangle.Width;
@@ -121,10 +120,10 @@ namespace CookingGame
             _currentGameState.Initialize(Content);
             _currentGameState.LoadContent();
             _currentGameState.OnStateSwitched += CurrentGameState_OnStateSwitched;
-            _currentGameState.OnEventNotification += _currentGameState_OnEventNotification;
+            _currentGameState.OnEventNotification += CurrentGameState_OnEventNotification;
         }
 
-        private void _currentGameState_OnEventNotification(object sender, Enum.Events e)
+        private void CurrentGameState_OnEventNotification(object sender, Events e)
         {
             switch (e)
             {
@@ -167,8 +166,7 @@ namespace CookingGame
                 null,
                 SamplerState.PointClamp,
                 DepthStencilState.Default,
-                RasterizerState.CullNone,
-                null);
+                RasterizerState.CullNone);
             _spriteBatch.Draw(_nativeRenderTarget, _windowBoxingRect, Color.White); // Draw the _nativeRenderTarget as a texture
             _spriteBatch.End();
 

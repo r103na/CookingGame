@@ -42,11 +42,17 @@ namespace CookingGame.Managers
             ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
         }
 
+        public void HandleInput()
+        {
+            HandleLeftClick();
+            HandleHover();
+            HandleHold();
+        }
+
         public void HandleLeftClick()
         {
             if (LeftMouseButton(true))
             {
-                var clickPosition = new Point(_mouseState.X, _mouseState.Y);
                 _clickableSprites.ToList().ForEach(x => x.HandleClick(ScaledMousePosition));
             }
         }
@@ -55,29 +61,24 @@ namespace CookingGame.Managers
         {
             if (LeftMouseButton())
             {
-                var clickPosition = new Point(_mouseState.X, _mouseState.Y);
                 _clickableSprites.ToList().ForEach(x => x.HandleHold(ScaledMousePosition));
             }
-        }
-        public void HandleKey()
-        {
-
         }
 
         public void HandleHover()
         {
-            _clickableSprites.ToList().ForEach(x => x.OnHover(ScaledMousePosition));
+            _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
         }
 
         public bool LeftMouseButton(bool single = false)
         {
             if (single) return _mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
-            else return (_mouseState.LeftButton == ButtonState.Pressed);
+            return (_mouseState.LeftButton == ButtonState.Pressed);
         }
         public bool RightMouseButton(bool single = false)
         {
             if (single) return _mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
-            else return (_mouseState.RightButton == ButtonState.Pressed);
+            return (_mouseState.RightButton == ButtonState.Pressed);
         }
     }
 

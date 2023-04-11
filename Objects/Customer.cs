@@ -14,11 +14,7 @@ namespace CookingGame.Objects
 {
     public class Customer : ClickableSprite
     {
-        private string Name = "Посетитель";
-        public List<string> DialogueOptions = new List<string>() {"Hello", "Bye"};
-        private string jsonFilePath = "Customers.json";
-        
-        private readonly Vector2 customerPosition = new Vector2(325, 185);
+        private readonly Vector2 _customerPosition = new Vector2(325, 185);
         public Order Order;
         
         public float Patience = 100;
@@ -30,32 +26,8 @@ namespace CookingGame.Objects
         public Customer(Texture2D texture)
         {
             _texture = texture; // load texture from a character name
-            _position = customerPosition;
+            _position = _customerPosition;
             Order = new Order();
-        }
-
-        public override void OnHover(Point clickPosition)
-        {
-            
-        }
-
-        public override void HandleClick(Point clickPosition)
-        {
-            if (IsInBounds(clickPosition))
-            {
-                OnClicked();
-                Order.Take();
-
-            }
-        }
-
-        public override void HandleHold(Point clickPosition)
-        {
-            
-        }
-
-        public override void HandleRelease(Point clickPosition)
-        {
         }
 
         public void OnPatienceRunOut()

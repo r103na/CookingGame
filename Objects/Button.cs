@@ -12,30 +12,4 @@ public class Button : ClickableSprite
         _texture = texture;
         _position = position;
     }
-
-    public override void OnHover(Point clickPosition)
-    {
-        if (IsInBounds(clickPosition))
-        {
-
-        }
-    }
-
-    public override void HandleClick(Point clickPosition)
-    {
-        if (IsInBounds(clickPosition))
-        {
-            OnClicked();
-        }
-    }
-
-    public override void HandleHold(Point clickPosition)
-    {
-        
-    }
-
-    public override void HandleRelease(Point clickPosition)
-    {
-
-    }
 }
