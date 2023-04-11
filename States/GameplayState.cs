@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+
 using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
@@ -135,7 +136,6 @@ namespace CookingGame.States
         {
             _currentCustomer.Order.OrderCooked -= IncreaseScore;
             _currentCustomer.Order.OrderCooked -= RemoveCurrentCustomer;
-            _currentCustomer.Order.OrderCooked -= RemoveCurrentShawarma;
             _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
             _currentCustomer.Clicked -= AddOrder;
@@ -153,18 +153,13 @@ namespace CookingGame.States
                 _customerList.Dequeue();
         }
 
-        private void RemoveCurrentShawarma(object sender, EventArgs e)
-        {
-            _currentShawarma = new Shawarma();
-            _currentCustomer.Order.OrderCooked -= RemoveCurrentShawarma;
-        }
 
         #region ADD OBJECTS
 
         private void AddShawarma()
         {
-            var flatbread = new SplashImage(LoadTexture("items/flatbread"), new Vector2(920, 410));
-            AddGameObject(flatbread);
+            _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
+            AddGameObject(_currentShawarma);
         }
         private void AddCustomer()
         {
@@ -172,7 +167,6 @@ namespace CookingGame.States
             _customerList.Enqueue(_currentCustomer);
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
-            _currentCustomer.Order.OrderCooked += RemoveCurrentShawarma;
             _currentCustomer.Order.OrderCooked += ChangeWaitTime;
             _currentCustomer.Order.OrderCooked += ClearOrderNameText;
 
@@ -282,14 +276,23 @@ namespace CookingGame.States
             foreach (var item in stationItems)
             {
                 var tomato = new MovableSprite(LoadTexture("items/tomato"), Vector2.Zero);
-                item.Clicked += (sender, e) =>
+                item.Clicked += (_, _) =>
                 {
                     tomato = new MovableSprite(
                         LoadTexture("items/tomato"),
                         new Vector2(
                             InputManager.MouseState.X,
                             InputManager.MouseState.Y));
-                    tomato.Released += (sender, e) => RemoveGameObject(tomato);
+                    tomato.Released += (_, _) =>
+                    {
+                        var tomatPos = new Point((int)tomato.Position.X, (int)tomato.Position.Y);
+                        if (_currentShawarma.IsInBounds(tomatPos))
+                        {
+                            tomato.canClick = false;
+                            return;
+                        }
+                        RemoveGameObject(tomato);
+                    };
                     AddGameObject(tomato);
                 };
             }

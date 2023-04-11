@@ -13,7 +13,7 @@ namespace CookingGame.Objects
         public SplashImage(Texture2D texture, Vector2 position)
         {
             _texture = texture;
-            _position = position;
+            Position = position;
         }
     }
 }

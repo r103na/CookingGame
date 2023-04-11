@@ -1,5 +1,6 @@
 ﻿using CookingGame.Enum;
 using CookingGame.Objects.Base;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,7 +13,7 @@ public class StationItem : ClickableSprite
     public StationItem(Ingredient ingredient, Texture2D texture, Vector2 position)
     {
         this.ingredient = ingredient;
-        _position = position;
+        Position = position;
         var str = nameof(ingredient);
         _texture = texture;
     }

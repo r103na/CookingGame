@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text.Json;
 
-using CookingGame.Enum;
 using CookingGame.Objects.Base;
-using Microsoft.Xna.Framework;
+
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -26,7 +21,7 @@ namespace CookingGame.Objects
         public Customer(Texture2D texture)
         {
             _texture = texture; // load texture from a character name
-            _position = _customerPosition;
+            Position = _customerPosition;
             Order = new Order();
         }
 

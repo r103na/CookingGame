@@ -9,17 +9,17 @@ namespace CookingGame.Objects.Base
     {
         public MovableSprite(Texture2D texture, Vector2 position)
         {
-            _position = position;
+            Position = position;
             _texture = texture;
             BoundX = 50;
             BoundY = 50;
         }
         public override void HandleHold(Point clickPosition)
         {
-            if (IsInBounds(clickPosition))
+            if (IsInBounds(clickPosition) && canClick)
             {
-                _position.X = clickPosition.X;
-                _position.Y = clickPosition.Y;
+                Position.X = clickPosition.X;
+                Position.Y = clickPosition.Y;
             }
         }
     }

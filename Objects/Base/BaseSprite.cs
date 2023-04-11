@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CookingGame.Enum;
+﻿using CookingGame.Enum;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,7 +9,7 @@ namespace CookingGame.Objects.Base
     {
         protected Texture2D _texture;
 
-        public Vector2 _position;
+        public Vector2 Position;
 
         public int zIndex;
 
@@ -30,7 +25,7 @@ namespace CookingGame.Objects.Base
 
         public void Render(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _position, Color.White);
+            spriteBatch.Draw(_texture, Position, Color.White);
         }
 
 

@@ -10,6 +10,6 @@ public class Button : ClickableSprite
     public Button(Texture2D texture, Vector2 position)
     {
         _texture = texture;
-        _position = position;
+        Position = position;
     }
 }

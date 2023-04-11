@@ -25,7 +25,7 @@ namespace CookingGame.Objects
 
         public Order()
         {
-            _position = _orderPosition;
+            Position = _orderPosition;
             State = new NotTakenState(this);
             LoadOrderFromJson(Filepath);
         }
