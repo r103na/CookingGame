@@ -46,6 +46,14 @@ namespace CookingGame.Objects.Base
             }
         }
 
+        public virtual void HandleRelease(Point clickPosition)
+        {
+            if (IsInBounds(clickPosition))
+            {
+                OnReleased();
+            }
+        }
+
         protected virtual void OnClick()
         {
             Clicked?.Invoke(this, EventArgs.Empty);

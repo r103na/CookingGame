@@ -5,15 +5,10 @@ namespace CookingGame.Managers
     public class ScoreManager
     {
         public int Score;
-        public int MaxScore;
+        public int MaxScore = 30;
 
         public event EventHandler ScoreIncreased;
         public event EventHandler ScoreDecreased;
-
-        public void SetMaxScore(int score)
-        {
-            MaxScore = score;
-        }
 
         public void IncreaseScore()
         {

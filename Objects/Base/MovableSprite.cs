@@ -18,8 +18,8 @@ namespace CookingGame.Objects.Base
         {
             if (IsInBounds(clickPosition))
             {
-                _position.X = clickPosition.X - 20;
-                _position.Y = clickPosition.Y - 50;
+                _position.X = clickPosition.X;
+                _position.Y = clickPosition.Y;
             }
         }
     }

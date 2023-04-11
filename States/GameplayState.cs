@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
@@ -21,7 +21,6 @@ namespace CookingGame.States
         private Order _currentOrder;
 
         private Text _scoreText;
-        private int _score;
 
         private Text _orderText;
         private Text _orderNameText;
@@ -33,7 +32,6 @@ namespace CookingGame.States
 
         private SplashImage _dialogueBox;
 
-        private int maxScore = 30;
         private ScoreManager _scoreManager;
         #endregion
 
@@ -64,6 +62,8 @@ namespace CookingGame.States
 
             AddGUI();
             AddExtra();
+
+            idk();
         }
 
         public override void Update()
@@ -91,10 +91,11 @@ namespace CookingGame.States
         }
         #endregion
 
+        #region SCORE
         private void IncreaseScore(object sender, EventArgs e)
         {
             _scoreManager.IncreaseScore();
-            if (_scoreManager.Score >= maxScore)
+            if (_scoreManager.Score >= _scoreManager.MaxScore)
             {
                 SwitchState(new SplashState());
             }
@@ -104,6 +105,9 @@ namespace CookingGame.States
         {
             _scoreManager.DecreaseScore();
         }
+
+
+        #endregion
 
         public void GradeOrder()
         {
@@ -223,17 +227,17 @@ namespace CookingGame.States
         {
             var table = new SplashImage(LoadTexture("items/station"), new Vector2(730, 0));
 
-            var cabbageStation = new SplashImage(LoadTexture("items/stationitem_cabbage"), new Vector2(755, 70));
-            var cheeseStation = new SplashImage(LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
-            var potatoStation = new SplashImage(LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
-            var station = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755 + 330, 70));
-            var station2 = new SplashImage(LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 70));
+            var cabbageStation = new StationItem(Ingredient.Cabbage, LoadTexture("items/stationitem_cabbage"), new Vector2(755, 70));
+            var cheeseStation = new StationItem(Ingredient.Cheese, LoadTexture("items/stationitem_cheese"), new Vector2(755 + 110, 70));
+            var potatoStation = new StationItem(Ingredient.Potato, LoadTexture("items/stationitem_potato"), new Vector2(755 + 220, 70));
+            var station = new StationItem(Ingredient.Chicken, LoadTexture("items/stationitem_tomato"), new Vector2(755 + 330, 70));
+            var station2 = new StationItem(Ingredient.Cabbage, LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 70));
 
-            var tomatoStation = new SplashImage(LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
-            var onionStation = new SplashImage(LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
-            var carrotStation = new SplashImage(LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
-            var cucumberStation = new SplashImage(LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
-            var station3 = new SplashImage(LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 194));
+            var tomatoStation = new StationItem(Ingredient.Tomato, LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
+            var onionStation = new StationItem(Ingredient.Onion, LoadTexture("items/stationitem_onion"), new Vector2(755 + 110, 194));
+            var carrotStation = new StationItem(Ingredient.Carrot, LoadTexture("items/stationitem_carrot"), new Vector2(755 + 220, 194));
+            var cucumberStation = new StationItem(Ingredient.Cucumber, LoadTexture("items/stationitem_cucumber"), new Vector2(755 + 330, 194));
+            var station3 = new StationItem(Ingredient.Cabbage, LoadTexture("items/cabbagestationitem"), new Vector2(755 + 440, 194));
 
             AddGameObject(table);
 
@@ -270,6 +274,25 @@ namespace CookingGame.States
             var div2 = new SplashImage(LoadTexture("gui/divider"), new Vector2(267, 0));
             AddGameObject(div1);
             AddGameObject(div2);
+        }
+
+        private void idk()
+        {
+            var stationItems = GameObjects.OfType<StationItem>().ToList();
+            foreach (var item in stationItems)
+            {
+                var tomato = new MovableSprite(LoadTexture("items/tomato"), Vector2.Zero);
+                item.Clicked += (sender, e) =>
+                {
+                    tomato = new MovableSprite(
+                        LoadTexture("items/tomato"),
+                        new Vector2(
+                            InputManager.MouseState.X,
+                            InputManager.MouseState.Y));
+                    tomato.Released += (sender, e) => RemoveGameObject(tomato);
+                    AddGameObject(tomato);
+                };
+            }
         }
 
         private void AddDialogueBox()

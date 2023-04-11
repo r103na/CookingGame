@@ -50,3 +50,4 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\cookingtable.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\orderStation_bg.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\orderStation_order.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\tomato.xnb

@@ -29,8 +29,10 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_potato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_tomato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Table.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

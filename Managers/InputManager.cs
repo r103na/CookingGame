@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using CookingGame.Objects.Base;
@@ -9,20 +8,21 @@ namespace CookingGame.Managers
 {
     public class InputManager
     {
+        #region VARIABLES
         private List<ClickableSprite> _clickableSprites;
-        private MouseState _mouseState;
+        public MouseState MouseState { get; private set; }
         private MouseState _lastMouseState;
         private KeyboardState _keyboardState;
 
         public Point ScaledMousePosition;
+        #endregion
 
         public InputManager(List<ClickableSprite> gameObjects)
         {
-            _keyboardState = Keyboard.GetState();
-            _mouseState = Mouse.GetState();
             _clickableSprites = gameObjects;
         }
 
+        #region UPDATE
         public void UpdateGameObjects(List<ClickableSprite> gameObjects)
         {
             _clickableSprites = gameObjects;
@@ -31,22 +31,27 @@ namespace CookingGame.Managers
         public void UpdateStates()
         {
             _keyboardState = Keyboard.GetState();
-            _lastMouseState = _mouseState;
-            _mouseState = Mouse.GetState();
+            _lastMouseState = MouseState;
+            MouseState = Mouse.GetState();
         }
 
         public void UpdateMouseScale(Matrix transform)
         {
-            var clientMouse = new Vector2(_mouseState.X, _mouseState.Y);
+            var clientMouse = new Vector2(MouseState.X, MouseState.Y);
             var scaledMouseVector = Vector2.Transform(clientMouse, transform);
             ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
         }
 
+
+        #endregion
+
+        #region HANDLE INPUT
         public void HandleInput()
         {
             HandleLeftClick();
             HandleHover();
             HandleHold();
+            HandleReleased();
         }
 
         public void HandleLeftClick()
@@ -59,27 +64,46 @@ namespace CookingGame.Managers
 
         public void HandleHold()
         {
-            if (LeftMouseButton())
+            if (LeftMouseHeld())
             {
                 _clickableSprites.ToList().ForEach(x => x.HandleHold(ScaledMousePosition));
             }
         }
-
         public void HandleHover()
         {
             _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
         }
 
+        public void HandleReleased()
+        {
+            if (MouseState.LeftButton == ButtonState.Released)
+                _clickableSprites.ToList().ForEach(x => x.HandleRelease(ScaledMousePosition));
+        }
+        #endregion
+
+        #region MOUSE STATES
+        public bool LeftMouseButtonWas()
+        {
+            return _lastMouseState.LeftButton == ButtonState.Pressed;
+        }
+
         public bool LeftMouseButton(bool single = false)
         {
-            if (single) return _mouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
-            return (_mouseState.LeftButton == ButtonState.Pressed);
+            if (single) return MouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
+            return (MouseState.LeftButton == ButtonState.Pressed);
         }
         public bool RightMouseButton(bool single = false)
         {
-            if (single) return _mouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
-            return (_mouseState.RightButton == ButtonState.Pressed);
+            if (single) return MouseState.RightButton == ButtonState.Pressed && _lastMouseState.RightButton == ButtonState.Released;
+            return (MouseState.RightButton == ButtonState.Pressed);
         }
+
+        public bool LeftMouseHeld()
+        {
+            return LeftMouseButton() && LeftMouseButtonWas();
+        }
+        #endregion
+
     }
 
 }

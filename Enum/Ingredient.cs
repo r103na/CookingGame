@@ -7,6 +7,7 @@ public enum Ingredient
     Onion,
     Tomato,
     Cucumber,
+    Carrot,
     Cheese,
     Pepper,
     Mushrooms,
