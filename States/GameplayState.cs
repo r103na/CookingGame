@@ -29,7 +29,7 @@ namespace CookingGame.States
         private const float PatienceDecreaseRate = 0.2f;
 
         private int _waitTime;
-        private int _customerWaitTime;
+        private int _customerWaitTime = 45;
 
         private SplashImage _dialogueBox;
         #endregion
@@ -91,7 +91,7 @@ namespace CookingGame.States
         {
             _score += _currentCustomer.Order.Price;
             ChangeScoreText();
-            if (_score >= 50)
+            if (_score >= 20)
             {
                 SwitchState(new SplashState());
             }

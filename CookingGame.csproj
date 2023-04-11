@@ -30,7 +30,6 @@
     <Folder Include="Screens" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Extra\Singleton.cs" />
     <Compile Remove="Objects\Ingredient.cs" />
     <Compile Remove="Dialogue\**" />
   </ItemGroup>
