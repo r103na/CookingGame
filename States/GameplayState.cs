@@ -95,7 +95,11 @@ namespace CookingGame.States
         #region SCORE
         private void IncreaseScore(object sender, EventArgs e)
         {
-            _scoreManager.IncreaseScore();
+            var shawarmaIngredientList = _currentShawarma.IngredientList
+                .Select(x => x.Ingredient)
+                .ToList();
+            int score = _currentCustomer.Order.CheckIngredients(shawarmaIngredientList) * 10; //(int)_currentCustomer.Patience
+            _scoreManager.IncreaseScore(score);
             if (_scoreManager.Score >= _scoreManager.MaxScore)
             {
                 SwitchState(new SplashState());
@@ -104,23 +108,11 @@ namespace CookingGame.States
 
         private void DecreaseScore(object sender, EventArgs e)
         {
-            _scoreManager.DecreaseScore();
+            _scoreManager.DecreaseScore(10);
         }
-
 
         #endregion
 
-        public void GradeOrder()
-        {
-            var grade = 0f;
-            grade += _currentCustomer.Patience;
-            grade -= _currentShawarma.BurntMeter;
-            // Check all the ingredients
-            if (grade >= 80)
-            {
-                // Perfect
-            }
-        }
 
         public void TakeOrder(object sender, EventArgs e)
         {
@@ -256,6 +248,8 @@ namespace CookingGame.States
                 new Vector2(20, 20));
 
             cookBtn.Clicked += CookShawarma;
+            cookBtn.Clicked += ClearShawarmaIngredients;
+            cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
 
             AddGameObject(cookBtn);
@@ -275,26 +269,41 @@ namespace CookingGame.States
             var stationItems = GameObjects.OfType<StationItem>().ToList();
             foreach (var item in stationItems)
             {
-                var tomato = new MovableSprite(LoadTexture("items/tomato"), Vector2.Zero);
+                var tomato = new IngredientItem(LoadTexture("items/tomato"), Vector2.Zero, Ingredient.Tomato);
                 item.Clicked += (_, _) =>
                 {
-                    tomato = new MovableSprite(
+                    tomato = new IngredientItem(
                         LoadTexture("items/tomato"),
                         new Vector2(
                             InputManager.MouseState.X,
-                            InputManager.MouseState.Y));
+                            InputManager.MouseState.Y),
+                        tomato.Ingredient);
                     tomato.Released += (_, _) =>
                     {
                         var tomatPos = new Point((int)tomato.Position.X, (int)tomato.Position.Y);
                         if (_currentShawarma.IsInBounds(tomatPos))
                         {
                             tomato.canClick = false;
+                            _currentShawarma.IngredientList.Add(tomato);
                             return;
                         }
                         RemoveGameObject(tomato);
                     };
                     AddGameObject(tomato);
                 };
+            }
+        }
+
+        private void RemoveCurrentShawarma(object sender, EventArgs e)
+        {
+            _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
+        }
+
+        private void ClearShawarmaIngredients(object sender, EventArgs e)
+        {
+            foreach (var ingredientItem in _currentShawarma.IngredientList)
+            {
+                RemoveGameObject(ingredientItem);
             }
         }
 

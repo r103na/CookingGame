@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using CookingGame.Enum;
 using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
@@ -10,7 +9,7 @@ namespace CookingGame.Objects;
 
 public class Shawarma : ClickableSprite
 {
-    private List<Ingredient> ingredientList = new List<Ingredient>();
+    public List<IngredientItem> IngredientList = new List<IngredientItem>();
     public int BurntMeter = 0;
 
     public Shawarma(Texture2D texture)

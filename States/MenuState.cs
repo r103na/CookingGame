@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using CookingGame.Enum;
-using CookingGame.Managers;
+﻿using CookingGame.Enum;
 using CookingGame.Objects;
-using Microsoft.Xna.Framework.Graphics;
+
 using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.States
 {
     public class MenuState : BaseState
     {
-        private SpriteFont _spriteFont;
-
-        private string[] menuItems =
-        {
-            "Start", "Exit"
-        };
-
         public override void LoadContent()
         {
             AddGameObject(new SplashImage(LoadTexture("backgrounds/Menu")));

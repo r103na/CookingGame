@@ -1,4 +1,7 @@
 {
-  "Dialogue": "Я просто хочу лаваш.",
-  "OrderName": "Лаваш"
+  "Dialogue": "Я хочу лаваш с помидором.",
+  "OrderName": "Лаваш с помидором",
+  "Ingredients": [
+    "Tomato"
+  ]
 }

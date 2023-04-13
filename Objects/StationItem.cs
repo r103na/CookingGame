@@ -8,13 +8,12 @@ namespace CookingGame.Objects;
 
 public class StationItem : ClickableSprite
 {
-    private Ingredient ingredient;
+    private Ingredient _ingredient;
 
     public StationItem(Ingredient ingredient, Texture2D texture, Vector2 position)
     {
-        this.ingredient = ingredient;
+        _ingredient = ingredient;
         Position = position;
-        var str = nameof(ingredient);
         _texture = texture;
     }
 }
