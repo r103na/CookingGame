@@ -43,8 +43,11 @@ namespace CookingGame.Managers
         #endregion
 
         #region HANDLE INPUT
-        public void HandleInput()
+        public void HandleInput(Matrix transform, List<ClickableSprite> gameObjects)
         {
+            UpdateMouseScale(transform);
+            UpdateStates();
+            UpdateGameObjects(gameObjects);
             HandleLeftClick();
             HandleHover();
             HandleHold();
@@ -68,6 +71,7 @@ namespace CookingGame.Managers
         }
         public void HandleHover()
         {
+            //var mouse = new Point(MouseState.X, MouseState.Y);
             _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
         }
 

@@ -17,9 +17,6 @@ namespace CookingGame
         private const int ResolutionWidth = 1280;
         private const int ResolutionHeight = 720;
 
-        private const float ResolutionAspectRatio =
-            ResolutionWidth / (float)ResolutionHeight;
-
         private RenderTarget2D _nativeRenderTarget;
         private Rectangle _nativeWindowRectangle;
         private Rectangle _windowBoxingRect;
@@ -39,6 +36,7 @@ namespace CookingGame
         {
             Window.AllowUserResizing = true;
             Window.ClientSizeChanged += UpdateWindowBoxingRect;
+            Window.Title = "Моя шаурма";
 
             _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); 
             _nativeAspect = _nativeWindowRectangle.Width / (float)_nativeWindowRectangle.Height;

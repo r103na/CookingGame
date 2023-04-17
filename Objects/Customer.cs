@@ -14,7 +14,7 @@ namespace CookingGame.Objects
 
         public string Name;
 
-        public float Patience = 175;
+        public float Patience = 200f;
 
         public event EventHandler OnCustomerPatienceRunOut;
 

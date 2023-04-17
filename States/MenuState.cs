@@ -1,7 +1,9 @@
-﻿using CookingGame.Enum;
-using CookingGame.Objects;
+﻿using System;
+using System.Linq;
 
-using Microsoft.Xna.Framework.Input;
+using CookingGame.Managers;
+using CookingGame.Objects;
+using CookingGame.Objects.Base;
 
 namespace CookingGame.States
 {
@@ -9,7 +11,10 @@ namespace CookingGame.States
     {
         public override void LoadContent()
         {
-            AddGameObject(new SplashImage(LoadTexture("backgrounds/Menu")));
+            InputManager = new InputManager();
+            var image = new BackstoryImage(LoadTexture("backgrounds/Menu"));
+            image.Clicked += SwitchToGameplay;
+            AddGameObject(image);
         }
 
         public override void Update()
@@ -19,23 +24,12 @@ namespace CookingGame.States
 
         public override void HandleInput()
         {
-            var keyboardState = Keyboard.GetState();
-            var mouseState = Mouse.GetState();
+            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
+        }
 
-            if (keyboardState.IsKeyDown(Keys.Q))
-            {
-                NotifyEvent(Events.GAME_QUIT);
-            }
-
-            if (keyboardState.IsKeyDown(Keys.G))
-            {
-                SwitchState(new GameplayState());
-            }
-
-            if (keyboardState.IsKeyDown(Keys.B))
-            {
-                SwitchState(new BackstoryState());
-            }
+        private void SwitchToGameplay(object sender, EventArgs e)
+        {
+            SwitchState(new GameplayState());
         }
     }
 }

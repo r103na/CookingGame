@@ -1,3 +1,2 @@
-﻿
-using var game = new CookingGame.CookingGame();
+﻿using var game = new CookingGame.CookingGame();
 game.Run();

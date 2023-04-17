@@ -83,10 +83,7 @@ namespace CookingGame.States
         #region  INPUT
         public override void HandleInput()
         {
-            InputManager.UpdateMouseScale(TransformMatrix);
-            InputManager.UpdateGameObjects(GameObjects.OfType<ClickableSprite>().ToList());
-            InputManager.UpdateStates();
-            InputManager.HandleInput();
+            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
         }
         #endregion
 
