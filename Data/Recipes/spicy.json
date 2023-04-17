@@ -1,16 +1,20 @@
 {
   "Dialogue": "Острую, пожалуйста",
-  "OrderName": "Лаваш",
+  "OrderName": "Острая",
   "Ingredients": [
     "Sauce",
+    "Onion",
     "Chicken",
     "Carrot",
-    "Tomato"
+    "Tomato",
+    "Pepper"
   ],
   "Translation": [
     "Соус",
+    "Лук",
     "Курица",
     "Морковь",
-    "Помидоры"
+    "Помидоры",
+    "Перец"
   ]
 }

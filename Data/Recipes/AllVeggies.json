@@ -1,0 +1,17 @@
+{
+  "Dialogue": "Можно шаурму только с овощами?",
+  "OrderName": "Все овощи",
+  "Ingredients": [
+    "Sauce",
+    "Pepper",
+    "Cucumber",
+    "Tomato",
+    "Carrot",
+    "Onion",
+    "Cabbage",
+    "Potato"
+  ],
+  "Translation": [
+    "Овощи"
+  ]
+}

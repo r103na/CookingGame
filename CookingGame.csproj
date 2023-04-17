@@ -15,11 +15,13 @@
     <None Remove="Icon.bmp" />
     <None Remove="Objects\Dialogue" />
     <None Remove="Dialogue\**" />
+    <None Remove="MVC\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icon.ico" />
     <EmbeddedResource Include="Icon.bmp" />
     <EmbeddedResource Remove="Dialogue\**" />
+    <EmbeddedResource Remove="MVC\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
@@ -27,11 +29,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Items\" />
-    <Folder Include="MVC\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Objects\Ingredient.cs" />
     <Compile Remove="Dialogue\**" />
+    <Compile Remove="MVC\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

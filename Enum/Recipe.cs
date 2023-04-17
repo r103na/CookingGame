@@ -9,5 +9,9 @@ namespace CookingGame.Enum
         Vegetarian,
         Cheesy,
         Spicy,
+        Kebab,
+        Hachapuri,
+        NoVeggies,
+        AllVeggies,
     }
 }

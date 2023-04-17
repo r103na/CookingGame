@@ -104,6 +104,18 @@
 /processorParam:TextureFormat=Color
 /build:GUI/dialogue_box.png
 
+#begin GUI/discardButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/discardButton.png
+
 #begin GUI/Divider.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -260,6 +272,18 @@
 /processorParam:TextureFormat=Color
 /build:Items/orderStation_order.png
 
+#begin Items/Pepper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/Pepper.png
+
 #begin Items/potato.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -379,6 +403,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items/stationitem_onion.png
+
+#begin Items/StationItem_pepper.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/StationItem_pepper.png
 
 #begin Items/stationitem_potato.png
 /importer:TextureImporter

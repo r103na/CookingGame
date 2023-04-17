@@ -12,6 +12,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Fonts/MyFont.spritefont</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/cookButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/dialogue_box.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/discardButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Divider.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
@@ -25,6 +26,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/onion.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_order.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Pepper.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/potato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Sauce.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/SauceItem.png</File>
@@ -35,12 +37,16 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_chicken.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cucumber.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_onion.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/StationItem_pepper.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_potato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_tomato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Table.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

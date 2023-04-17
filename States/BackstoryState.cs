@@ -2,23 +2,23 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using CookingGame.Objects;
 using CookingGame.Managers;
+using CookingGame.Objects.Base;
 
 namespace CookingGame.States
 {
     public class BackstoryState : BaseState
     {
-        private Queue<SplashImage> _backstoryImages = new();
-        private SplashImage currentImage;
+        private Queue<BackstoryImage> _backstoryImages = new();
+        private BackstoryImage currentImage;
         private bool IsBackstoryOver => _backstoryImages.Count == 0;
 
         public override void LoadContent()
         {
             InputManager = new InputManager();
+            var image = new BackstoryImage();
             //LoadImage();
         }
 

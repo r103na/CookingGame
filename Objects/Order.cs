@@ -60,7 +60,11 @@ namespace CookingGame.Objects
 
         public int CheckIngredients(List<Ingredient> ingredients)
         {
-            return ingredients.Count(ingredient => Ingredients.Contains(ingredient) && Ingredients.Count(c => c == ingredient) == 1) + 1;
+            int score = ingredients.Count(ingredient =>
+                Ingredients.Contains(ingredient) && Ingredients.Count(c => c == ingredient) == 1) + 1;
+            score -= ingredients.Count(ingredient => !Ingredients.Contains(ingredient));
+            score -= Ingredients.Count(ingredient => !ingredients.Contains(ingredient)) * 2;
+            return score;
         }
 
         public void LoadOrderFromJson()

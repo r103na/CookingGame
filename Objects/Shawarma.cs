@@ -16,7 +16,5 @@ public class Shawarma : ClickableSprite
     {
         _texture = texture;
         Position = new Vector2(920, 410);
-        BoundX = -20;
-        BoundY = -20;
     }
 }

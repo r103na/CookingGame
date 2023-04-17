@@ -250,7 +250,7 @@ namespace CookingGame.States
             var cheeseStation = new StationItem(Ingredient.Cheese, LoadTexture("items/stationitem_cheese"), new Vector2(755 + 104, 70));
             var potatoStation = new StationItem(Ingredient.Potato, LoadTexture("items/stationitem_potato"), new Vector2(755 + 208, 70));
             var station = new StationItem(Ingredient.Chicken, LoadTexture("items/stationitem_chicken"), new Vector2(755 + 312, 70));
-            var station2 = new StationItem(Ingredient.Cabbage, LoadTexture("items/cabbagestationitem"), new Vector2(755 + 416, 70));
+            var station2 = new StationItem(Ingredient.Pepper, LoadTexture("items/stationitem_pepper"), new Vector2(755 + 416, 70));
 
             var tomatoStation = new StationItem(Ingredient.Tomato, LoadTexture("items/stationitem_tomato"), new Vector2(755, 194));
             var onionStation = new StationItem(Ingredient.Onion, LoadTexture("items/stationitem_onion"), new Vector2(755 + 104, 194));
@@ -276,17 +276,21 @@ namespace CookingGame.States
         private void AddGUI()
         {
             var cookBtn = new Button(LoadTexture("gui/cookButton"),
-                new Vector2(1134, 660));
+                new Vector2(1200, 660));
             var menuBtn = new Button(LoadTexture("gui/menu_btn"),
                 new Vector2(20, 20));
+            var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
 
             cookBtn.Clicked += CookShawarma;
-            cookBtn.Clicked += ClearShawarmaIngredients;
+
             cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
 
+            discardButton.Clicked += RemoveCurrentShawarma;
+
             AddGameObject(cookBtn);
             AddGameObject(menuBtn);
+            AddGameObject(discardButton);
         }
 
         private void AddExtra()
@@ -329,10 +333,11 @@ namespace CookingGame.States
 
         private void RemoveCurrentShawarma(object sender, EventArgs e)
         {
+            ClearShawarmaIngredients();
             _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
         }
 
-        private void ClearShawarmaIngredients(object sender, EventArgs e)
+        private void ClearShawarmaIngredients()
         {
             foreach (var ingredientItem in _currentShawarma.IngredientList)
             {

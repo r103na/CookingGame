@@ -60,3 +60,6 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\potato.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Chicken.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\stationitem_chicken.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\StationItem_pepper.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Pepper.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\discardButton.xnb
