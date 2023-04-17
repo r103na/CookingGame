@@ -5,7 +5,7 @@ namespace CookingGame.Managers
     public class ScoreManager
     {
         public int Score;
-        public int MaxScore = 1000;
+        public int MaxScore = 300;
 
         public event EventHandler ScoreIncreased;
         public event EventHandler ScoreDecreased;

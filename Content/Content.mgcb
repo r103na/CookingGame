@@ -176,6 +176,18 @@
 /processorParam:TextureFormat=Color
 /build:Items/cheese.png
 
+#begin Items/Chicken.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/Chicken.png
+
 #begin Items/cookingtable.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -331,6 +343,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Items/stationitem_cheese.png
+
+#begin Items/stationitem_chicken.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Items/stationitem_chicken.png
 
 #begin Items/stationitem_cucumber.png
 /importer:TextureImporter

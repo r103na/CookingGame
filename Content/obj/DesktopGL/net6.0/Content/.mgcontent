@@ -18,6 +18,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/carrot.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cheese.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Chicken.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cookingtable.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cucumber.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread.png</File>
@@ -31,6 +32,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_carrot.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cheese.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_chicken.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cucumber.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_onion.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_potato.png</File>
@@ -39,6 +41,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

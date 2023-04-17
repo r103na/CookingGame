@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CookingGame.Objects;
+using CookingGame.Managers;
 
 namespace CookingGame.States
 {
@@ -14,8 +15,10 @@ namespace CookingGame.States
         private Queue<SplashImage> _backstoryImages = new();
         private SplashImage currentImage;
         private bool IsBackstoryOver => _backstoryImages.Count == 0;
+
         public override void LoadContent()
         {
+            InputManager = new InputManager();
             //LoadImage();
         }
 

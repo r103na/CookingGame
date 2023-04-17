@@ -7,5 +7,7 @@ namespace CookingGame.Enum
         Flatbread,
         Classic,
         Vegetarian,
+        Cheesy,
+        Spicy,
     }
 }
