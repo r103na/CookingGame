@@ -12,7 +12,7 @@ namespace CookingGame.Objects
         private readonly Vector2 _customerPosition = new Vector2(325, 185);
         public Order Order;
         
-        public float Patience = 100;
+        public float Patience = 175;
 
         public event EventHandler OnCustomerPatienceRunOut;
 
@@ -23,6 +23,11 @@ namespace CookingGame.Objects
             _texture = texture; // load texture from a character name
             Position = _customerPosition;
             Order = new Order();
+        }
+
+        public void DecreasePatience(float value)
+        {
+            Patience -= value;
         }
 
         public void OnPatienceRunOut()

@@ -14,12 +14,19 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/dialogue_box.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Divider.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/carrot.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cheese.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cookingtable.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cucumber.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/onion.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_order.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/potato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Sauce.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/SauceItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/station.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_carrot.png</File>
@@ -32,6 +39,13 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

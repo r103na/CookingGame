@@ -22,19 +22,20 @@ namespace CookingGame.Objects
         public int Price = 10;
         public string OrderText = "Flat bread, please";
         public List<Ingredient> Ingredients = new();
+        public List<string> TransladedIngredients;
 
         private readonly Vector2 _orderPosition = new(50, 120);
 
         public event EventHandler OrderCooked;
 
-        private const string Filepath = "C:\\Users\\user\\source\\repos\\CookingGame\\CookingGame\\Data\\recipes\\classic.json";
+        private const string Filepath = "C:\\Users\\user\\source\\repos\\CookingGame\\CookingGame\\Data\\recipes\\";
         #endregion
 
         public Order()
         {
             Position = _orderPosition;
             State = new NotTakenState(this);
-            LoadOrderFromJson(Filepath);
+            LoadOrderFromJson();
         }
 
         public void Take()
@@ -59,16 +60,26 @@ namespace CookingGame.Objects
 
         public int CheckIngredients(List<Ingredient> ingredients)
         {
-            return ingredients.Count(ingredient => Ingredients.Contains(ingredient));
+            return ingredients.Count(ingredient => Ingredients.Contains(ingredient) && Ingredients.Count(c => c == ingredient) == 1) + 1;
         }
 
-        public void LoadOrderFromJson(string filePath)
+        public void LoadOrderFromJson()
         {
+            var filePath = Filepath + GetRandomOrder() + ".json";
             var jsonString = File.ReadAllText(filePath);
             var orderData = JsonSerializer.Deserialize<OrderData>(jsonString);
             OrderName = orderData?.OrderName;
             OrderText = orderData?.Dialogue;
             Ingredients = orderData?.Ingredients.Select(s => (Ingredient)System.Enum.Parse(typeof(Ingredient), s)).ToList();
+            TransladedIngredients = orderData?.Translation.ToList();
+        }
+
+        public static string GetRandomOrder()
+        {
+            var values = System.Enum.GetValues(typeof(Recipe));
+            var random = new Random();
+            var randomEnumValue = (Recipe)values.GetValue(random.Next(values.Length))!;
+            return randomEnumValue.ToString();
         }
     }
 
@@ -78,6 +89,7 @@ namespace CookingGame.Objects
         public string Dialogue { get; set; }
         public int Price { get; set; }
         public string[] Ingredients { get; set; }
+        public string[] Translation { get; set; }
     }
 }
 

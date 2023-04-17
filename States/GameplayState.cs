@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 using CookingGame.Enum;
@@ -97,7 +96,7 @@ namespace CookingGame.States
             var shawarmaIngredientList = _currentShawarma.IngredientList
                 .Select(x => x.Ingredient)
                 .ToList();
-            int score = _currentCustomer.Order.CheckIngredients(shawarmaIngredientList) * 10; //(int)_currentCustomer.Patience
+            var score = _currentCustomer.Order.CheckIngredients(shawarmaIngredientList) * 10;
             _scoreManager.IncreaseScore(score);
             if (_scoreManager.Score >= _scoreManager.MaxScore)
             {
@@ -125,6 +124,23 @@ namespace CookingGame.States
 
         private void RemoveCurrentCustomer(object sender, EventArgs e)
         {
+            _currentCustomer.Order.OrderCooked -= IncreaseScore;
+            _currentCustomer.Order.OrderCooked -= RemoveCurrentCustomer;
+            _currentCustomer.Order.OrderCooked -= ChangeWaitTime;
+            _currentCustomer.Order.OrderCooked -= ClearOrderNameText;
+
+            _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
+            _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
+            _currentCustomer.OnCustomerPatienceRunOut -= RemoveDialogueBox;
+            _currentCustomer.OnCustomerPatienceRunOut -= ChangeWaitTime;
+            _currentCustomer.OnCustomerPatienceRunOut -= ClearOrderNameText;
+
+            _currentCustomer.Clicked -= AddOrder;
+            _currentCustomer.Clicked -= TakeOrder;
+            _currentCustomer.Clicked -= ClearOrderText;
+            _currentCustomer.Clicked -= RemoveDialogueBox;
+            _currentCustomer.Clicked -= AddOrderIngredientText;
+
             RemoveGameObject(_currentCustomer);
             RemoveGameObject(_currentOrder);
             RemoveGameObject(_dialogueBox);
@@ -145,6 +161,7 @@ namespace CookingGame.States
             _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
             AddGameObject(_currentShawarma);
         }
+        
         private void AddCustomer()
         {
             _currentCustomer = new Customer(LoadTexture("Characters/Tonya"));
@@ -164,6 +181,7 @@ namespace CookingGame.States
             _currentCustomer.Clicked += TakeOrder;
             _currentCustomer.Clicked += ClearOrderText;
             _currentCustomer.Clicked += RemoveDialogueBox;
+            _currentCustomer.Clicked += AddOrderIngredientText;
 
             ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
             AddGameObject(_currentCustomer);
@@ -196,9 +214,32 @@ namespace CookingGame.States
             var sauce = new MovableSprite(LoadTexture("items/sauce"), new Vector2(755, 400));
 
             AddGameObject(cookingTable);
-            AddGameObject(sauce);
 
+            var sauceItem = new IngredientItem(LoadTexture("items/sauceitem"), Vector2.Zero, Ingredient.Sauce);
+            sauce.Clicked += (_, _) =>
+            {
+                sauceItem = new IngredientItem(
+                    LoadTexture("items/sauceitem"),
+                    new Vector2(
+                        InputManager.MouseState.X,
+                        InputManager.MouseState.Y),
+                    sauceItem.Ingredient);
+                sauce.Released += (_, _) =>
+                {
+                    var tomatPos = new Point((int)sauceItem.Position.X, (int)sauceItem.Position.Y);
+                    if (_currentShawarma.IsInBounds(tomatPos))
+                    {
+                        sauceItem.canClick = false;
+                        AddGameObject(sauceItem);
+                        _currentShawarma.IngredientList.Add(sauceItem);
+                        return;
+                    }
+
+                    RemoveGameObject(sauceItem);
+                };
+            };
             AddStationItems();
+            AddGameObject(sauce);
         }
 
         private void AddStationItems()
@@ -261,11 +302,11 @@ namespace CookingGame.States
             var stationItems = GameObjects.OfType<StationItem>().ToList();
             foreach (var item in stationItems)
             {
-                var tomato = new IngredientItem(LoadTexture("items/tomato"), Vector2.Zero, Ingredient.Tomato);
+                var tomato = new IngredientItem(LoadTexture("items/tomato"), Vector2.Zero, item.Ingredient);
                 item.Clicked += (_, _) =>
                 {
                     tomato = new IngredientItem(
-                        LoadTexture("items/tomato"),
+                        LoadTexture("items/" + tomato.Ingredient),
                         new Vector2(
                             InputManager.MouseState.X,
                             InputManager.MouseState.Y),
@@ -309,6 +350,39 @@ namespace CookingGame.States
             RemoveGameObject(_dialogueBox);
         }
 
+        private void AddOrderIngredientText(object sender, EventArgs e)
+        {
+            List<Text> ingredientsText = new();
+
+            var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
+
+            for (var index = 0; index < _currentCustomer.Order.TransladedIngredients.Count; index++)
+            {
+                var ingredient = _currentCustomer.Order.TransladedIngredients[index];
+                var text = new Text(font, ingredient, new Vector2(65, 175 + index * 28));
+                ingredientsText.Add(text);
+                AddText(text);
+            }
+
+            _currentCustomer.Order.OrderCooked += (_, _) =>
+            {
+                foreach (var ingredient in ingredientsText)
+                {
+                    RemoveText(ingredient);
+                }
+                ingredientsText.Clear();
+            };
+
+            _currentCustomer.OnCustomerPatienceRunOut += (_, _) =>
+            {
+                foreach (var ingredient in ingredientsText)
+                {
+                    RemoveText(ingredient);
+                }
+                ingredientsText.Clear();
+            };
+        }
+
         private void ClearOrderText(object sender, EventArgs e)
         {
             ChangeText(ref _orderText, "");
@@ -338,7 +412,7 @@ namespace CookingGame.States
         private void DecreasePatience()
         {
             if (_currentCustomer == null) return;
-            _currentCustomer.Patience -= PatienceDecreaseRate;
+            _currentCustomer.DecreasePatience(PatienceDecreaseRate);
 
             if (_currentCustomer.Patience <= 30f)
             {
