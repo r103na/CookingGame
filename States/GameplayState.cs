@@ -41,8 +41,7 @@ namespace CookingGame.States
             _scoreManager = new ScoreManager();
             _scoreManager.ScoreIncreased += ChangeScoreText;
             _scoreManager.ScoreDecreased += ChangeScoreText;
-            InputManager = new InputManager(GameObjects.OfType<ClickableSprite>().ToList());
-            Trace.Listeners.Add(new ConsoleTraceListener());
+            InputManager = new InputManager();
 
             var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
             _scoreText = new Text(font, $"{_scoreManager.Score}", new Vector2(10, 690));
@@ -126,13 +125,6 @@ namespace CookingGame.States
 
         private void RemoveCurrentCustomer(object sender, EventArgs e)
         {
-            _currentCustomer.Order.OrderCooked -= IncreaseScore;
-            _currentCustomer.Order.OrderCooked -= RemoveCurrentCustomer;
-            _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
-            _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
-            _currentCustomer.Clicked -= AddOrder;
-            _currentCustomer.Clicked -= ClearOrderText;
-
             RemoveGameObject(_currentCustomer);
             RemoveGameObject(_currentOrder);
             RemoveGameObject(_dialogueBox);

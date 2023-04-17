@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
+
 using CookingGame.Objects.Base;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.Managers
@@ -16,11 +18,6 @@ namespace CookingGame.Managers
 
         public Point ScaledMousePosition;
         #endregion
-
-        public InputManager(List<ClickableSprite> gameObjects)
-        {
-            _clickableSprites = gameObjects;
-        }
 
         #region UPDATE
         public void UpdateGameObjects(List<ClickableSprite> gameObjects)
