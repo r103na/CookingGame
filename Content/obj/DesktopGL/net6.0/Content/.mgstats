@@ -1,1 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Sonya.png","C:/Users/user/source/repos/CookingGame/CookingGame/Content/bin/DesktopGL/Content/Characters/Sonya.xnb","TextureProcessor","Texture2DContent",42858,410257,0,1395098
+"C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/SonyaMad.png","C:/Users/user/source/repos/CookingGame/CookingGame/Content/bin/DesktopGL/Content/Characters/SonyaMad.xnb","TextureProcessor","Texture2DContent",43115,410257,0,0173489

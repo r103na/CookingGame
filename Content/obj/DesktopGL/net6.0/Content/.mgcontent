@@ -7,6 +7,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/GameplayState.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/Menu.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/win.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Sonya.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/SonyaMad.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonya.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonyamad.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Fonts/MyFont.spritefont</File>
@@ -44,6 +46,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

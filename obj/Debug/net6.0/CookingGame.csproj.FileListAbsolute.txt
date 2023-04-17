@@ -63,3 +63,5 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\StationItem_pepper.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Pepper.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\discardButton.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\Sonya.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\SonyaMad.xnb

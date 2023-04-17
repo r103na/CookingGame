@@ -164,7 +164,8 @@ namespace CookingGame.States
         
         private void AddCustomer()
         {
-            _currentCustomer = new Customer(LoadTexture("Characters/Tonya"));
+            string name = GetCharacterName();
+            _currentCustomer = new Customer(LoadTexture("Characters/" + name), name);
             _customerList.Enqueue(_currentCustomer);
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
@@ -421,7 +422,7 @@ namespace CookingGame.States
 
             if (_currentCustomer.Patience <= 30f)
             {
-                _currentCustomer.ChangeTexture(LoadTexture("Characters/Tonyamad"));
+                _currentCustomer.ChangeTexture(LoadTexture("Characters/"+_currentCustomer.Name + "mad"));
             }
 
             if (_currentCustomer.Patience <= 0)
@@ -444,6 +445,14 @@ namespace CookingGame.States
         private void SwitchToMenu(object sender, EventArgs e)
         {
             SwitchState(new MenuState());
+        }
+
+        private string GetCharacterName()
+        {
+            string[] names = new[] { "Tonya", "Sonya" };
+            var random = new Random();
+            var randomNumber = random.Next(0, 2);
+            return names[randomNumber];
         }
     }
 }

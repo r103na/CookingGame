@@ -3,8 +3,10 @@
   "OrderName": "Сырная",
   "Ingredients": [
     "Sauce",
+    "Cabbage",
     "Chicken",
-    "Cheese"
+    "Cheese",
+    "Tomato"
   ],
   "Translation": [
     "Соус",
