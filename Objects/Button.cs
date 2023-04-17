@@ -11,5 +11,14 @@ public class Button : ClickableSprite
     {
         _texture = texture;
         Position = position;
+
+        Hovered += (_, _) =>
+        {
+            _color = Color.Brown;
+        };
+        Released += (_, _) =>
+        {
+            _color = Color.White;
+        };
     }
 }

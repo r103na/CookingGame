@@ -14,6 +14,7 @@ namespace CookingGame.Objects.Base
         public int zIndex;
 
         private const string FallbackTexture = "Empty";
+        protected Color _color = Color.White;
         private ContentManager _contentManager;
 
         public void Initialize(ContentManager contentManager)
@@ -25,7 +26,7 @@ namespace CookingGame.Objects.Base
 
         public void Render(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color.White);
+            spriteBatch.Draw(_texture, Position, _color);
         }
 
 
