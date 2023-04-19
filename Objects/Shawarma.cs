@@ -15,6 +15,6 @@ public class Shawarma : ClickableSprite
     public Shawarma(Texture2D texture)
     {
         Texture = texture;
-        Position = new Vector2(920, 410);
+        Position = new Vector2(920, 430);
     }
 }
