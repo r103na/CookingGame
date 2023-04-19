@@ -24,8 +24,8 @@ namespace CookingGame.Objects.Base
         }
         public override void HandleHold(Point clickPosition)
         {
-            //if (!IsInBounds(clickPosition) || !CanClick) return;
-            if (idk)
+            if (!CanClick) return;
+            if (idk || IsInBounds(clickPosition))
             {
                 Position.X = clickPosition.X - Center.X;
                 Position.Y = clickPosition.Y - Center.Y;
