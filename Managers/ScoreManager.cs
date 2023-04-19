@@ -6,7 +6,7 @@ namespace CookingGame.Managers
     {
         #region VARIABLES
         public int Score;
-        public int MaxScore = 200;
+        public int MaxScore = 2000;
 
         public event EventHandler ScoreIncreased;
         public event EventHandler ScoreDecreased;
@@ -26,7 +26,7 @@ namespace CookingGame.Managers
         }
         #endregion
 
-        #region EVENT EVOKERS
+        #region EVENT INVOCATORS
         protected virtual void OnScoreIncreased()
         {
             ScoreIncreased?.Invoke(this, EventArgs.Empty);

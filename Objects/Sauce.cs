@@ -17,7 +17,8 @@ namespace CookingGame.Objects
             Layer = 3;
             acceptableBounds = new Rectangle(735, 300, 700, 1400);
             BoundY = 0;
-            BoundX = 30;
+            BoundX = (int)Center.X * 2;
+            idk = false;
             Clicked += Rotate;
             Released += ResetRotation;
         }
