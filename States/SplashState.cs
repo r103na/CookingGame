@@ -16,15 +16,5 @@ namespace CookingGame.States
             
         }
 
-
-        public override void HandleInput()
-        {
-            var state = Keyboard.GetState();
-
-            if (state.IsKeyDown(Keys.Enter))
-            {
-                SwitchState(new MenuState());
-            }
-        }
     }
 }

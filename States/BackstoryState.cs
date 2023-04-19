@@ -45,15 +45,5 @@ namespace CookingGame.States
                 SwitchState(new GameplayState());
             }
         }
-
-        public override void HandleInput()
-        {
-            var keyboardState = Keyboard.GetState();
-
-            if (keyboardState.IsKeyDown(Keys.F))
-            {
-                SwitchImage();
-            }
-        }
     }
 }

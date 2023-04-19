@@ -22,11 +22,6 @@ namespace CookingGame.States
             
         }
 
-        public override void HandleInput()
-        {
-            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
-        }
-
         private void SwitchToGameplay(object sender, EventArgs e)
         {
             SwitchState(new GameplayState());

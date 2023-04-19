@@ -16,11 +16,9 @@ namespace CookingGame.Objects.Base
         }
         public override void HandleHold(Point clickPosition)
         {
-            if (IsInBounds(clickPosition) && canClick)
-            {
-                Position.X = clickPosition.X;
-                Position.Y = clickPosition.Y;
-            }
+            if (!IsInBounds(clickPosition) || !canClick) return;
+            Position.X = clickPosition.X;
+            Position.Y = clickPosition.Y;
         }
     }
 }

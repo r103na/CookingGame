@@ -4,12 +4,15 @@ namespace CookingGame.Managers
 {
     public class ScoreManager
     {
+        #region VARIABLES
         public int Score;
         public int MaxScore = 200;
 
         public event EventHandler ScoreIncreased;
         public event EventHandler ScoreDecreased;
+        #endregion
 
+        #region METHODS
         public void IncreaseScore(int score)
         {
             Score += score;
@@ -21,7 +24,9 @@ namespace CookingGame.Managers
             Score -= score;
             OnScoreDecreased();
         }
+        #endregion
 
+        #region EVENT EVOKERS
         protected virtual void OnScoreIncreased()
         {
             ScoreIncreased?.Invoke(this, EventArgs.Empty);
@@ -31,5 +36,7 @@ namespace CookingGame.Managers
         {
             ScoreDecreased?.Invoke(this, EventArgs.Empty);
         }
+        #endregion
+
     }
 }

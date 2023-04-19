@@ -1,6 +1,7 @@
 ﻿using System;
 
 using CookingGame.Objects.Base;
+using CookingGame.States;
 
 using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -9,38 +10,37 @@ namespace CookingGame.Objects
 {
     public class Customer : ClickableSprite
     {
-        private readonly Vector2 _customerPosition = new Vector2(325, 185);
+        #region VARIABLES
+        private readonly Vector2 _customerPosition = new(325, 185);
         public Order Order;
 
-        public string Name;
+        public string Name { get; set; }
 
         public float Patience = 200f;
+        private const float PatienceDecreaseRate = 0.5f;
+        private const float PatienceDecreaseRateOrderCooking = 0.2f;
 
         public event EventHandler OnCustomerPatienceRunOut;
+        #endregion
 
-        // use clicked event next time btw
-        
+        #region CONSTRUCTOR
         public Customer(Texture2D texture, string name)
         {
-            _texture = texture; // load texture from a character name
+            _texture = texture;
             Position = _customerPosition;
             Order = new Order();
             Name = name;
         }
+        #endregion
 
-        public void DecreasePatience(float value)
+        public void DecreasePatience()
         {
-            Patience -= value;
+            Patience -= Order.State is NotTakenState ? PatienceDecreaseRate : PatienceDecreaseRateOrderCooking;
         }
 
         public void OnPatienceRunOut()
         {
             OnCustomerPatienceRunOut?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void ChangeTexture(Texture2D texture)
-        {
-            _texture = texture;
         }
     }
 }

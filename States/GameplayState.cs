@@ -80,13 +80,6 @@ namespace CookingGame.States
             DecreasePatience();
         }
 
-        #region  INPUT
-        public override void HandleInput()
-        {
-            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
-        }
-        #endregion
-
         #region SCORE
         private void IncreaseScore(object sender, EventArgs e)
         {
@@ -209,7 +202,7 @@ namespace CookingGame.States
         private void AddCookingStation()
         {
             var cookingTable = new SplashImage(LoadTexture("items/cookingtable"), new Vector2(724, 360));
-            var sauce = new MovableSprite(LoadTexture("items/sauce"), new Vector2(755, 400));
+            var sauce = new Sauce(LoadTexture("items/sauce"), new Vector2(755, 400));
 
             AddGameObject(cookingTable);
 
@@ -415,7 +408,7 @@ namespace CookingGame.States
         private void DecreasePatience()
         {
             if (_currentCustomer == null) return;
-            _currentCustomer.DecreasePatience(PatienceDecreaseRate);
+            _currentCustomer.DecreasePatience();
 
             if (_currentCustomer.Patience <= 30f)
             {
@@ -444,9 +437,9 @@ namespace CookingGame.States
             SwitchState(new MenuState());
         }
 
-        private string GetCharacterName()
+        private static string GetCharacterName()
         {
-            string[] names = new[] { "Tonya", "Sonya" };
+            var names = new[] { "Tonya", "Sonya" };
             var random = new Random();
             var randomNumber = random.Next(0, 2);
             return names[randomNumber];

@@ -104,7 +104,6 @@ namespace CookingGame.Managers
             return LeftMouseButton() && LeftMouseButtonWas();
         }
         #endregion
-
     }
 
 }

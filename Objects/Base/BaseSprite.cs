@@ -29,12 +29,16 @@ namespace CookingGame.Objects.Base
             spriteBatch.Draw(_texture, Position, _color);
         }
 
-
         protected Texture2D LoadTexture(string textureName)
         {
             var texture = _contentManager.Load<Texture2D>(textureName);
             return texture ?? _contentManager.Load<Texture2D>
                 (FallbackTexture);
+        }
+
+        public void ChangeTexture(Texture2D texture)
+        {
+            _texture = texture;
         }
 
     }

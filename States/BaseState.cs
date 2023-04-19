@@ -36,7 +36,10 @@ namespace CookingGame.States
             ContentManager.Unload();
         }
 
-        public abstract void HandleInput();
+        public void HandleInput()
+        {
+            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
+        }
 
         public event EventHandler<BaseState> OnStateSwitched;
 
