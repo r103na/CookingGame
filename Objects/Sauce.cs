@@ -1,22 +1,40 @@
-﻿using CookingGame.Objects.Base;
+﻿using System;
+using CookingGame.Enum;
+using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CookingGame.Objects
 {
-    public class Sauce : MovableSprite
+    public class Sauce : IngredientItem
     {
-        public Sauce(Texture2D texture, Vector2 position) : base(texture, position)
+        private readonly Vector2 _sauceOriginalPos = new(755, 400);
+        public Sauce(Texture2D texture, Vector2 position, Ingredient ingredient = Ingredient.Sauce) : base(texture, position, ingredient)
         {
-            _texture = texture;
+            Texture = texture;
             Position = position;
-            zIndex = 1;
+            Layer = 3;
+            acceptableBounds = new Rectangle(735, 300, 700, 1400);
+            BoundY = 0;
+            BoundX = 30;
+            Clicked += Rotate;
+            Released += ResetRotation;
         }
 
-        public void Rotate()
+        public void Rotate(object sender, EventArgs e)
         {
+            Rotation = 1.5f * 2;
+        }
 
+        public void ResetRotation(object sender, EventArgs e)
+        {
+            Rotation = 0f;
+        }
+
+        public void ResetPosition()
+        {
+            Position = _sauceOriginalPos;
         }
     }
 }

@@ -1,18 +1,21 @@
 ﻿using System;
+
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace CookingGame.Objects.Base
 {
     public abstract class ClickableSprite : BaseSprite
     {
-        public bool canClick = true;
+        #region VARIABLES
+        public bool CanClick = true;
 
         public event EventHandler Clicked;
         public event EventHandler Held;
         public event EventHandler Released;
         public event EventHandler Hovered;
+        #endregion
 
+        #region BOUNDS
         protected int BoundX = 0;
         protected int BoundY = 0;
 
@@ -20,14 +23,15 @@ namespace CookingGame.Objects.Base
             new(
                 (int)Position.X - BoundX,
                 (int)Position.Y - BoundY,
-                _texture.Width + BoundX,
-                _texture.Height + BoundY);
-
+                Texture.Width + BoundX,
+                Texture.Height + BoundY);
         public bool IsInBounds(Point mousePosition) => Bounds.Contains(mousePosition);
+        #endregion
 
+        #region INPUT HANDLERS
         public virtual void HandleClick(Point clickPosition)
         {
-            if (IsInBounds(clickPosition) && canClick)
+            if (IsInBounds(clickPosition) && CanClick)
             {
                 OnClick();
             }
@@ -43,7 +47,7 @@ namespace CookingGame.Objects.Base
 
         public virtual void HandleHold(Point clickPosition)
         {
-            if (IsInBounds(clickPosition) && canClick)
+            if (IsInBounds(clickPosition) && CanClick)
             {
                 OnHeld();
             }
@@ -51,11 +55,12 @@ namespace CookingGame.Objects.Base
 
         public virtual void HandleRelease(Point clickPosition)
         {
-            if (IsInBounds(clickPosition) && canClick)
+            if (IsInBounds(clickPosition))
             {
                 OnReleased();
             }
         }
+        #endregion
 
         #region EVENT INVOCATORS
         protected virtual void OnClick()
@@ -79,5 +84,6 @@ namespace CookingGame.Objects.Base
         }
 
         #endregion
+
     }
 }

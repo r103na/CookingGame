@@ -14,8 +14,8 @@ namespace CookingGame.States
 {
     public abstract class BaseState
     {
-        private protected readonly List<BaseSprite> GameObjects = new List<BaseSprite>();
-        private protected readonly List<Text> Texts = new List<Text>();
+        private protected readonly List<BaseSprite> GameObjects = new();
+        private protected readonly List<Text> Texts = new();
 
         private const string FallbackTexture = "Empty";
         protected ContentManager ContentManager;
@@ -45,14 +45,6 @@ namespace CookingGame.States
 
         public event EventHandler<Events> OnEventNotification;
 
-        protected void NotifyEvent(Events eventType, object argument = null)
-        {
-            OnEventNotification?.Invoke(this, eventType);
-
-            foreach (var gameObject in GameObjects) 
-                gameObject.OnNotify(eventType);
-        }
-
         protected void SwitchState(BaseState gameState)
         {
             OnStateSwitched?.Invoke(this, gameState);
@@ -70,7 +62,7 @@ namespace CookingGame.States
 
         public void Render(SpriteBatch spriteBatch)
         {
-            foreach (var gameObject in GameObjects.OrderBy(a => a.zIndex))
+            foreach (var gameObject in GameObjects.OrderBy(a => a.Layer))
             {
                 gameObject.Render(spriteBatch);
             }

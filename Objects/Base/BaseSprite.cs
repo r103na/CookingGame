@@ -7,38 +7,30 @@ namespace CookingGame.Objects.Base
 {
     public class BaseSprite
     {
-        protected Texture2D _texture;
+        protected Texture2D Texture;
 
         public Vector2 Position;
+        protected float Rotation = 0f;
+        protected SpriteEffects Effects;
+        protected Vector2 Center => new(Texture.Width / 2f, Texture.Height / 2f);
+        protected Vector2 Uhm => Position + Center;
 
-        public int zIndex;
+        public int Layer;
 
         private const string FallbackTexture = "Empty";
-        protected Color _color = Color.White;
-        private ContentManager _contentManager;
-
-        public void Initialize(ContentManager contentManager)
-        {
-            _contentManager = contentManager;
-        }
+        protected Color Color = Color.White;
 
         public virtual void OnNotify(Events eventType) { }
 
+
         public void Render(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, _color);
-        }
-
-        protected Texture2D LoadTexture(string textureName)
-        {
-            var texture = _contentManager.Load<Texture2D>(textureName);
-            return texture ?? _contentManager.Load<Texture2D>
-                (FallbackTexture);
+            spriteBatch.Draw(Texture, Uhm, null, Color, Rotation, Center, 1, Effects, 0);
         }
 
         public void ChangeTexture(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
 
     }

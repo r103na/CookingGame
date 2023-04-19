@@ -14,6 +14,6 @@ public class StationItem : ClickableSprite
     {
         Ingredient = ingredient;
         Position = position;
-        _texture = texture;
+        Texture = texture;
     }
 }

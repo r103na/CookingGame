@@ -8,7 +8,7 @@ namespace CookingGame.Objects
     {
         public BackstoryImage(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
     }
 }

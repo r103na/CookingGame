@@ -7,18 +7,20 @@ namespace CookingGame.Objects.Base
 {
     public class MovableSprite : ClickableSprite
     {
+        protected Rectangle acceptableBounds;
         public MovableSprite(Texture2D texture, Vector2 position)
         {
             Position = position;
-            _texture = texture;
-            BoundX = 50;
-            BoundY = 50;
+            Texture = texture;
+            BoundX = (int)Center.X * 2;
+            BoundY = (int)Center.Y * 2;
+            
         }
         public override void HandleHold(Point clickPosition)
         {
-            if (!IsInBounds(clickPosition) || !canClick) return;
-            Position.X = clickPosition.X;
-            Position.Y = clickPosition.Y;
+            if (!IsInBounds(clickPosition) || !CanClick) return;
+            Position.X = clickPosition.X - Center.X;
+            Position.Y = clickPosition.Y - Center.Y;
         }
     }
 }

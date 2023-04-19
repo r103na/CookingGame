@@ -5,7 +5,6 @@ using System.Linq;
 using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
-using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -75,6 +74,11 @@ namespace CookingGame.States
                     AddCustomer();
                     _waitTime = 0;
                 }
+            }
+
+            foreach (var item in GameObjects.OfType<IngredientItem>())
+            {
+                item.CheckIfInBounds(new Vector2(720, 10000));
             }
 
             DecreasePatience();
@@ -211,23 +215,23 @@ namespace CookingGame.States
             {
                 sauceItem = new IngredientItem(
                     LoadTexture("items/sauceitem"),
-                    new Vector2(
-                        InputManager.MouseState.X,
-                        InputManager.MouseState.Y),
+                    Vector2.One,
                     sauceItem.Ingredient);
-                sauce.Released += (_, _) =>
+            };
+            sauce.Released += (_, _) =>
+            {
+                var tomatPos = new Point((int)sauce.Position.X, (int)sauce.Position.Y + 120);
+                if (_currentShawarma.IsInBounds(tomatPos))
                 {
-                    var tomatPos = new Point((int)sauceItem.Position.X, (int)sauceItem.Position.Y);
-                    if (_currentShawarma.IsInBounds(tomatPos))
-                    {
-                        sauceItem.canClick = false;
-                        AddGameObject(sauceItem);
-                        _currentShawarma.IngredientList.Add(sauceItem);
-                        return;
-                    }
-
-                    RemoveGameObject(sauceItem);
-                };
+                    sauceItem.CanClick = false;
+                    sauceItem.Position = _currentShawarma.Position + new Vector2(20, 40);
+                    AddGameObject(sauceItem);
+                    _currentShawarma.IngredientList.Add(sauceItem);
+                    sauce.ResetPosition();
+                    return;
+                }
+                sauce.ResetPosition();
+                RemoveGameObject(sauceItem);
             };
             AddStationItems();
             AddGameObject(sauce);
@@ -311,7 +315,7 @@ namespace CookingGame.States
                         var tomatPos = new Point((int)tomato.Position.X, (int)tomato.Position.Y);
                         if (_currentShawarma.IsInBounds(tomatPos))
                         {
-                            tomato.canClick = false;
+                            tomato.CanClick = false;
                             _currentShawarma.IngredientList.Add(tomato);
                             return;
                         }

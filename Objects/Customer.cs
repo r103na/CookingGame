@@ -16,7 +16,7 @@ namespace CookingGame.Objects
 
         public string Name { get; set; }
 
-        public float Patience = 200f;
+        public float Patience = 300f;
         private const float PatienceDecreaseRate = 0.5f;
         private const float PatienceDecreaseRateOrderCooking = 0.2f;
 
@@ -26,13 +26,14 @@ namespace CookingGame.Objects
         #region CONSTRUCTOR
         public Customer(Texture2D texture, string name)
         {
-            _texture = texture;
+            Texture = texture;
             Position = _customerPosition;
             Order = new Order();
             Name = name;
         }
         #endregion
 
+        #region PATIENCE
         public void DecreasePatience()
         {
             Patience -= Order.State is NotTakenState ? PatienceDecreaseRate : PatienceDecreaseRateOrderCooking;
@@ -42,5 +43,6 @@ namespace CookingGame.Objects
         {
             OnCustomerPatienceRunOut?.Invoke(this, EventArgs.Empty);
         }
+        #endregion
     }
 }

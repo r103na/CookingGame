@@ -1,7 +1,9 @@
 ﻿using CookingGame.Enum;
 using CookingGame.Objects.Base;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace CookingGame.Objects
 {
@@ -11,10 +13,22 @@ namespace CookingGame.Objects
         public IngredientItem(Texture2D texture, Vector2 position, Ingredient ingredient) : base(texture, position)
         {
             Position = position;
-            _texture = texture;
+            Texture = texture;
             Ingredient = ingredient;
-            BoundX = 50;
-            BoundY = 50;
+            Layer = 2;
+            acceptableBounds = new Rectangle(735, 0, 700, 1400);
+        }
+        public void CheckIfInBounds(Vector2 bounds)
+        {
+            if (Position.Y < acceptableBounds.Y)
+            {
+                Position.Y = acceptableBounds.Y;
+            }
+
+            if (Position.X < acceptableBounds.X)
+            {
+                Position.X = acceptableBounds.X;
+            }
         }
     }
 }

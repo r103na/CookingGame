@@ -77,7 +77,7 @@ namespace CookingGame.Managers
 
         public void HandleReleased()
         {
-            if (MouseState.LeftButton == ButtonState.Released)
+            if (LeftMouseButtonReleased(true))
                 _clickableSprites.ToList().ForEach(x => x.HandleRelease(ScaledMousePosition));
         }
         #endregion
@@ -92,6 +92,11 @@ namespace CookingGame.Managers
         {
             if (single) return MouseState.LeftButton == ButtonState.Pressed && _lastMouseState.LeftButton == ButtonState.Released;
             return (MouseState.LeftButton == ButtonState.Pressed);
+        }
+        public bool LeftMouseButtonReleased(bool single = false)
+        {
+            if (single) return MouseState.LeftButton == ButtonState.Released && _lastMouseState.LeftButton == ButtonState.Pressed;
+            return (MouseState.LeftButton == ButtonState.Released);
         }
         public bool RightMouseButton(bool single = false)
         {

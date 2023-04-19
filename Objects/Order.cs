@@ -45,7 +45,7 @@ namespace CookingGame.Objects
 
         public void AddTexture(Texture2D texture)
         {
-            _texture = texture;
+            Texture = texture;
         }
 
         public void Cook()

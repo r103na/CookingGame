@@ -9,16 +9,16 @@ public class Button : ClickableSprite
 {
     public Button(Texture2D texture, Vector2 position)
     {
-        _texture = texture;
+        Texture = texture;
         Position = position;
 
         Hovered += (_, _) =>
         {
-            _color = Color.Brown;
+            Color = Color.Brown;
         };
         Released += (_, _) =>
         {
-            _color = Color.White;
+            Color = Color.White;
         };
     }
 }
