@@ -42,7 +42,6 @@ namespace CookingGame.States
             _scoreManager = new ScoreManager();
             _scoreManager.ScoreIncreased += ChangeScoreText;
             _scoreManager.ScoreDecreased += ChangeScoreText;
-            InputManager = new InputManager();
 
             var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
             _scoreText = new Text(font, $"{_scoreManager.Score}", new Vector2(10, 690));
@@ -84,7 +83,7 @@ namespace CookingGame.States
 
             foreach (var item in GameObjects.OfType<IngredientItem>())
             {
-                item.CheckIfInBounds(new Vector2(720, 10000));
+                item.CheckIfInBounds();
             }
 
             _tip.UpdatePosition(InputManager.MousePosition);
@@ -335,6 +334,7 @@ namespace CookingGame.States
             var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
 
             cookBtn.Clicked += CookShawarma;
+            cookBtn.Clicked += MoveToGrillStation;
 
             cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
@@ -441,6 +441,12 @@ namespace CookingGame.States
                 }
                 ingredientsText.Clear();
             };
+        }
+
+        private void MoveToGrillStation(object sender, EventArgs e)
+        {
+            CameraManager.MoveCamera(new Vector3(-720, 0, 0));
+            InputManager.ChangeOffset(new Point(-720, 0));
         }
 
         private void ClearOrderText(object sender, EventArgs e)

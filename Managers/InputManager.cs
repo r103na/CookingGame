@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using System.Runtime.InteropServices;
 using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
@@ -16,6 +16,7 @@ namespace CookingGame.Managers
         public Vector2 MousePosition { get; private set; }
         private MouseState _lastMouseState;
         private KeyboardState _keyboardState;
+        private Point offset;
 
         public Point ScaledMousePosition;
         #endregion
@@ -38,9 +39,13 @@ namespace CookingGame.Managers
         {
             var clientMouse = new Vector2(MouseState.X, MouseState.Y);
             var scaledMouseVector = Vector2.Transform(clientMouse, transform);
-            ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y);
+            ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y) - offset;
         }
 
+        public void ChangeOffset(Point offset)
+        {
+            this.offset = offset;
+        }
 
         #endregion
 

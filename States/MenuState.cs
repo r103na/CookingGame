@@ -11,7 +11,6 @@ namespace CookingGame.States
     {
         public override void LoadContent()
         {
-            InputManager = new InputManager();
             var image = new ImageObject(LoadTexture("backgrounds/Menu"));
             image.Clicked += SwitchToGameplay;
             AddGameObject(image);

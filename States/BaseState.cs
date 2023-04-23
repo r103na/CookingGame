@@ -22,6 +22,7 @@ namespace CookingGame.States
         private const string FallbackTexture = "Empty";
         protected ContentManager ContentManager;
         protected InputManager InputManager;
+        public CameraManager CameraManager;
 
         public Matrix TransformMatrix;
 
@@ -31,6 +32,8 @@ namespace CookingGame.States
         public void Initialize(ContentManager contentManager)
         {
             ContentManager = contentManager;
+            CameraManager = new CameraManager();
+            InputManager = new InputManager();
         }
 
         public abstract void LoadContent();

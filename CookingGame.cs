@@ -151,7 +151,7 @@ namespace CookingGame
             GraphicsDevice.SetRenderTarget(_nativeRenderTarget);
             GraphicsDevice.Clear(Color.WhiteSmoke);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(transformMatrix: _currentGameState.CameraManager.TransformMatrix);
 
             _currentGameState.Render(_spriteBatch);
             

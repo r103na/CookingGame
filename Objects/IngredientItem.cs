@@ -16,12 +16,10 @@ namespace CookingGame.Objects
             Texture = texture;
             Ingredient = ingredient;
             Layer = 2;
-            //BoundY = (int)Center.Y;
-            //BoundX = (int)Center.X;
             acceptableBounds = new Rectangle(735, 0, 700, 1400);
             idk = true;
         }
-        public void CheckIfInBounds(Vector2 bounds)
+        public void CheckIfInBounds()
         {
             if (Position.Y < acceptableBounds.Y)
             {
