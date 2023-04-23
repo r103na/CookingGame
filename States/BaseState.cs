@@ -34,10 +34,11 @@ namespace CookingGame.States
             ContentManager = contentManager;
             CameraManager = new CameraManager();
             InputManager = new InputManager();
+            Gametime = new GameTime();
         }
 
         public abstract void LoadContent();
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
 
         public void UnloadContent()
         {

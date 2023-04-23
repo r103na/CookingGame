@@ -18,6 +18,8 @@ namespace CookingGame.Objects
 
         public float MaxPatience = 300f;
         public float Patience = 300f;
+        public float TimeArrived;
+
         private const float PatienceDecreaseRate = 0.5f;
         private const float PatienceDecreaseRateOrderCooking = 0.2f;
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using CookingGame.Objects;
 using CookingGame.Managers;
 using CookingGame.Objects.Base;
+using Microsoft.Xna.Framework;
 
 namespace CookingGame.States
 {
@@ -22,7 +23,7 @@ namespace CookingGame.States
             //LoadImage();
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             
         }

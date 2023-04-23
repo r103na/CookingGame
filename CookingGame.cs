@@ -44,10 +44,9 @@ namespace CookingGame
             _graphics.PreferredBackBufferWidth = _nativeWindowRectangle.Width;
             _graphics.PreferredBackBufferHeight = _nativeWindowRectangle.Height;
             _graphics.SynchronizeWithVerticalRetrace = true; // Vsync, prevents screen tearing
-            _graphics.HardwareModeSwitch = true; // false is borderless window fullscreen, true is true fullscreen
-            //_graphics.IsFullScreen = true;
-            
-            _graphics.ApplyChanges(); // Makes the magic happen
+            _graphics.HardwareModeSwitch = true;
+
+            _graphics.ApplyChanges(); 
 
             _nativeRenderTarget = new RenderTarget2D(GraphicsDevice, _nativeWindowRectangle.Width, _nativeWindowRectangle.Height);
             _windowBoxingRect = _nativeWindowRectangle;
@@ -92,7 +91,7 @@ namespace CookingGame
             var xRatio = (float)_nativeWindowRectangle.Width / Window.ClientBounds.Width;
             var yRatio = (float)_nativeWindowRectangle.Height / Window.ClientBounds.Height;
             return Matrix.CreateTranslation(_windowBoxingRect.X, _windowBoxingRect.Y, 0) *
-                   Matrix.CreateScale(xRatio, yRatio, 1f);
+                   Matrix.CreateScale(xRatio, yRatio, 0f);
         }
 
         public void UpdateMousePosition()
@@ -138,12 +137,12 @@ namespace CookingGame
 
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             _currentGameState.HandleInput();
 
-            _currentGameState.Update();
+            _currentGameState.Update(gameTime);
             UpdateMousePosition();
 
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)

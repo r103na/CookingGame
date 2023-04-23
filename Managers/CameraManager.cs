@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace CookingGame.Managers
 {
     public class CameraManager
     {
-        private Vector3 position = new(0,0,0);
+        public Vector3 Position = new(0,0,0);
 
-        Rectangle viewportSize = new Rectangle(0,0,1280,720);
         public Matrix TransformMatrix { get; private set; }
 
         public CameraManager()
@@ -21,15 +15,15 @@ namespace CookingGame.Managers
 
         public void MoveCamera(Vector3 newPosition)
         {
-            position = newPosition;
+            Position = newPosition;
             var matrix = Matrix.CreateTranslation(0, 0, 0);
-            TransformMatrix = Matrix.CreateTranslation(position) * matrix;
+            TransformMatrix = Matrix.CreateTranslation(Position) * matrix;
         }
 
         public void ResetCamera()
         {
             var matrix = Matrix.CreateTranslation(0, 0, 0);
-            TransformMatrix = Matrix.CreateTranslation(position) * matrix;
+            TransformMatrix = Matrix.CreateTranslation(Position) * matrix;
         }
 
     }

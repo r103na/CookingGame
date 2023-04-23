@@ -1,5 +1,5 @@
 ﻿using CookingGame.Objects;
-
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.States
@@ -11,7 +11,7 @@ namespace CookingGame.States
             AddGameObject(new SplashImage(LoadTexture("backgrounds/win")));
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             
         }

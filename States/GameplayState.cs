@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 using CookingGame.Enum;
@@ -35,6 +36,11 @@ namespace CookingGame.States
         private Tip _tip;
         private PatienceBar _patienceBar;
         private BaseSprite _exclamation;
+
+        private float elapsed;
+        private float ugh;
+        private bool yes;
+        private bool yes2;
         #endregion
 
         public override void LoadContent()
@@ -69,8 +75,28 @@ namespace CookingGame.States
             idk();
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
+            Gametime = gameTime;
+            elapsed = (float)Gametime.ElapsedGameTime.TotalSeconds;
+
+            if (yes && !yes2)
+            {
+                ugh = MathHelper.Lerp(CameraManager.Position.X, -720, elapsed * 5f);
+                MoveToGrillStation();
+                if (CameraManager.Position.X <= -718) 
+                    yes = false;
+            }
+
+            if (yes2 && !yes)
+            {
+                ugh = MathHelper.Lerp(CameraManager.Position.X, 0, elapsed * 5f);
+                MoveToVisitor();
+                if (CameraManager.Position.X >= -2f) 
+                    yes2 = false;
+            }
+
+
             if (_customerList == null || _customerList.Count == 0)
             {
                 _waitTime++;
@@ -169,6 +195,7 @@ namespace CookingGame.States
             var name = GetCharacterName();
 
             _currentCustomer = new Customer(LoadTexture("Characters/" + name), name);
+            //_currentCustomer.TimeArrived = Gametime.ElapsedGameTime.Milliseconds;
 
             _customerList.Enqueue(_currentCustomer);
 
@@ -334,12 +361,13 @@ namespace CookingGame.States
             var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
 
             cookBtn.Clicked += CookShawarma;
-            cookBtn.Clicked += MoveToGrillStation;
+            cookBtn.Clicked += (_, _) => { yes = true; };
 
             cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
 
             discardButton.Clicked += RemoveCurrentShawarma;
+            discardButton.Clicked += (_, _) => { yes2 = true; };
 
             AddGameObject(cookBtn);
             AddGameObject(menuBtn);
@@ -443,10 +471,16 @@ namespace CookingGame.States
             };
         }
 
-        private void MoveToGrillStation(object sender, EventArgs e)
+        private void MoveToGrillStation()
         {
-            CameraManager.MoveCamera(new Vector3(-720, 0, 0));
-            InputManager.ChangeOffset(new Point(-720, 0));
+            CameraManager.MoveCamera(new Vector3(ugh, 0, 0));
+            InputManager.ChangeOffset(new Point((int)ugh, 0));
+        }
+
+        private void MoveToVisitor()
+        {
+            CameraManager.MoveCamera(new Vector3(ugh, 0, 0));
+            InputManager.ChangeOffset(new Point((int)ugh, 0));
         }
 
         private void ClearOrderText(object sender, EventArgs e)
