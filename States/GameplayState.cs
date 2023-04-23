@@ -5,6 +5,7 @@ using System.Linq;
 using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
+using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,8 +24,6 @@ namespace CookingGame.States
 
         private Text _orderText;
         private Text _orderNameText;
-        
-        private const float PatienceDecreaseRate = 0.2f;
 
         private int _waitTime;
         private int _customerWaitTime = 45;
@@ -32,6 +31,10 @@ namespace CookingGame.States
         private SplashImage _dialogueBox;
 
         private ScoreManager _scoreManager;
+
+        private Tip _tip;
+        private PatienceBar _patienceBar;
+        private BaseSprite _exclamation;
         #endregion
 
         public override void LoadContent()
@@ -45,6 +48,9 @@ namespace CookingGame.States
             _scoreText = new Text(font, $"{_scoreManager.Score}", new Vector2(10, 690));
             _orderText = new Text(font, "", new Vector2(340, 95));
             _orderNameText = new Text(font, "", new Vector2(65, 135));
+
+            _tip = new Tip(LoadTexture("gui/tip"), InputManager.MousePosition);
+            _patienceBar = new PatienceBar(LoadTexture("gui/patiencebar1"));
 
             _dialogueBox = new SplashImage(LoadTexture("gui/dialogue_box"), new Vector2(320, 80));
 
@@ -81,7 +87,10 @@ namespace CookingGame.States
                 item.CheckIfInBounds(new Vector2(720, 10000));
             }
 
+            _tip.UpdatePosition(InputManager.MousePosition);
+
             DecreasePatience();
+            ChangePatienceBar();
         }
 
         #region SCORE
@@ -158,19 +167,25 @@ namespace CookingGame.States
         
         private void AddCustomer()
         {
-            string name = GetCharacterName();
+            var name = GetCharacterName();
+
             _currentCustomer = new Customer(LoadTexture("Characters/" + name), name);
+
             _customerList.Enqueue(_currentCustomer);
+
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
             _currentCustomer.Order.OrderCooked += ChangeWaitTime;
             _currentCustomer.Order.OrderCooked += ClearOrderNameText;
+            _currentCustomer.Order.OrderCooked += RemovePatienceBar;
 
             _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
             _currentCustomer.OnCustomerPatienceRunOut += RemoveDialogueBox;
             _currentCustomer.OnCustomerPatienceRunOut += ChangeWaitTime;
             _currentCustomer.OnCustomerPatienceRunOut += ClearOrderNameText;
+            _currentCustomer.OnCustomerPatienceRunOut += RemovePatienceBar;
+            _currentCustomer.OnCustomerPatienceRunOut += RemoveExclamationMark;
 
             _currentCustomer.Clicked += AddOrder;
             _currentCustomer.Clicked += TakeOrder;
@@ -178,9 +193,39 @@ namespace CookingGame.States
             _currentCustomer.Clicked += RemoveDialogueBox;
             _currentCustomer.Clicked += AddOrderIngredientText;
 
-            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
+            _currentCustomer.Hovered += AddTip;
+            _currentCustomer.Clicked += RemoveTip;
+            _currentCustomer.Clicked += RemoveExclamationMark;
+            _currentCustomer.Clicked += AddDialogueBox;
+            _currentCustomer.Unhovered += RemoveTip;
+
             AddGameObject(_currentCustomer);
-            AddDialogueBox();
+            AddExclamationMark();
+            AddPatienceBar();
+
+            //AddDialogueBox();
+        }
+
+        public void AddPatienceBar()
+        {
+            AddGameObject(_patienceBar);
+        }
+
+        public void RemovePatienceBar(object sender, EventArgs e)
+        {
+            RemoveGameObject(_patienceBar);
+            _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar1"));
+        }
+
+        public void AddExclamationMark()
+        {
+            _exclamation = new ImageObject(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
+            AddGameObject(_exclamation);
+        }
+
+        public void RemoveExclamationMark(object sender, EventArgs e)
+        {
+            RemoveGameObject(_exclamation);
         }
 
         public void AddOrder(object sender, EventArgs e)
@@ -191,6 +236,19 @@ namespace CookingGame.States
             AddGameObject(_currentOrder);
             ChangeText(ref _orderNameText, _currentCustomer.Order.OrderName);
         }
+
+        private void AddTip(object sender, EventArgs e)
+        {
+            if (GameObjects.OfType<Tip>().Any() || _tip.TipUsed) return;
+            AddGameObject(_tip);
+            _tip.TipUsed = true;
+        }
+
+        private void RemoveTip(object sender, EventArgs e)
+        {
+            RemoveGameObject(_tip);
+        }
+
 
         private void AddOrderStation()
         {
@@ -340,9 +398,11 @@ namespace CookingGame.States
             }
         }
 
-        private void AddDialogueBox()
+        private void AddDialogueBox(object sender, EventArgs e)
         {
             AddGameObject(_dialogueBox);
+            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
+
         }
 
         private void RemoveDialogueBox(object sender, EventArgs e)
@@ -412,17 +472,27 @@ namespace CookingGame.States
         private void DecreasePatience()
         {
             if (_currentCustomer == null) return;
+
             _currentCustomer.DecreasePatience();
 
-            if (_currentCustomer.Patience <= 30f)
-            {
-                _currentCustomer.ChangeTexture(LoadTexture("Characters/"+_currentCustomer.Name + "mad"));
-            }
+            // TODO this might mess with animations!
+            _currentCustomer.ChangeTexture(_currentCustomer.Patience <= 60f
+                ? LoadTexture("Characters/" + _currentCustomer.Name + "mad")
+                : LoadTexture("Characters/" + _currentCustomer.Name));
 
             if (_currentCustomer.Patience <= 0)
             {
                 _currentCustomer.OnPatienceRunOut();
             }
+        }
+
+        private void ChangePatienceBar()
+        {
+            if (_currentCustomer == null) return;
+
+            var textureName = (6 - (int)(_currentCustomer.Patience / 50));
+            if (textureName is < 6 and > 0)
+                _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar" + textureName));
         }
 
         private void ChangeWaitTime(object sender, EventArgs e)

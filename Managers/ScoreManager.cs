@@ -37,6 +37,5 @@ namespace CookingGame.Managers
             ScoreDecreased?.Invoke(this, EventArgs.Empty);
         }
         #endregion
-
     }
 }

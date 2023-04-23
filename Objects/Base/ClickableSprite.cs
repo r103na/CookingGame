@@ -13,6 +13,7 @@ namespace CookingGame.Objects.Base
         public event EventHandler Held;
         public event EventHandler Released;
         public event EventHandler Hovered;
+        public event EventHandler Unhovered;
         #endregion
 
         #region BOUNDS
@@ -60,6 +61,14 @@ namespace CookingGame.Objects.Base
                 OnReleased();
             }
         }
+
+        public virtual void HandleUnhover(Point clickPosition)
+        {
+            if (!IsInBounds(clickPosition))
+            {
+                OnUnhovered();
+            }
+        }
         #endregion
 
         #region EVENT INVOCATORS
@@ -83,7 +92,11 @@ namespace CookingGame.Objects.Base
             Hovered?.Invoke(this, EventArgs.Empty);
         }
 
-        #endregion
+        protected virtual void OnUnhovered()
+        {
+            Unhovered?.Invoke(this, EventArgs.Empty);
+        }
 
+        #endregion
     }
 }

@@ -65,3 +65,10 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\discardButton.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\Sonya.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\SonyaMad.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\Tip.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\exclamation.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar4.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar5.xnb

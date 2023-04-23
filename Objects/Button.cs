@@ -16,7 +16,7 @@ public class Button : ClickableSprite
         {
             Color = Color.Brown;
         };
-        Released += (_, _) =>
+        Unhovered += (_, _) =>
         {
             Color = Color.White;
         };

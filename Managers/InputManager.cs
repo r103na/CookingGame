@@ -13,6 +13,7 @@ namespace CookingGame.Managers
         #region VARIABLES
         private List<ClickableSprite> _clickableSprites;
         public MouseState MouseState { get; private set; }
+        public Vector2 MousePosition { get; private set; }
         private MouseState _lastMouseState;
         private KeyboardState _keyboardState;
 
@@ -30,6 +31,7 @@ namespace CookingGame.Managers
             _keyboardState = Keyboard.GetState();
             _lastMouseState = MouseState;
             MouseState = Mouse.GetState();
+            MousePosition = new Vector2(MouseState.X, MouseState.Y);
         }
 
         public void UpdateMouseScale(Matrix transform)
@@ -50,6 +52,7 @@ namespace CookingGame.Managers
             UpdateGameObjects(gameObjects);
             HandleLeftClick();
             HandleHover();
+            HandleUnhover();
             HandleHold();
             HandleReleased();
         }
@@ -71,8 +74,12 @@ namespace CookingGame.Managers
         }
         public void HandleHover()
         {
-            //var mouse = new Point(MouseState.X, MouseState.Y);
             _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
+        }
+
+        public void HandleUnhover()
+        {
+            _clickableSprites.ToList().ForEach(x => x.HandleUnhover(ScaledMousePosition));
         }
 
         public void HandleReleased()

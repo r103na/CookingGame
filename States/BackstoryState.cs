@@ -11,14 +11,14 @@ namespace CookingGame.States
 {
     public class BackstoryState : BaseState
     {
-        private Queue<BackstoryImage> _backstoryImages = new();
-        private BackstoryImage currentImage;
+        private Queue<ImageObject> _backstoryImages = new();
+        private ImageObject _currentImageObject;
         private bool IsBackstoryOver => _backstoryImages.Count == 0;
 
         public override void LoadContent()
         {
             InputManager = new InputManager();
-            //var image = new BackstoryImage();
+            //var image = new ImageObject();
             //LoadImage();
         }
 
@@ -29,15 +29,15 @@ namespace CookingGame.States
 
         public void LoadImage()
         {
-            currentImage = _backstoryImages.Dequeue();
-            AddGameObject(currentImage);
+            _currentImageObject = _backstoryImages.Dequeue();
+            AddGameObject(_currentImageObject);
         }
 
         public void SwitchImage()
         {
             if (!IsBackstoryOver)
             {
-                RemoveGameObject(currentImage);
+                RemoveGameObject(_currentImageObject);
                 LoadImage();
             }
             else

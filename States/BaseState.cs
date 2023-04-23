@@ -6,6 +6,7 @@ using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,6 +15,7 @@ namespace CookingGame.States
 {
     public abstract class BaseState
     {
+        #region VARIABLES
         private protected readonly List<BaseSprite> GameObjects = new();
         private protected readonly List<Text> Texts = new();
 
@@ -22,6 +24,9 @@ namespace CookingGame.States
         protected InputManager InputManager;
 
         public Matrix TransformMatrix;
+
+        public GameTime Gametime;
+        #endregion
 
         public void Initialize(ContentManager contentManager)
         {

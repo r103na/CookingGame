@@ -16,6 +16,7 @@ namespace CookingGame.Objects
 
         public string Name { get; set; }
 
+        public float MaxPatience = 300f;
         public float Patience = 300f;
         private const float PatienceDecreaseRate = 0.5f;
         private const float PatienceDecreaseRateOrderCooking = 0.2f;
@@ -30,6 +31,7 @@ namespace CookingGame.Objects
             Position = _customerPosition;
             Order = new Order();
             Name = name;
+            Clicked += IncreasePatience;
         }
         #endregion
 
@@ -37,6 +39,15 @@ namespace CookingGame.Objects
         public void DecreasePatience()
         {
             Patience -= Order.State is NotTakenState ? PatienceDecreaseRate : PatienceDecreaseRateOrderCooking;
+        }
+
+        public void IncreasePatience(object sender, EventArgs e)
+        {
+            if (Patience + 80f > MaxPatience)
+            {
+                Patience = MaxPatience;
+            }
+            else Patience += 80;
         }
 
         public void OnPatienceRunOut()

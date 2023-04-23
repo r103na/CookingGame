@@ -16,7 +16,14 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/dialogue_box.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/discardButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Divider.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/exclamation.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar1.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar2.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar3.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar4.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar5.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Tip.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/carrot.png</File>
@@ -46,6 +53,13 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
