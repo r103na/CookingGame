@@ -16,7 +16,6 @@ namespace CookingGame.States
     public class GameplayState : BaseState
     {
         #region  VARIABLES
-        private readonly Queue<Customer> _customerList = new();
         private Customer _currentCustomer;
         private Shawarma _currentShawarma;
         private Order _currentOrder;
@@ -26,8 +25,8 @@ namespace CookingGame.States
         private Text _orderText;
         private Text _orderNameText;
 
-        private int _waitTime;
-        private int _customerWaitTime = 45;
+        private float _waitTime;
+        private int _customerWaitTime = 1;
 
         private SplashImage _dialogueBox;
 
@@ -37,10 +36,10 @@ namespace CookingGame.States
         private PatienceBar _patienceBar;
         private BaseSprite _exclamation;
 
-        private float elapsed;
-        private float ugh;
-        private bool yes;
-        private bool yes2;
+        private float _elapsed;
+        private float _cameraLerp;
+        private bool _cameraMovingRight;
+        private bool _cameraMovingLeft;
         #endregion
 
         public override void LoadContent()
@@ -72,34 +71,34 @@ namespace CookingGame.States
             AddGUI();
             AddExtra();
 
-            idk();
+            AddIngredientItems();
         }
 
         public override void Update(GameTime gameTime)
         {
             Gametime = gameTime;
-            elapsed = (float)Gametime.ElapsedGameTime.TotalSeconds;
+            _elapsed = (float)Gametime.ElapsedGameTime.TotalSeconds;
 
-            if (yes && !yes2)
+            if (_cameraMovingRight)
             {
-                ugh = MathHelper.Lerp(CameraManager.Position.X, -720, elapsed * 5f);
+                _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, _elapsed * 5f);
                 MoveToGrillStation();
                 if (CameraManager.Position.X <= -718) 
-                    yes = false;
+                    _cameraMovingRight = false;
             }
 
-            if (yes2 && !yes)
+            if (_cameraMovingLeft)
             {
-                ugh = MathHelper.Lerp(CameraManager.Position.X, 0, elapsed * 5f);
+                _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, 0, _elapsed * 5f);
                 MoveToVisitor();
                 if (CameraManager.Position.X >= -2f) 
-                    yes2 = false;
+                    _cameraMovingLeft = false;
             }
 
 
-            if (_customerList == null || _customerList.Count == 0)
+            if (_currentCustomer == null)
             {
-                _waitTime++;
+                _waitTime += _elapsed;
                 if (_waitTime >= _customerWaitTime)
                 {
                     AddCustomer();
@@ -139,6 +138,16 @@ namespace CookingGame.States
 
         #endregion
 
+        #region COOKING 
+        private void FinishCooking(object sender, EventArgs e)
+        {
+            ClearOrderNameText();
+            RemoveCurrentCustomer();
+            ChangeWaitTime();
+            RemoveDialogueBox();
+            RemovePatienceBar();
+            RemoveExclamationMark(sender, e);
+        }
 
         public void TakeOrder(object sender, EventArgs e)
         {
@@ -149,74 +158,31 @@ namespace CookingGame.States
         {
             _currentCustomer?.Order.Cook();
         }
-
-        private void RemoveCurrentCustomer(object sender, EventArgs e)
-        {
-            _currentCustomer.Order.OrderCooked -= IncreaseScore;
-            _currentCustomer.Order.OrderCooked -= RemoveCurrentCustomer;
-            _currentCustomer.Order.OrderCooked -= ChangeWaitTime;
-            _currentCustomer.Order.OrderCooked -= ClearOrderNameText;
-
-            _currentCustomer.OnCustomerPatienceRunOut -= RemoveCurrentCustomer;
-            _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
-            _currentCustomer.OnCustomerPatienceRunOut -= RemoveDialogueBox;
-            _currentCustomer.OnCustomerPatienceRunOut -= ChangeWaitTime;
-            _currentCustomer.OnCustomerPatienceRunOut -= ClearOrderNameText;
-
-            _currentCustomer.Clicked -= AddOrder;
-            _currentCustomer.Clicked -= TakeOrder;
-            _currentCustomer.Clicked -= ClearOrderText;
-            _currentCustomer.Clicked -= RemoveDialogueBox;
-            _currentCustomer.Clicked -= AddOrderIngredientText;
-
-            RemoveGameObject(_currentCustomer);
-            RemoveGameObject(_currentOrder);
-            RemoveGameObject(_dialogueBox);
-
-            _currentOrder = null;
-
-            ChangeText(ref _orderText, "");
-
-            if (_customerList.Count > 0)
-                _customerList.Dequeue();
-        }
-
+        #endregion
 
         #region ADD OBJECTS
-
         private void AddShawarma()
         {
             _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
             AddGameObject(_currentShawarma);
         }
-        
+
         private void AddCustomer()
         {
-            var name = GetCharacterName();
+            var name = GetRandomCharacterName();
 
             _currentCustomer = new Customer(LoadTexture("Characters/" + name), name);
-            //_currentCustomer.TimeArrived = Gametime.ElapsedGameTime.Milliseconds;
-
-            _customerList.Enqueue(_currentCustomer);
 
             _currentCustomer.Order.OrderCooked += IncreaseScore;
-            _currentCustomer.Order.OrderCooked += RemoveCurrentCustomer;
-            _currentCustomer.Order.OrderCooked += ChangeWaitTime;
-            _currentCustomer.Order.OrderCooked += ClearOrderNameText;
-            _currentCustomer.Order.OrderCooked += RemovePatienceBar;
+            _currentCustomer.Order.OrderCooked += FinishCooking;
 
-            _currentCustomer.OnCustomerPatienceRunOut += RemoveCurrentCustomer;
             _currentCustomer.OnCustomerPatienceRunOut += DecreaseScore;
-            _currentCustomer.OnCustomerPatienceRunOut += RemoveDialogueBox;
-            _currentCustomer.OnCustomerPatienceRunOut += ChangeWaitTime;
-            _currentCustomer.OnCustomerPatienceRunOut += ClearOrderNameText;
-            _currentCustomer.OnCustomerPatienceRunOut += RemovePatienceBar;
+            _currentCustomer.OnCustomerPatienceRunOut += FinishCooking;
             _currentCustomer.OnCustomerPatienceRunOut += RemoveExclamationMark;
 
             _currentCustomer.Clicked += AddOrder;
             _currentCustomer.Clicked += TakeOrder;
             _currentCustomer.Clicked += ClearOrderText;
-            _currentCustomer.Clicked += RemoveDialogueBox;
             _currentCustomer.Clicked += AddOrderIngredientText;
 
             _currentCustomer.Hovered += AddTip;
@@ -228,8 +194,6 @@ namespace CookingGame.States
             AddGameObject(_currentCustomer);
             AddExclamationMark();
             AddPatienceBar();
-
-            //AddDialogueBox();
         }
 
         public void AddPatienceBar()
@@ -237,21 +201,10 @@ namespace CookingGame.States
             AddGameObject(_patienceBar);
         }
 
-        public void RemovePatienceBar(object sender, EventArgs e)
-        {
-            RemoveGameObject(_patienceBar);
-            _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar1"));
-        }
-
         public void AddExclamationMark()
         {
             _exclamation = new ImageObject(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
             AddGameObject(_exclamation);
-        }
-
-        public void RemoveExclamationMark(object sender, EventArgs e)
-        {
-            RemoveGameObject(_exclamation);
         }
 
         public void AddOrder(object sender, EventArgs e)
@@ -270,12 +223,7 @@ namespace CookingGame.States
             _tip.TipUsed = true;
         }
 
-        private void RemoveTip(object sender, EventArgs e)
-        {
-            RemoveGameObject(_tip);
-        }
-
-
+        #region ADD STATIONS
         private void AddOrderStation()
         {
             AddGameObject(new SplashImage(LoadTexture("items/orderStation_bg")));
@@ -351,7 +299,9 @@ namespace CookingGame.States
             AddGameObject(cucumberStation);
             AddGameObject(station3);
         }
+        #endregion
 
+        #region ADD GUI
         private void AddGUI()
         {
             var cookBtn = new Button(LoadTexture("gui/cookButton"),
@@ -361,13 +311,19 @@ namespace CookingGame.States
             var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
 
             cookBtn.Clicked += CookShawarma;
-            cookBtn.Clicked += (_, _) => { yes = true; };
+            cookBtn.Clicked += (_, _) => {
+                _cameraMovingRight = true;
+                _cameraMovingLeft = false;
+            };
 
             cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
 
             discardButton.Clicked += RemoveCurrentShawarma;
-            discardButton.Clicked += (_, _) => { yes2 = true; };
+            discardButton.Clicked += (_, _) => {
+                _cameraMovingLeft = true;
+                _cameraMovingRight = false;
+            };
 
             AddGameObject(cookBtn);
             AddGameObject(menuBtn);
@@ -382,7 +338,15 @@ namespace CookingGame.States
             AddGameObject(div2);
         }
 
-        private void idk()
+        private void AddDialogueBox(object sender, EventArgs e)
+        {
+            AddGameObject(_dialogueBox);
+            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
+
+        }
+        #endregion
+
+        private void AddIngredientItems()
         {
             var stationItems = GameObjects.OfType<StationItem>().ToList();
             foreach (var item in stationItems)
@@ -411,6 +375,44 @@ namespace CookingGame.States
                 };
             }
         }
+        #endregion
+
+        #region REMOVE OBJECTS
+        private void RemoveCurrentCustomer()
+        {
+            _currentCustomer.Order.OrderCooked -= IncreaseScore;
+            _currentCustomer.OnCustomerPatienceRunOut -= DecreaseScore;
+
+            _currentCustomer.Clicked -= AddOrder;
+            _currentCustomer.Clicked -= TakeOrder;
+            _currentCustomer.Clicked -= ClearOrderText;
+            _currentCustomer.Clicked -= AddOrderIngredientText;
+
+            RemoveGameObject(_currentCustomer);
+            RemoveGameObject(_currentOrder);
+            RemoveGameObject(_dialogueBox);
+
+            _currentOrder = null;
+            _currentCustomer = null;
+
+            ChangeText(ref _orderText, "");
+        }
+
+        public void RemovePatienceBar()
+        {
+            RemoveGameObject(_patienceBar);
+            _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar1"));
+        }
+
+        public void RemoveExclamationMark(object sender, EventArgs e)
+        {
+            RemoveGameObject(_exclamation);
+        }
+
+        private void RemoveTip(object sender, EventArgs e)
+        {
+            RemoveGameObject(_tip);
+        }
 
         private void RemoveCurrentShawarma(object sender, EventArgs e)
         {
@@ -426,18 +428,29 @@ namespace CookingGame.States
             }
         }
 
-        private void AddDialogueBox(object sender, EventArgs e)
-        {
-            AddGameObject(_dialogueBox);
-            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
-
-        }
-
-        private void RemoveDialogueBox(object sender, EventArgs e)
+        private void RemoveDialogueBox()
         {
             RemoveGameObject(_dialogueBox);
         }
+        #endregion
 
+        #region CAMERA MOVEMENT
+        private void MoveToGrillStation()
+
+        {
+            CameraManager.MoveCamera(new Vector3(_cameraLerp, 0, 0));
+            InputManager.ChangeOffset(new Point((int)_cameraLerp, 0));
+        }
+
+        private void MoveToVisitor()
+        {
+            CameraManager.MoveCamera(new Vector3(_cameraLerp, 0, 0));
+            InputManager.ChangeOffset(new Point((int)_cameraLerp, 0));
+        }
+
+        #endregion
+
+        #region TEXT
         private void AddOrderIngredientText(object sender, EventArgs e)
         {
             List<Text> ingredientsText = new();
@@ -471,24 +484,12 @@ namespace CookingGame.States
             };
         }
 
-        private void MoveToGrillStation()
-        {
-            CameraManager.MoveCamera(new Vector3(ugh, 0, 0));
-            InputManager.ChangeOffset(new Point((int)ugh, 0));
-        }
-
-        private void MoveToVisitor()
-        {
-            CameraManager.MoveCamera(new Vector3(ugh, 0, 0));
-            InputManager.ChangeOffset(new Point((int)ugh, 0));
-        }
-
         private void ClearOrderText(object sender, EventArgs e)
         {
             ChangeText(ref _orderText, "");
         }
 
-        private void ClearOrderNameText(object sender, EventArgs e)
+        private void ClearOrderNameText()
         {
             ChangeText(ref _orderNameText, "");
         }
@@ -506,9 +507,9 @@ namespace CookingGame.States
             _scoreText = new Text(_scoreText.Font, $"{_scoreManager.Score}", _scoreText.Position);
             AddText(_scoreText);
         }
-
         #endregion
 
+        #region PATIENCE
         private void DecreasePatience()
         {
             if (_currentCustomer == null) return;
@@ -535,7 +536,10 @@ namespace CookingGame.States
                 _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar" + textureName));
         }
 
-        private void ChangeWaitTime(object sender, EventArgs e)
+        #endregion
+
+        #region WAIT TIME
+        private void ChangeWaitTime()
         {
             _customerWaitTime = GetRandomWaitTime();
         }
@@ -543,15 +547,18 @@ namespace CookingGame.States
         private static int GetRandomWaitTime()
         {
             var random = new Random();
-            var randomNumber = random.Next(75, 380);
+            var randomNumber = random.Next(2, 10);
             return randomNumber;
         }
+
+        #endregion
+
         private void SwitchToMenu(object sender, EventArgs e)
         {
             SwitchState(new MenuState());
         }
 
-        private static string GetCharacterName()
+        private static string GetRandomCharacterName()
         {
             var names = new[] { "Tonya", "Sonya" };
             var random = new Random();

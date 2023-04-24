@@ -19,7 +19,6 @@ namespace CookingGame.States
 
         public override void Update(GameTime gameTime)
         {
-            
         }
 
         private void SwitchToGameplay(object sender, EventArgs e)

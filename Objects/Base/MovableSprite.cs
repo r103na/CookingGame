@@ -8,7 +8,7 @@ namespace CookingGame.Objects.Base
     public class MovableSprite : ClickableSprite
     {
         protected Rectangle acceptableBounds;
-        protected bool idk;
+        protected bool IsSpriteTaken;
         public MovableSprite(Texture2D texture, Vector2 position)
         {
             Position = position;
@@ -17,15 +17,15 @@ namespace CookingGame.Objects.Base
             BoundY = (int)Center.Y * 2;
             Released += (_, _) =>
             {
-                idk = false;
+                IsSpriteTaken = false;
             };
-            Clicked += (_, _) => idk = true;
+            Clicked += (_, _) => IsSpriteTaken = true;
 
         }
         public override void HandleHold(Point clickPosition)
         {
             if (!CanClick) return;
-            if (idk || IsInBounds(clickPosition))
+            if (IsSpriteTaken || IsInBounds(clickPosition))
             {
                 Position.X = clickPosition.X - Center.X;
                 Position.Y = clickPosition.Y - Center.Y;

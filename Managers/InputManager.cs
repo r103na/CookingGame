@@ -42,9 +42,9 @@ namespace CookingGame.Managers
             ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y) - offset;
         }
 
-        public void ChangeOffset(Point offset)
+        public void ChangeOffset(Point offsetPoint)
         {
-            this.offset = offset;
+            offset = offsetPoint;
         }
 
         #endregion

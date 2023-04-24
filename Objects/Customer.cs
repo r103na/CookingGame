@@ -12,13 +12,12 @@ namespace CookingGame.Objects
     {
         #region VARIABLES
         private readonly Vector2 _customerPosition = new(325, 185);
-        public Order Order;
+        public Order Order { get; }
 
         public string Name { get; set; }
 
         public float MaxPatience = 300f;
         public float Patience = 300f;
-        public float TimeArrived;
 
         private const float PatienceDecreaseRate = 0.5f;
         private const float PatienceDecreaseRateOrderCooking = 0.2f;

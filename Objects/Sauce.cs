@@ -15,10 +15,10 @@ namespace CookingGame.Objects
             Texture = texture;
             Position = position;
             Layer = 3;
-            acceptableBounds = new Rectangle(735, 300, 700, 1400);
+            acceptableBounds = new Rectangle(735, 300, 480, 1400);
             BoundY = 0;
             BoundX = (int)Center.X * 2;
-            idk = false;
+            IsSpriteTaken = false;
             Clicked += Rotate;
             Released += ResetRotation;
         }

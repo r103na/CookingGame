@@ -16,8 +16,8 @@ namespace CookingGame.Objects
             Texture = texture;
             Ingredient = ingredient;
             Layer = 2;
-            acceptableBounds = new Rectangle(735, 0, 700, 1400);
-            idk = true;
+            acceptableBounds = new Rectangle(735, 0, 460, 1400);
+            IsSpriteTaken = true;
         }
         public void CheckIfInBounds()
         {
@@ -29,6 +29,10 @@ namespace CookingGame.Objects
             if (Position.X < acceptableBounds.X)
             {
                 Position.X = acceptableBounds.X;
+            }
+            if (Position.X > acceptableBounds.Right)
+            {
+                Position.X = acceptableBounds.Right;
             }
         }
     }
