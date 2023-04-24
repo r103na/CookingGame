@@ -16,23 +16,23 @@ namespace CookingGame.Objects
             Texture = texture;
             Ingredient = ingredient;
             Layer = 2;
-            acceptableBounds = new Rectangle(735, 0, 460, 1400);
+            AcceptableBounds = new Rectangle(735, 0, 460, 1400);
             IsSpriteTaken = true;
         }
         public void CheckIfInBounds()
         {
-            if (Position.Y < acceptableBounds.Y)
+            if (Position.Y < AcceptableBounds.Y)
             {
-                Position.Y = acceptableBounds.Y;
+                Position.Y = AcceptableBounds.Y;
             }
 
-            if (Position.X < acceptableBounds.X)
+            if (Position.X < AcceptableBounds.X)
             {
-                Position.X = acceptableBounds.X;
+                Position.X = AcceptableBounds.X;
             }
-            if (Position.X > acceptableBounds.Right)
+            if (Position.X > AcceptableBounds.Right)
             {
-                Position.X = acceptableBounds.Right;
+                Position.X = AcceptableBounds.Right;
             }
         }
     }

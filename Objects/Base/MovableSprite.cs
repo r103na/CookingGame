@@ -7,7 +7,7 @@ namespace CookingGame.Objects.Base
 {
     public class MovableSprite : ClickableSprite
     {
-        protected Rectangle acceptableBounds;
+        public Rectangle AcceptableBounds;
         protected bool IsSpriteTaken;
         public MovableSprite(Texture2D texture, Vector2 position)
         {

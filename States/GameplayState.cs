@@ -21,11 +21,17 @@ namespace CookingGame.States
         private Order _currentOrder;
 
         private Text _scoreText;
+        private Text _orderCountText;
 
         private Text _orderText;
         private Text _orderNameText;
 
         private float _waitTime;
+        private float waitToGive;
+        private bool waitingToGive;
+        private bool isGrilling;
+        private float grillTime;
+
         private int _customerWaitTime = 1;
 
         private SplashImage _dialogueBox;
@@ -39,7 +45,10 @@ namespace CookingGame.States
         private float _elapsed;
         private float _cameraLerp;
         private bool _cameraMovingRight;
+        private bool shawarmaMoving;
         private bool _cameraMovingLeft;
+
+        private SpriteFont font;
         #endregion
 
         public override void LoadContent()
@@ -48,8 +57,9 @@ namespace CookingGame.States
             _scoreManager.ScoreIncreased += ChangeScoreText;
             _scoreManager.ScoreDecreased += ChangeScoreText;
 
-            var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
-            _scoreText = new Text(font, $"{_scoreManager.Score}", new Vector2(10, 690));
+            font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
+            _scoreText = new Text(font, $"Деньги: {_scoreManager.Score}", new Vector2(45, 550));
+            _orderCountText = new Text(font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
             _orderText = new Text(font, "", new Vector2(340, 95));
             _orderNameText = new Text(font, "", new Vector2(65, 135));
 
@@ -60,13 +70,13 @@ namespace CookingGame.States
 
             AddGameObject(new SplashImage(LoadTexture("backgrounds/GameplayState")));
             AddText(_scoreText);
+            AddText(_orderCountText);
             AddText(_orderText);
 
             AddVisitorStation();
             AddOrderStation();
             AddCookingStation();
-
-            AddShawarma();
+            AddGrillStation();
 
             AddGUI();
             AddExtra();
@@ -95,7 +105,6 @@ namespace CookingGame.States
                     _cameraMovingLeft = false;
             }
 
-
             if (_currentCustomer == null)
             {
                 _waitTime += _elapsed;
@@ -103,6 +112,47 @@ namespace CookingGame.States
                 {
                     AddCustomer();
                     _waitTime = 0;
+                }
+            }
+
+            if (shawarmaMoving)
+            {
+                MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1560, _elapsed * 6), 0));
+                if (_currentShawarma.Position.X >= 1540)
+                {
+                    shawarmaMoving = false;
+                }
+            }
+
+            if (waitingToGive)
+            {
+                AddScoreToOrder();
+                if (_currentOrder.Score >= 10)
+                {
+                    ChangeText(ref _orderText, "Спасибо!");
+                }
+                else
+                {
+                    _currentCustomer?.ChangeToMad();
+                    ChangeText(ref _orderText, "Что это?!");
+                }
+                
+                waitToGive += _elapsed;
+                if (waitToGive >= 1.5f)
+                {
+                    CookShawarma(null, EventArgs.Empty);
+                    waitingToGive = false;
+                    waitToGive = 0;
+                }
+            }
+
+            if (isGrilling)
+            {
+                grillTime += _elapsed;
+                if (grillTime >= 2f)
+                {
+                    isGrilling = false;
+                    grillTime = 0;
                 }
             }
 
@@ -118,13 +168,19 @@ namespace CookingGame.States
         }
 
         #region SCORE
-        private void IncreaseScore(object sender, EventArgs e)
+
+        private void AddScoreToOrder()
         {
+            if (_currentOrder == null) return;
             var shawarmaIngredientList = _currentShawarma.IngredientList
                 .Select(x => x.Ingredient)
                 .ToList();
-            var score = _currentCustomer.Order.CheckIngredients(shawarmaIngredientList) * 10;
-            _scoreManager.IncreaseScore(score);
+            _currentOrder.Score = _currentOrder.CheckIngredients(shawarmaIngredientList) * 10;
+        }
+
+        private void IncreaseScore(object sender, EventArgs e)
+        {
+            _scoreManager.IncreaseScore(_currentOrder.Score);
             if (_scoreManager.Score >= _scoreManager.MaxScore)
             {
                 SwitchState(new SplashState());
@@ -151,12 +207,14 @@ namespace CookingGame.States
 
         public void TakeOrder(object sender, EventArgs e)
         {
+            _scoreManager.OrderCount++;
             _currentCustomer?.Order.Take();
         }
 
         private void CookShawarma(object sender, EventArgs e)
         {
             _currentCustomer?.Order.Cook();
+            RemoveCurrentShawarma(sender, e);
         }
         #endregion
 
@@ -171,7 +229,7 @@ namespace CookingGame.States
         {
             var name = GetRandomCharacterName();
 
-            _currentCustomer = new Customer(LoadTexture("Characters/" + name), name);
+            _currentCustomer = new Customer(LoadTexture("Characters/" + name), LoadTexture("Characters/" + name + "mad"), name);
 
             _currentCustomer.Order.OrderCooked += IncreaseScore;
             _currentCustomer.Order.OrderCooked += FinishCooking;
@@ -194,6 +252,7 @@ namespace CookingGame.States
             AddGameObject(_currentCustomer);
             AddExclamationMark();
             AddPatienceBar();
+            AddShawarma();
         }
 
         public void AddPatienceBar()
@@ -205,22 +264,6 @@ namespace CookingGame.States
         {
             _exclamation = new ImageObject(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
             AddGameObject(_exclamation);
-        }
-
-        public void AddOrder(object sender, EventArgs e)
-        {
-            if (_currentOrder != null) return;
-            _currentCustomer.Order.AddTexture(LoadTexture("items/orderStation_order"));
-            _currentOrder = _currentCustomer.Order;
-            AddGameObject(_currentOrder);
-            ChangeText(ref _orderNameText, _currentCustomer.Order.OrderName);
-        }
-
-        private void AddTip(object sender, EventArgs e)
-        {
-            if (GameObjects.OfType<Tip>().Any() || _tip.TipUsed) return;
-            AddGameObject(_tip);
-            _tip.TipUsed = true;
         }
 
         #region ADD STATIONS
@@ -299,9 +342,36 @@ namespace CookingGame.States
             AddGameObject(cucumberStation);
             AddGameObject(station3);
         }
+
+        private void AddGrillStation()
+        {
+            AddGameObject(new ImageObject(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
+        }
         #endregion
 
         #region ADD GUI
+
+        private void AddStats()
+        {
+            AddGameObject(new ImageObject(LoadTexture("gui/stats"), new Vector2(30, 500)));
+            AddText(new Text(font, "Статистика", new Vector2(45, 515)));
+        }
+
+        public void AddOrder(object sender, EventArgs e)
+        {
+            if (_currentOrder != null) return;
+            _currentCustomer.Order.AddTexture(LoadTexture("items/orderStation_order"));
+            _currentOrder = _currentCustomer.Order;
+            AddGameObject(_currentOrder);
+            ChangeText(ref _orderNameText, _currentCustomer.Order.OrderName);
+        }
+
+        private void AddTip(object sender, EventArgs e)
+        {
+            if (GameObjects.OfType<Tip>().Any() || _tip.TipUsed) return;
+            AddGameObject(_tip);
+            _tip.TipUsed = true;
+        }
         private void AddGUI()
         {
             var cookBtn = new Button(LoadTexture("gui/cookButton"),
@@ -309,33 +379,47 @@ namespace CookingGame.States
             var menuBtn = new Button(LoadTexture("gui/menu_btn"),
                 new Vector2(20, 20));
             var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
+            var finishBtn = new Button(LoadTexture("gui/cookButton"),
+                new Vector2(1900, 660));
 
-            cookBtn.Clicked += CookShawarma;
+            finishBtn.Clicked += (_, _) =>
+            {
+                waitingToGive = true;
+            };
+            //finishBtn.Clicked += RemoveCurrentShawarma;
             cookBtn.Clicked += (_, _) => {
                 _cameraMovingRight = true;
+                shawarmaMoving = true;
                 _cameraMovingLeft = false;
             };
 
-            cookBtn.Clicked += RemoveCurrentShawarma;
             menuBtn.Clicked += SwitchToMenu;
 
             discardButton.Clicked += RemoveCurrentShawarma;
+            finishBtn.Clicked += (_, _) => {
+                _cameraMovingLeft = true;
+                _cameraMovingRight = false;
+            };
             discardButton.Clicked += (_, _) => {
                 _cameraMovingLeft = true;
                 _cameraMovingRight = false;
             };
 
             AddGameObject(cookBtn);
+            AddGameObject(finishBtn);
             AddGameObject(menuBtn);
             AddGameObject(discardButton);
+            AddStats();
         }
 
         private void AddExtra()
         {
             var div1 = new SplashImage(LoadTexture("gui/divider"), new Vector2(720, 0));
             var div2 = new SplashImage(LoadTexture("gui/divider"), new Vector2(267, 0));
+            var div3 = new SplashImage(LoadTexture("gui/divider"), new Vector2(1275, 0));
             AddGameObject(div1);
             AddGameObject(div2);
+            AddGameObject(div3);
         }
 
         private void AddDialogueBox(object sender, EventArgs e)
@@ -417,6 +501,7 @@ namespace CookingGame.States
         private void RemoveCurrentShawarma(object sender, EventArgs e)
         {
             ClearShawarmaIngredients();
+            RemoveGameObject(_currentShawarma);
             _currentShawarma = new Shawarma(LoadTexture("items/flatbread"));
         }
 
@@ -454,8 +539,6 @@ namespace CookingGame.States
         private void AddOrderIngredientText(object sender, EventArgs e)
         {
             List<Text> ingredientsText = new();
-
-            var font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
 
             for (var index = 0; index < _currentCustomer.Order.TransladedIngredients.Count; index++)
             {
@@ -503,9 +586,8 @@ namespace CookingGame.States
 
         private void ChangeScoreText(object sender, EventArgs e)
         {
-            RemoveText(_scoreText);
-            _scoreText = new Text(_scoreText.Font, $"{_scoreManager.Score}", _scoreText.Position);
-            AddText(_scoreText);
+            ChangeText(ref _scoreText, $"Деньги: {_scoreManager.Score}");
+            ChangeText(ref _orderCountText, $"Заказы: {_scoreManager.OrderCount}");
         }
         #endregion
 
@@ -514,17 +596,17 @@ namespace CookingGame.States
         {
             if (_currentCustomer == null) return;
 
-            _currentCustomer.DecreasePatience();
-
             // TODO this might mess with animations!
-            _currentCustomer.ChangeTexture(_currentCustomer.Patience <= 60f
-                ? LoadTexture("Characters/" + _currentCustomer.Name + "mad")
-                : LoadTexture("Characters/" + _currentCustomer.Name));
+            if (_currentCustomer.Patience <= 60f)
+            {
+                _currentCustomer.ChangeToMad();
+            }
 
             if (_currentCustomer.Patience <= 0)
             {
                 _currentCustomer.OnPatienceRunOut();
             }
+            _currentCustomer.DecreasePatience();
         }
 
         private void ChangePatienceBar()
@@ -547,11 +629,21 @@ namespace CookingGame.States
         private static int GetRandomWaitTime()
         {
             var random = new Random();
-            var randomNumber = random.Next(2, 10);
+            var randomNumber = random.Next(1, 7);
             return randomNumber;
         }
 
         #endregion
+
+        private void MoveShawarma(Vector2 position)
+        {
+            _currentShawarma.Position.X = position.X;
+            foreach (var ingredient in _currentShawarma.IngredientList)
+            {
+                ingredient.AcceptableBounds = new Rectangle(0, 0, 100000, 10000);
+                ingredient.Position.X = _currentShawarma.Position.X + 30;
+            }
+        }
 
         private void SwitchToMenu(object sender, EventArgs e)
         {

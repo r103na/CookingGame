@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/GameplayState.png
 
+#begin Backgrounds/grillStation_bg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/grillStation_bg.png
+
 #begin Backgrounds/Menu.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -235,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/patiencebar5.png
+
+#begin GUI/stats.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/stats.png
 
 #begin GUI/Tip.png
 /importer:TextureImporter

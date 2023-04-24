@@ -10,7 +10,6 @@ namespace CookingGame.Objects;
 public class Shawarma : ClickableSprite
 {
     public List<IngredientItem> IngredientList = new List<IngredientItem>();
-    public int BurntMeter = 0;
 
     public Shawarma(Texture2D texture)
     {

@@ -5,7 +5,8 @@ namespace CookingGame.Managers
     public class ScoreManager
     {
         #region VARIABLES
-        public int Score;
+        public int Score { get; set; }
+        public int OrderCount { get; set; }
         public int MaxScore = 2000;
 
         public event EventHandler ScoreIncreased;

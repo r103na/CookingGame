@@ -5,6 +5,7 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/GameplayState.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/grillStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/Menu.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/win.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Sonya.png</File>
@@ -23,6 +24,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar3.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar4.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar5.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/stats.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Tip.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
@@ -53,6 +55,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

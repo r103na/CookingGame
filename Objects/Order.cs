@@ -19,7 +19,7 @@ namespace CookingGame.Objects
         public string OrderName { get; private set; }
 
         public OrderState State;
-        public int Price = 10;
+        public int Score { get; set; }
         public string OrderText = "Flat bread, please";
         public List<Ingredient> Ingredients = new();
         public List<string> TransladedIngredients;
