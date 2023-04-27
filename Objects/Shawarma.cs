@@ -10,6 +10,7 @@ namespace CookingGame.Objects;
 public class Shawarma : ClickableSprite
 {
     public List<IngredientItem> IngredientList = new List<IngredientItem>();
+    public bool IsWrapped;
 
     public Shawarma(Texture2D texture)
     {

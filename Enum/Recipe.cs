@@ -1,17 +1,16 @@
 ﻿using System;
 
-namespace CookingGame.Enum
+namespace CookingGame.Enum;
+
+public enum Recipe
 {
-    public enum Recipe
-    {
-        Flatbread,
-        Classic,
-        Vegetarian,
-        Cheesy,
-        Spicy,
-        Kebab,
-        Hachapuri,
-        NoVeggies,
-        AllVeggies,
-    }
+    Flatbread,
+    Classic,
+    Vegetarian,
+    Cheesy,
+    Spicy,
+    Kebab,
+    Hachapuri,
+    NoVeggies,
+    AllVeggies,
 }

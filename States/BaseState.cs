@@ -11,91 +11,90 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace CookingGame.States
+namespace CookingGame.States;
+
+public abstract class BaseState
 {
-    public abstract class BaseState
+    #region VARIABLES
+    private protected readonly List<BaseSprite> GameObjects = new();
+    private protected readonly List<Text> Texts = new();
+
+    private const string FallbackTexture = "Empty";
+    protected ContentManager ContentManager;
+    protected InputManager InputManager;
+    public CameraManager CameraManager;
+
+    public Matrix TransformMatrix;
+
+    public GameTime Gametime;
+    #endregion
+
+    public void Initialize(ContentManager contentManager)
     {
-        #region VARIABLES
-        private protected readonly List<BaseSprite> GameObjects = new();
-        private protected readonly List<Text> Texts = new();
+        ContentManager = contentManager;
+        CameraManager = new CameraManager();
+        InputManager = new InputManager();
+        Gametime = new GameTime();
+    }
 
-        private const string FallbackTexture = "Empty";
-        protected ContentManager ContentManager;
-        protected InputManager InputManager;
-        public CameraManager CameraManager;
+    public abstract void LoadContent();
+    public abstract void Update(GameTime gameTime);
 
-        public Matrix TransformMatrix;
+    public void UnloadContent()
+    {
+        ContentManager.Unload();
+    }
 
-        public GameTime Gametime;
-        #endregion
+    public void HandleInput()
+    {
+        InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
+    }
 
-        public void Initialize(ContentManager contentManager)
+    public event EventHandler<BaseState> OnStateSwitched;
+
+    public event EventHandler<Events> OnEventNotification;
+
+    protected void SwitchState(BaseState gameState)
+    {
+        OnStateSwitched?.Invoke(this, gameState);
+    }
+
+    protected void AddGameObject(BaseSprite gameObject)
+    {
+        GameObjects.Add(gameObject);
+    }
+
+    protected void RemoveGameObject(BaseSprite gameObject)
+    {
+        GameObjects.Remove(gameObject);
+    }
+
+    public void Render(SpriteBatch spriteBatch)
+    {
+        foreach (var gameObject in GameObjects.OrderBy(a => a.Layer))
         {
-            ContentManager = contentManager;
-            CameraManager = new CameraManager();
-            InputManager = new InputManager();
-            Gametime = new GameTime();
+            gameObject.Render(spriteBatch);
         }
 
-        public abstract void LoadContent();
-        public abstract void Update(GameTime gameTime);
-
-        public void UnloadContent()
+        foreach (var text in Texts)
         {
-            ContentManager.Unload();
+            text.Render(spriteBatch);
         }
+    }
+    protected Texture2D LoadTexture(string textureName)
+    {
+        var texture = ContentManager.Load<Texture2D>(textureName);
+        return texture ?? ContentManager.Load<Texture2D>
+            (FallbackTexture);
+    }
 
-        public void HandleInput()
-        {
-            InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
-        }
+    protected void AddText(Text text)
+    {
+        Texts.Add(text);
+    }
 
-        public event EventHandler<BaseState> OnStateSwitched;
-
-        public event EventHandler<Events> OnEventNotification;
-
-        protected void SwitchState(BaseState gameState)
-        {
-            OnStateSwitched?.Invoke(this, gameState);
-        }
-
-        protected void AddGameObject(BaseSprite gameObject)
-        {
-            GameObjects.Add(gameObject);
-        }
-
-        protected void RemoveGameObject(BaseSprite gameObject)
-        {
-            GameObjects.Remove(gameObject);
-        }
-
-        public void Render(SpriteBatch spriteBatch)
-        {
-            foreach (var gameObject in GameObjects.OrderBy(a => a.Layer))
-            {
-                gameObject.Render(spriteBatch);
-            }
-
-            foreach (var text in Texts)
-            {
-                text.Render(spriteBatch);
-            }
-        }
-        protected Texture2D LoadTexture(string textureName)
-        {
-            var texture = ContentManager.Load<Texture2D>(textureName);
-            return texture ?? ContentManager.Load<Texture2D>
-                (FallbackTexture);
-        }
-
-        protected void AddText(Text text)
-        {
-            Texts.Add(text);
-        }
-
-        protected void RemoveText(Text text)
-        {
-            Texts.Remove(text);
-        }
+    protected void RemoveText(Text text)
+    {
+        Texts.Remove(text);
     }
 }

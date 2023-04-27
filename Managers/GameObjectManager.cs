@@ -1,6 +1,5 @@
-﻿namespace CookingGame.Managers
+﻿namespace CookingGame.Managers;
+
+public class GameObjectManager
 {
-    public class GameObjectManager
-    {
-    }
 }

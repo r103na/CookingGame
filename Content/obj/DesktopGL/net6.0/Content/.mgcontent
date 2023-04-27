@@ -18,6 +18,10 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/discardButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Divider.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/exclamation.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon_cheesy.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon_garlic.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon_red.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar1.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar2.png</File>
@@ -34,6 +38,9 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cookingtable.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cucumber.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread2.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread3.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread4.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/onion.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_order.png</File>
@@ -55,6 +62,13 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

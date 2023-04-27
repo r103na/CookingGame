@@ -2,19 +2,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace CookingGame.States
+namespace CookingGame.States;
+
+public class SplashState : BaseState
 {
-    public class SplashState : BaseState
+    public override void LoadContent()
     {
-        public override void LoadContent()
-        {
-            AddGameObject(new SplashImage(LoadTexture("backgrounds/win")));
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            
-        }
-
+        AddGameObject(new SplashImage(LoadTexture("backgrounds/win")));
     }
+
+    public override void Update(GameTime gameTime)
+    {
+            
+    }
+
 }

@@ -1,7 +1,6 @@
-﻿namespace CookingGame.Enum
+﻿namespace CookingGame.Enum;
+
+public enum Events
 {
-    public enum Events
-    {
-        GAME_QUIT
-    }
+    GAME_QUIT
 }

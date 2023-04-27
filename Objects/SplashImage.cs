@@ -2,18 +2,17 @@
 using Microsoft.Xna.Framework;
 using CookingGame.Objects.Base;
 
-namespace CookingGame.Objects
+namespace CookingGame.Objects;
+
+public class SplashImage : BaseSprite
 {
-    public class SplashImage : BaseSprite
+    public SplashImage(Texture2D texture)
     {
-        public SplashImage(Texture2D texture)
-        {
-            Texture = texture;
-        }
-        public SplashImage(Texture2D texture, Vector2 position)
-        {
-            Texture = texture;
-            Position = position;
-        }
+        Texture = texture;
+    }
+    public SplashImage(Texture2D texture, Vector2 position)
+    {
+        Texture = texture;
+        Position = position;
     }
 }

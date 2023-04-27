@@ -1,10 +1,9 @@
 ﻿
 using CookingGame.Objects;
 
-namespace CookingGame.Managers
+namespace CookingGame.Managers;
+
+public class TipManager
 {
-    public class TipManager
-    {
-        public Tip ClickOnCustomerTip;
-    }
+    public Tip ClickOnCustomerTip;
 }

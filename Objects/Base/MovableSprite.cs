@@ -3,34 +3,33 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace CookingGame.Objects.Base
-{
-    public class MovableSprite : ClickableSprite
-    {
-        public Rectangle AcceptableBounds;
-        protected bool IsSpriteTaken;
-        public MovableSprite(Texture2D texture, Vector2 position)
-        {
-            Position = position;
-            Texture = texture;
-            BoundX = (int)Center.X * 2;
-            BoundY = (int)Center.Y * 2;
-            Released += (_, _) =>
-            {
-                IsSpriteTaken = false;
-            };
-            Clicked += (_, _) => IsSpriteTaken = true;
+namespace CookingGame.Objects.Base;
 
-        }
-        public override void HandleHold(Point clickPosition)
+public class MovableSprite : ClickableSprite
+{
+    public Rectangle AcceptableBounds;
+    protected bool IsSpriteTaken;
+    public MovableSprite(Texture2D texture, Vector2 position)
+    {
+        Position = position;
+        Texture = texture;
+        BoundX = (int)Center.X * 2;
+        BoundY = (int)Center.Y * 2;
+        Released += (_, _) =>
         {
-            if (!CanClick) return;
-            if (IsSpriteTaken || IsInBounds(clickPosition))
-            {
-                Position.X = clickPosition.X - Center.X;
-                Position.Y = clickPosition.Y - Center.Y;
-            }
-            
+            IsSpriteTaken = false;
+        };
+        Clicked += (_, _) => IsSpriteTaken = true;
+
+    }
+    public override void HandleHold(Point clickPosition)
+    {
+        if (!CanClick) return;
+        if (IsSpriteTaken || IsInBounds(clickPosition))
+        {
+            Position.X = clickPosition.X - Center.X;
+            Position.Y = clickPosition.Y - Center.Y;
         }
+            
     }
 }

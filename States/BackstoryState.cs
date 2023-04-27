@@ -8,43 +8,42 @@ using CookingGame.Managers;
 using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
 
-namespace CookingGame.States
+namespace CookingGame.States;
+
+public class BackstoryState : BaseState
 {
-    public class BackstoryState : BaseState
+    private Queue<ImageObject> _backstoryImages = new();
+    private ImageObject _currentImageObject;
+    private bool IsBackstoryOver => _backstoryImages.Count == 0;
+
+    public override void LoadContent()
     {
-        private Queue<ImageObject> _backstoryImages = new();
-        private ImageObject _currentImageObject;
-        private bool IsBackstoryOver => _backstoryImages.Count == 0;
+        InputManager = new InputManager();
+        //var image = new ImageObject();
+        //LoadImage();
+    }
 
-        public override void LoadContent()
-        {
-            InputManager = new InputManager();
-            //var image = new ImageObject();
-            //LoadImage();
-        }
-
-        public override void Update(GameTime gameTime)
-        {
+    public override void Update(GameTime gameTime)
+    {
             
-        }
+    }
 
-        public void LoadImage()
-        {
-            _currentImageObject = _backstoryImages.Dequeue();
-            AddGameObject(_currentImageObject);
-        }
+    public void LoadImage()
+    {
+        _currentImageObject = _backstoryImages.Dequeue();
+        AddGameObject(_currentImageObject);
+    }
 
-        public void SwitchImage()
+    public void SwitchImage()
+    {
+        if (!IsBackstoryOver)
         {
-            if (!IsBackstoryOver)
-            {
-                RemoveGameObject(_currentImageObject);
-                LoadImage();
-            }
-            else
-            {
-                SwitchState(new GameplayState());
-            }
+            RemoveGameObject(_currentImageObject);
+            LoadImage();
+        }
+        else
+        {
+            SwitchState(new GameplayState());
         }
     }
 }
