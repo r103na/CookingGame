@@ -81,3 +81,17 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Flatbread2.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Flatbread3.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Flatbread4.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\returnButton.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\grill.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\wrapButton.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\grillBtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\wrapBtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarmagrilled1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Backgrounds\loss.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar10.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar6.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar7.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar8.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar9.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\togrillbtn.xnb

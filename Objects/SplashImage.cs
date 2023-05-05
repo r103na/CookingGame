@@ -4,7 +4,7 @@ using CookingGame.Objects.Base;
 
 namespace CookingGame.Objects;
 
-public class SplashImage : BaseSprite
+public class SplashImage : ClickableSprite
 {
     public SplashImage(Texture2D texture)
     {

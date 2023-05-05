@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/GameplayState.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/grillStation_bg.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/loss.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/Menu.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/win.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Sonya.png</File>
@@ -22,14 +23,24 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon_garlic.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon_red.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/flatbreadIcon.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/grillBtn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/menu_btn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar1.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar10.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar2.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar3.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar4.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar5.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar6.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar7.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar8.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/patiencebar9.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/returnButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/stats.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/Tip.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/togrillbtn.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/wrapBtn.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/wrapButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/carrot.png</File>
@@ -41,6 +52,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread2.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread3.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Flatbread4.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/grill.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/onion.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_bg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/orderStation_order.png</File>
@@ -60,8 +72,24 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_tomato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Table.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarmagrilled1.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

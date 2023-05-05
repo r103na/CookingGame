@@ -29,7 +29,6 @@ public class GameplayState : BaseState
     private float _waitTime;
     private float waitToGive;
     private bool waitingToGive;
-    private bool isGrilling;
     private float grillTime;
 
     private int _customerWaitTime = 1;
@@ -44,9 +43,6 @@ public class GameplayState : BaseState
 
     private float _elapsed;
     private float _cameraLerp;
-    private bool _cameraMovingRight;
-    private bool shawarmaMoving;
-    private bool _cameraMovingLeft;
 
     private SpriteFont font;
     public EventHandler Updated;
@@ -102,14 +98,24 @@ public class GameplayState : BaseState
             if (waitToGive is >= 0.8f and <= 2.25f)
             {
                 AddDialogueBox(null, EventArgs.Empty);
-                if (_currentOrder.Score >= 10 && _currentOrder != null)
+                if (_currentOrder != null)
                 {
-                    ChangeText(ref _orderText, "Спасибо!");
-                }
-                else
-                {
-                    _currentCustomer?.ChangeToMad();
-                    ChangeText(ref _orderText, "Что это?!");
+                    if (_currentOrder.Score >= 10)
+                    {
+                        if (_currentShawarma.IsGrilled)
+                        {
+                            ChangeText(ref _orderText, "Спасибо!");
+                        }
+                        else
+                        {
+                            ChangeText(ref _orderText, "Вы забыли поджарить...");
+                        }
+                    }
+                    else
+                    {
+                        _currentCustomer?.ChangeToMad();
+                        ChangeText(ref _orderText, "Что это?!");
+                    }
                 }
             }
             if (waitToGive >= 2.25f)
@@ -117,16 +123,6 @@ public class GameplayState : BaseState
                 CookShawarma(null, EventArgs.Empty);
                 waitingToGive = false;
                 waitToGive = 0;
-            }
-        }
-
-        if (isGrilling)
-        {
-            grillTime += _elapsed;
-            if (grillTime >= 2f)
-            {
-                isGrilling = false;
-                grillTime = 0;
             }
         }
 
@@ -159,11 +155,19 @@ public class GameplayState : BaseState
         {
             SwitchState(new SplashState());
         }
+        if (_scoreManager.Score <= _scoreManager.MinScore)
+        {
+            SwitchState(new LoseState());
+        }
     }
 
     private void DecreaseScore(object sender, EventArgs e)
     {
         _scoreManager.DecreaseScore(10);
+        if (_scoreManager.Score <= _scoreManager.MinScore)
+        {
+            SwitchState(new LoseState());
+        }
     }
 
     #endregion
@@ -196,7 +200,9 @@ public class GameplayState : BaseState
     private void AddShawarma(string textureName)
     {
         if (_currentShawarma != null) return;
-        shawarmaMoving = false;
+        Updated -= MoveCurrentShawarmaUp;
+        Updated -= MoveCurrentShawarmaDown;
+        Updated -= MoveCurrentShawarmaLeft;
         _currentShawarma = new Shawarma(LoadTexture("items/" + textureName));
         AddGameObject(_currentShawarma);
     }
@@ -321,7 +327,9 @@ public class GameplayState : BaseState
 
     private void AddGrillStation()
     {
+        var grill = new Grill(LoadTexture("items/grill"));
         AddGameObject(new ImageObject(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
+        AddGameObject(grill);
     }
     #endregion
 
@@ -367,34 +375,49 @@ public class GameplayState : BaseState
 
     private void AddGUI()
     {
-        var cookBtn = new Button(LoadTexture("gui/cookButton"),
+        var cookBtn = new Button(LoadTexture("gui/togrillbtn"),
             new Vector2(1200, 660));
         var menuBtn = new Button(LoadTexture("gui/menu_btn"),
             new Vector2(20, 20));
         var discardButton = new Button(LoadTexture("gui/discardButton"), new Vector2(750, 660));
         var finishBtn = new Button(LoadTexture("gui/cookButton"),
             new Vector2(1900, 660));
+        var returnBtn = new Button(LoadTexture("gui/returnButton"),
+            new Vector2(1320, 660));
+        var grillBtn = new Button(LoadTexture("gui/grillBtn"),
+            new Vector2(1910, 460));
+        var wrapBtn = new Button(LoadTexture("gui/wrapBtn"),
+            new Vector2(1320, 460));
+
+        wrapBtn.Clicked += WrapShawarma;
 
         finishBtn.Clicked += (_, _) =>
         {
             waitingToGive = true;
+            Updated -= MoveCurrentShawarmaDown;
+            Updated -= MoveCurrentShawarmaUp;
         };
 
         cookBtn.Clicked += (_, _) =>
         {
             Updated += MoveCameraToGrill;
-            Updated += MoveCurrentShawarma;
+            Updated += MoveCurrentShawarmaLeft;
             Updated -= MoveCameraToVisitor;
         };
 
         menuBtn.Clicked += SwitchToMenu;
+        grillBtn.Clicked += (_, _) =>
+        {
+            Updated += MoveCurrentShawarmaUp;
+            Updated += WaitForGrill;
+        };
 
         discardButton.Clicked += RemoveCurrentShawarma;
         finishBtn.Clicked += (_, _) => {
             Updated += MoveCameraToVisitor;
             Updated -= MoveCameraToGrill;
         };
-        discardButton.Clicked += (_, _) => {
+        returnBtn.Clicked += (_, _) => {
             Updated += MoveCameraToVisitor;
             Updated -= MoveCameraToGrill;
         };
@@ -403,6 +426,9 @@ public class GameplayState : BaseState
         AddGameObject(finishBtn);
         AddGameObject(menuBtn);
         AddGameObject(discardButton);
+        AddGameObject(returnBtn);
+        AddGameObject(grillBtn);
+        AddGameObject(wrapBtn);
         AddShawarmaButton();
         AddStats();
     }
@@ -420,7 +446,8 @@ public class GameplayState : BaseState
     private void AddDialogueBox(object sender, EventArgs e)
     {
         AddGameObject(_dialogueBox);
-        ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
+        if (_currentCustomer != null)
+            ChangeText(ref _orderText, _currentCustomer.Order.OrderText);
 
     }
     #endregion
@@ -504,6 +531,10 @@ public class GameplayState : BaseState
         ClearShawarmaIngredients();
         RemoveGameObject(_currentShawarma);
         _currentShawarma = null;
+        Updated -= MoveCurrentShawarmaDown;
+        Updated -= MoveCurrentShawarmaUp;
+        Updated -= MoveCurrentShawarmaLeft;
+        Updated -= WaitForGrill;
     }
 
     private void ClearShawarmaIngredients()
@@ -528,7 +559,9 @@ public class GameplayState : BaseState
         _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, _elapsed * 5f);
         MoveToGrillStation();
         if (CameraManager.Position.X <= -718)
+        {
             Updated -= MoveCameraToGrill;
+        }
     }
 
     private void MoveCameraToVisitor(object sender, EventArgs e)
@@ -631,8 +664,8 @@ public class GameplayState : BaseState
     {
         if (_currentCustomer == null) return;
 
-        var textureName = (6 - (int)(_currentCustomer.Patience / 50));
-        if (textureName is < 6 and > 0)
+        var textureName = (10 - (int)(_currentCustomer.Patience / 30));
+        if (textureName is < 10 and > 0)
             _patienceBar.ChangeTexture(LoadTexture("gui/patiencebar" + textureName));
     }
 
@@ -667,28 +700,67 @@ public class GameplayState : BaseState
 
     #endregion
 
+    #region SHAWARMA
     private void MoveShawarma(Vector2 position)
     {
         _currentShawarma.Position.X = position.X;
+        _currentShawarma.Position.Y = position.Y;
         foreach (var ingredient in _currentShawarma.IngredientList)
         {
             ingredient.AcceptableBounds = new Rectangle(0, 0, 100000, 10000);
             ingredient.Position.X = _currentShawarma.Position.X + 30;
+            ingredient.Position.Y = _currentShawarma.Position.Y + 30;
         }
     }
 
-    private void MoveCurrentShawarma(object sender, EventArgs e)
+    private void MoveCurrentShawarmaLeft(object sender, EventArgs e)
     {
-        if (_currentShawarma != null)
+        if (_currentShawarma == null) return;
+        MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, _elapsed * 6), _currentShawarma.Position.Y));
+        if (_currentShawarma.Position.X >= 1580)
         {
-            MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, _elapsed * 6), 0));
-            if (_currentShawarma.Position.X >= 1580)
-            {
-                Updated -= MoveCurrentShawarma;
-            }
-        }
+            Updated -= MoveCurrentShawarmaLeft;
+            _currentShawarma.Clicked += WrapShawarma;
+        };
     }
 
+    private void WrapShawarma(object sender, EventArgs e)
+    {
+        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarma"));
+        _currentShawarma.ChangePosition();
+        ClearShawarmaIngredients();
+    }
+
+    private void MoveCurrentShawarmaUp(object sender, EventArgs e)
+    {
+        if (_currentShawarma == null) return;
+        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 100, _elapsed * 6)));
+        if (_currentShawarma.Position.Y <= 110)
+        {
+            Updated -= MoveCurrentShawarmaUp;
+        }
+    }
+    private void MoveCurrentShawarmaDown(object sender, EventArgs e)
+    {
+        if (_currentShawarma == null) return;
+        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 480, _elapsed * 6)));
+        if (_currentShawarma.Position.Y >= 450)
+        {
+            Updated -= MoveCurrentShawarmaDown;
+        }
+    }
+    #endregion
+
+    private void WaitForGrill(object sender, EventArgs e)
+    {
+        grillTime += _elapsed;
+        if (!(grillTime >= 3f)) return;
+        _currentShawarma.Grill();
+        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarmagrilled1"));
+        grillTime = 0;
+        Updated -= WaitForGrill;
+        Updated += MoveCurrentShawarmaDown;
+    }
     private void SwitchToMenu(object sender, EventArgs e)
     {
         SwitchState(new MenuState());

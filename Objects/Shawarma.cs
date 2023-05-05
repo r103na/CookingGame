@@ -11,10 +11,18 @@ public class Shawarma : ClickableSprite
 {
     public List<IngredientItem> IngredientList = new List<IngredientItem>();
     public bool IsWrapped;
+    public bool IsGrilled;
 
     public Shawarma(Texture2D texture)
     {
         Texture = texture;
         Position = new Vector2(920, 430);
     }
+
+    public void ChangePosition()
+    {
+        Position = new Vector2(1540, 460);
+    }
+
+    public void Grill() => IsGrilled = true;
 }
