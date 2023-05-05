@@ -49,6 +49,7 @@ public class GameplayState : BaseState
     private bool _cameraMovingLeft;
 
     private SpriteFont font;
+    public EventHandler Updated;
     #endregion
 
     public override void LoadContent()
@@ -89,41 +90,8 @@ public class GameplayState : BaseState
         Gametime = gameTime;
         _elapsed = (float)Gametime.ElapsedGameTime.TotalSeconds;
 
-        if (_cameraMovingRight)
-        {
-            _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, _elapsed * 5f);
-            MoveToGrillStation();
-            if (CameraManager.Position.X <= -718) 
-                _cameraMovingRight = false;
-        }
-
-        if (_cameraMovingLeft)
-        {
-            _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, 0, _elapsed * 5f);
-            MoveToVisitor();
-            if (CameraManager.Position.X >= -2f) 
-                _cameraMovingLeft = false;
-        }
-
-        if (_currentCustomer == null)
-        {
-            _waitTime += _elapsed;
-
-            if (_waitTime >= _customerWaitTime)
-            {
-                AddCustomer();
-                _waitTime = 0;
-            }
-        }
-
-        if (shawarmaMoving && _currentShawarma != null)
-        {
-            MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, _elapsed * 6), 0));
-            if (_currentShawarma.Position.X >= 1580)
-            {
-                shawarmaMoving = false;
-            }
-        }
+        OnUpdated(null, EventArgs.Empty);
+        WaitForCustomer();
 
         if (waitingToGive)
         {
@@ -411,23 +379,24 @@ public class GameplayState : BaseState
         {
             waitingToGive = true;
         };
-        //finishBtn.Clicked += RemoveCurrentShawarma;
-        cookBtn.Clicked += (_, _) => {
-            _cameraMovingRight = true;
-            shawarmaMoving = true;
-            _cameraMovingLeft = false;
+
+        cookBtn.Clicked += (_, _) =>
+        {
+            Updated += MoveCameraToGrill;
+            Updated += MoveCurrentShawarma;
+            Updated -= MoveCameraToVisitor;
         };
 
         menuBtn.Clicked += SwitchToMenu;
 
         discardButton.Clicked += RemoveCurrentShawarma;
         finishBtn.Clicked += (_, _) => {
-            _cameraMovingLeft = true;
-            _cameraMovingRight = false;
+            Updated += MoveCameraToVisitor;
+            Updated -= MoveCameraToGrill;
         };
         discardButton.Clicked += (_, _) => {
-            _cameraMovingLeft = true;
-            _cameraMovingRight = false;
+            Updated += MoveCameraToVisitor;
+            Updated -= MoveCameraToGrill;
         };
 
         AddGameObject(cookBtn);
@@ -553,11 +522,26 @@ public class GameplayState : BaseState
     #endregion
 
     #region CAMERA MOVEMENT
-    private void MoveToGrillStation()
 
+    private void MoveCameraToGrill(object sender, EventArgs e)
+    {
+        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, _elapsed * 5f);
+        MoveToGrillStation();
+        if (CameraManager.Position.X <= -718)
+            Updated -= MoveCameraToGrill;
+    }
+
+    private void MoveCameraToVisitor(object sender, EventArgs e)
+    {
+        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, 0, _elapsed * 5f);
+        MoveToVisitor();
+        if (CameraManager.Position.X >= -2f)
+            Updated -= MoveCameraToVisitor;
+    }
+
+    private void MoveToGrillStation()
     {
         CameraManager.MoveCamera(new Vector3(_cameraLerp, 0, 0));
-        //_patienceBar.Position.X = CameraManager.Position.X + 50;
         InputManager.ChangeOffset(new Point((int)_cameraLerp, 0));
     }
 
@@ -660,6 +644,20 @@ public class GameplayState : BaseState
         _customerWaitTime = GetRandomWaitTime();
     }
 
+    private void WaitForCustomer()
+    {
+        if (_currentCustomer == null)
+        {
+            _waitTime += _elapsed;
+
+            if (_waitTime >= _customerWaitTime)
+            {
+                AddCustomer();
+                _waitTime = 0;
+            }
+        }
+    }
+
     private static int GetRandomWaitTime()
     {
         var random = new Random();
@@ -679,6 +677,18 @@ public class GameplayState : BaseState
         }
     }
 
+    private void MoveCurrentShawarma(object sender, EventArgs e)
+    {
+        if (_currentShawarma != null)
+        {
+            MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, _elapsed * 6), 0));
+            if (_currentShawarma.Position.X >= 1580)
+            {
+                Updated -= MoveCurrentShawarma;
+            }
+        }
+    }
+
     private void SwitchToMenu(object sender, EventArgs e)
     {
         SwitchState(new MenuState());
@@ -690,5 +700,10 @@ public class GameplayState : BaseState
         var random = new Random();
         var randomNumber = random.Next(0, 2);
         return names[randomNumber];
+    }
+
+    private void OnUpdated(object sender, EventArgs e)
+    {
+        Updated?.Invoke(sender, e);
     }
 }
