@@ -9,7 +9,7 @@ namespace CookingGame.Objects;
 
 public class Shawarma : ClickableSprite
 {
-    public List<IngredientItem> IngredientList = new List<IngredientItem>();
+    public List<IngredientItem> IngredientList = new();
     public bool IsWrapped;
     public bool IsGrilled;
 
@@ -24,5 +24,10 @@ public class Shawarma : ClickableSprite
         Position = new Vector2(1540, 460);
     }
 
-    public void Grill() => IsGrilled = true;
+    public void Grill()
+    {
+        if (IsWrapped) IsGrilled = true;
+    }
+
+    public void Wrap() => IsWrapped = true;
 }

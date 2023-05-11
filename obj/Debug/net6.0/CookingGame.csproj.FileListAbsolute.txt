@@ -95,3 +95,12 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar8.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\patiencebar9.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\togrillbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Music\menu.ogg
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Music\menu.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Music\gameplay.ogg
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Music\gameplay.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\select.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\newCustomer.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\buttonClick.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\grill.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\grill1.xnb

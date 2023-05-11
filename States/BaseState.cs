@@ -8,8 +8,10 @@ using CookingGame.Objects;
 using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace CookingGame.States;
 
@@ -28,6 +30,9 @@ public abstract class BaseState
 
     public GameTime Gametime;
     protected float ElapsedTime;
+
+    protected Song BackgroundSong;
+    protected Dictionary<string, SoundEffect> SoundEffects;
 
     public EventHandler Updated;
     #endregion
@@ -94,11 +99,29 @@ public abstract class BaseState
             text.Render(spriteBatch);
         }
     }
+
     protected Texture2D LoadTexture(string textureName)
     {
         var texture = ContentManager.Load<Texture2D>(textureName);
         return texture ?? ContentManager.Load<Texture2D>
             (FallbackTexture);
+    }
+
+    protected void LoadBackgroundMusic(string backgroundMusicName)
+    {
+        BackgroundSong = ContentManager.Load<Song>(backgroundMusicName);
+        MediaPlayer.Play(BackgroundSong);
+        MediaPlayer.IsRepeating = true;
+    }
+
+    protected void LoadSoundEffects()
+    {
+        SoundEffects = new Dictionary<string, SoundEffect>
+        {
+            { "select", ContentManager.Load<SoundEffect>("SFX/buttonClick") },
+            { "newCustomer", ContentManager.Load<SoundEffect>("SFX/newcustomer") },
+            {"grill", ContentManager.Load<SoundEffect>("SFX/grill") }
+        };
     }
 
     protected void AddText(Text text)

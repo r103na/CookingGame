@@ -7,14 +7,18 @@ namespace CookingGame.States;
 
 public class MenuState : BaseState
 {
-    private float wait = 0.2f;
-    private ImageObject background;
+    private float _wait = 0.2f;
+    private ImageObject _background;
     public override void LoadContent()
     {
-        background = new ImageObject(LoadTexture("backgrounds/Menu"));
-        background.Clicked += SwitchToGameplay;
-        background.CanClick = false;
-        AddGameObject(background);
+        LoadBackgroundMusic("music/menu");
+        LoadSoundEffects();
+        
+        _background = new ImageObject(LoadTexture("backgrounds/Menu"));
+        _background.Clicked += SwitchToGameplay;
+        _background.CanClick = false;
+        AddGameObject(_background);
+
 
         Updated += WaitForStart;
     }
@@ -27,13 +31,13 @@ public class MenuState : BaseState
 
     private void WaitForStart(object sender, EventArgs e)
     {
-        if (wait > 0)
+        if (_wait > 0)
         {
-            wait -= ElapsedTime;
+            _wait -= ElapsedTime;
         }
         else
         {
-            background.CanClick = true;
+            _background.CanClick = true;
             Updated -= WaitForStart;
         }
     }

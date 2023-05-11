@@ -21,8 +21,14 @@ public class Order : BaseSprite
     public OrderState State;
     public int Score { get; set; }
     public string OrderText = "Flat bread, please";
+    public string OrderReviewText = "nice";
+
     public List<Ingredient> Ingredients = new();
     public List<string> TransladedIngredients;
+
+    public List<IngredientItem> IngredientList;
+    public bool IsWrapped;
+    public bool IsGrilled;
 
     private readonly Vector2 _orderPosition = new(50, 120);
 
@@ -36,6 +42,7 @@ public class Order : BaseSprite
         Position = _orderPosition;
         State = new NotTakenState(this);
         LoadOrderFromJson();
+        IngredientList = new List<IngredientItem>();
     }
 
     public void Take()
@@ -58,14 +65,22 @@ public class Order : BaseSprite
         OrderCooked?.Invoke(this, EventArgs.Empty);
     }
 
-    public int CheckIngredients(List<Ingredient> ingredients)
+    public int CheckIngredients(List<Ingredient> currentIngredients)
     {
-        int score = ingredients.Count(ingredient =>
+        var score = currentIngredients.Count(ingredient =>
             Ingredients.Contains(ingredient) && Ingredients.Count(c => c == ingredient) == 1) + 1;
-        score -= ingredients.Count(ingredient => !Ingredients.Contains(ingredient));
-        score -= Ingredients.Count(ingredient => !ingredients.Contains(ingredient)) * 2;
+        score -= currentIngredients.Count(ingredient => !Ingredients.Contains(ingredient));
+        score -= Ingredients.Count(ingredient => !currentIngredients.Contains(ingredient)) * 2;
         return score;
     }
+
+    private bool HasWrongIngredient(List<Ingredient> currentIngredients) 
+        => currentIngredients.Any(ingredient => !Ingredients.Contains(ingredient));
+
+    private bool ForgotIngredient(List<Ingredient> currentIngredients) 
+        => Ingredients.Any(ingredient => !currentIngredients.Contains(ingredient));
+
+    private bool NotGrilled() => true;
 
     public void LoadOrderFromJson()
     {

@@ -1,11 +1,6 @@
-﻿using CookingGame.Enum;
-using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using CookingGame.Objects;
-using CookingGame.Managers;
-using CookingGame.Objects.Base;
 using Microsoft.Xna.Framework;
 
 namespace CookingGame.States;
@@ -18,7 +13,6 @@ public class BackstoryState : BaseState
 
     public override void LoadContent()
     {
-        InputManager = new InputManager();
         //var image = new ImageObject();
         //LoadImage();
     }

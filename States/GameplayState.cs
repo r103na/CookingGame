@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 using CookingGame.Enum;
 using CookingGame.Managers;
 using CookingGame.Objects;
 using CookingGame.Objects.Base;
-using Microsoft.VisualBasic;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -48,6 +47,9 @@ public class GameplayState : BaseState
 
     public override void LoadContent()
     {
+        LoadBackgroundMusic("music/gameplay");
+        LoadSoundEffects();
+
         _scoreManager = new ScoreManager();
         _scoreManager.ScoreIncreased += ChangeScoreText;
         _scoreManager.ScoreDecreased += ChangeScoreText;
@@ -77,6 +79,14 @@ public class GameplayState : BaseState
         AddExtra();
 
         AddIngredientItems();
+
+        foreach (var button in GameObjects.OfType<ClickableSprite>())
+        {
+            button.Clicked += (_, _) =>
+            {
+                SoundEffects?["select"].Play();
+            };
+        }
     }
 
     public override void Update(GameTime gameTime)
@@ -231,6 +241,8 @@ public class GameplayState : BaseState
         AddGameObject(_currentCustomer);
         AddExclamationMark();
         AddPatienceBar();
+
+        SoundEffects["newCustomer"].Play();
     }
 
     public void AddPatienceBar()
@@ -405,6 +417,7 @@ public class GameplayState : BaseState
         menuBtn.Clicked += SwitchToMenu;
         grillBtn.Clicked += (_, _) =>
         {
+            SoundEffects["grill"].Play();
             Updated += MoveCurrentShawarmaUp;
             Updated += WaitForGrill;
         };
@@ -723,6 +736,7 @@ public class GameplayState : BaseState
 
     private void WrapShawarma(object sender, EventArgs e)
     {
+        _currentShawarma.Wrap();
         _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarma"));
         _currentShawarma.ChangePosition();
         ClearShawarmaIngredients();
