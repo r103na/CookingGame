@@ -27,6 +27,9 @@ public abstract class BaseState
     public Matrix TransformMatrix;
 
     public GameTime Gametime;
+    protected float ElapsedTime;
+
+    public EventHandler Updated;
     #endregion
 
     public void Initialize(ContentManager contentManager)
@@ -67,6 +70,16 @@ public abstract class BaseState
     protected void RemoveGameObject(BaseSprite gameObject)
     {
         GameObjects.Remove(gameObject);
+    }
+
+    protected void UpdateTime(GameTime gameTime)
+    {
+        Gametime = gameTime;
+        ElapsedTime = (float)Gametime.ElapsedGameTime.TotalSeconds;
+    }
+    protected void OnUpdated(object sender, EventArgs e)
+    {
+        Updated?.Invoke(sender, e);
     }
 
     public void Render(SpriteBatch spriteBatch)

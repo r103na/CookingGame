@@ -28,8 +28,8 @@ public class GameplayState : BaseState
 
     private float _waitTime;
     private float waitToGive;
-    private bool waitingToGive;
-    private float grillTime;
+    private bool _waitingToGive;
+    private float _grillTime;
 
     private int _customerWaitTime = 1;
 
@@ -41,11 +41,9 @@ public class GameplayState : BaseState
     private PatienceBar _patienceBar;
     private BaseSprite _exclamation;
 
-    private float _elapsed;
     private float _cameraLerp;
 
     private SpriteFont font;
-    public EventHandler Updated;
     #endregion
 
     public override void LoadContent()
@@ -83,18 +81,17 @@ public class GameplayState : BaseState
 
     public override void Update(GameTime gameTime)
     {
-        Gametime = gameTime;
-        _elapsed = (float)Gametime.ElapsedGameTime.TotalSeconds;
+        UpdateTime(gameTime);
 
         OnUpdated(null, EventArgs.Empty);
         WaitForCustomer();
 
-        if (waitingToGive)
+        if (_waitingToGive)
         {
             RemoveDialogueBox();
             ChangeText(ref _orderText, "");
             AddScoreToOrder();
-            waitToGive += _elapsed;
+            waitToGive += ElapsedTime;
             if (waitToGive is >= 0.8f and <= 2.25f)
             {
                 AddDialogueBox(null, EventArgs.Empty);
@@ -121,7 +118,7 @@ public class GameplayState : BaseState
             if (waitToGive >= 2.25f)
             {
                 CookShawarma(null, EventArgs.Empty);
-                waitingToGive = false;
+                _waitingToGive = false;
                 waitToGive = 0;
             }
         }
@@ -393,7 +390,7 @@ public class GameplayState : BaseState
 
         finishBtn.Clicked += (_, _) =>
         {
-            waitingToGive = true;
+            _waitingToGive = true;
             Updated -= MoveCurrentShawarmaDown;
             Updated -= MoveCurrentShawarmaUp;
         };
@@ -556,7 +553,7 @@ public class GameplayState : BaseState
 
     private void MoveCameraToGrill(object sender, EventArgs e)
     {
-        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, _elapsed * 5f);
+        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, -720, ElapsedTime * 5f);
         MoveToGrillStation();
         if (CameraManager.Position.X <= -718)
         {
@@ -566,7 +563,7 @@ public class GameplayState : BaseState
 
     private void MoveCameraToVisitor(object sender, EventArgs e)
     {
-        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, 0, _elapsed * 5f);
+        _cameraLerp = MathHelper.Lerp(CameraManager.Position.X, 0, ElapsedTime * 5f);
         MoveToVisitor();
         if (CameraManager.Position.X >= -2f)
             Updated -= MoveCameraToVisitor;
@@ -681,7 +678,7 @@ public class GameplayState : BaseState
     {
         if (_currentCustomer == null)
         {
-            _waitTime += _elapsed;
+            _waitTime += ElapsedTime;
 
             if (_waitTime >= _customerWaitTime)
             {
@@ -716,7 +713,7 @@ public class GameplayState : BaseState
     private void MoveCurrentShawarmaLeft(object sender, EventArgs e)
     {
         if (_currentShawarma == null) return;
-        MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, _elapsed * 6), _currentShawarma.Position.Y));
+        MoveShawarma(new Vector2(MathHelper.Lerp(_currentShawarma.Position.X, 1590, ElapsedTime * 6), _currentShawarma.Position.Y));
         if (_currentShawarma.Position.X >= 1580)
         {
             Updated -= MoveCurrentShawarmaLeft;
@@ -734,7 +731,7 @@ public class GameplayState : BaseState
     private void MoveCurrentShawarmaUp(object sender, EventArgs e)
     {
         if (_currentShawarma == null) return;
-        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 100, _elapsed * 6)));
+        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 100, ElapsedTime * 6)));
         if (_currentShawarma.Position.Y <= 110)
         {
             Updated -= MoveCurrentShawarmaUp;
@@ -743,7 +740,7 @@ public class GameplayState : BaseState
     private void MoveCurrentShawarmaDown(object sender, EventArgs e)
     {
         if (_currentShawarma == null) return;
-        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 480, _elapsed * 6)));
+        MoveShawarma(new Vector2(_currentShawarma.Position.X, MathHelper.Lerp(_currentShawarma.Position.Y, 480, ElapsedTime * 6)));
         if (_currentShawarma.Position.Y >= 450)
         {
             Updated -= MoveCurrentShawarmaDown;
@@ -753,11 +750,11 @@ public class GameplayState : BaseState
 
     private void WaitForGrill(object sender, EventArgs e)
     {
-        grillTime += _elapsed;
-        if (!(grillTime >= 3f)) return;
+        _grillTime += ElapsedTime;
+        if (!(_grillTime >= 3f)) return;
         _currentShawarma.Grill();
         _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarmagrilled1"));
-        grillTime = 0;
+        _grillTime = 0;
         Updated -= WaitForGrill;
         Updated += MoveCurrentShawarmaDown;
     }
@@ -772,10 +769,5 @@ public class GameplayState : BaseState
         var random = new Random();
         var randomNumber = random.Next(0, 2);
         return names[randomNumber];
-    }
-
-    private void OnUpdated(object sender, EventArgs e)
-    {
-        Updated?.Invoke(sender, e);
     }
 }
