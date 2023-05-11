@@ -24,6 +24,7 @@ public abstract class BaseState
     private const string FallbackTexture = "Empty";
     protected ContentManager ContentManager;
     protected InputManager InputManager;
+    protected SoundManager SoundManager;
     public CameraManager CameraManager;
 
     public Matrix TransformMatrix;
@@ -31,8 +32,6 @@ public abstract class BaseState
     public GameTime Gametime;
     protected float ElapsedTime;
 
-    protected Song BackgroundSong;
-    protected Dictionary<string, SoundEffect> SoundEffects;
 
     public EventHandler Updated;
     #endregion
@@ -42,6 +41,7 @@ public abstract class BaseState
         ContentManager = contentManager;
         CameraManager = new CameraManager();
         InputManager = new InputManager();
+        SoundManager = new SoundManager(contentManager);
         Gametime = new GameTime();
     }
 
@@ -105,23 +105,6 @@ public abstract class BaseState
         var texture = ContentManager.Load<Texture2D>(textureName);
         return texture ?? ContentManager.Load<Texture2D>
             (FallbackTexture);
-    }
-
-    protected void LoadBackgroundMusic(string backgroundMusicName)
-    {
-        BackgroundSong = ContentManager.Load<Song>(backgroundMusicName);
-        MediaPlayer.Play(BackgroundSong);
-        MediaPlayer.IsRepeating = true;
-    }
-
-    protected void LoadSoundEffects()
-    {
-        SoundEffects = new Dictionary<string, SoundEffect>
-        {
-            { "select", ContentManager.Load<SoundEffect>("SFX/buttonClick") },
-            { "newCustomer", ContentManager.Load<SoundEffect>("SFX/newcustomer") },
-            {"grill", ContentManager.Load<SoundEffect>("SFX/grill") }
-        };
     }
 
     protected void AddText(Text text)

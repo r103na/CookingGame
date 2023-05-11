@@ -47,8 +47,8 @@ public class GameplayState : BaseState
 
     public override void LoadContent()
     {
-        LoadBackgroundMusic("music/gameplay");
-        LoadSoundEffects();
+        SoundManager.LoadBackgroundMusic("music/gameplay");
+        SoundManager.LoadSoundEffects();
 
         _scoreManager = new ScoreManager();
         _scoreManager.ScoreIncreased += ChangeScoreText;
@@ -84,7 +84,7 @@ public class GameplayState : BaseState
         {
             button.Clicked += (_, _) =>
             {
-                SoundEffects?["select"].Play();
+                SoundManager.SoundEffects?["select"].Play();
             };
         }
     }
@@ -242,7 +242,7 @@ public class GameplayState : BaseState
         AddExclamationMark();
         AddPatienceBar();
 
-        SoundEffects["newCustomer"].Play();
+        SoundManager.SoundEffects["newCustomer"].Play();
     }
 
     public void AddPatienceBar()
@@ -417,7 +417,7 @@ public class GameplayState : BaseState
         menuBtn.Clicked += SwitchToMenu;
         grillBtn.Clicked += (_, _) =>
         {
-            SoundEffects["grill"].Play();
+            SoundManager.SoundEffects["grill"].Play();
             Updated += MoveCurrentShawarmaUp;
             Updated += WaitForGrill;
         };

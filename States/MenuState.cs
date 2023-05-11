@@ -11,8 +11,8 @@ public class MenuState : BaseState
     private ImageObject _background;
     public override void LoadContent()
     {
-        LoadBackgroundMusic("music/menu");
-        LoadSoundEffects();
+        SoundManager.LoadBackgroundMusic("music/menu");
+        SoundManager.LoadSoundEffects();
         
         _background = new ImageObject(LoadTexture("backgrounds/Menu"));
         _background.Clicked += SwitchToGameplay;
