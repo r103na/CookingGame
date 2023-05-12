@@ -12,6 +12,7 @@ public class Shawarma : ClickableSprite
     public List<IngredientItem> IngredientList = new();
     public bool IsWrapped;
     public bool IsGrilled;
+    public string FlatbreadType;
 
     public Shawarma(Texture2D texture)
     {

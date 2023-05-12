@@ -3,21 +3,19 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CookingGame.Managers
 {
     public class SoundManager
     {
         public Song BackgroundSong;
-        public Dictionary<string, SoundEffect> SoundEffects;
+        public Dictionary<string, SoundEffect> SoundEffects = new();
         private readonly ContentManager _contentManager;
 
         public SoundManager(ContentManager contentManager)
         {
             _contentManager = contentManager;
+            LoadSoundEffects();
         }
 
         public void LoadBackgroundMusic(string backgroundMusicName)
@@ -35,6 +33,12 @@ namespace CookingGame.Managers
                 { "newCustomer", _contentManager.Load<SoundEffect>("SFX/newcustomer") },
                 {"grill", _contentManager.Load<SoundEffect>("SFX/grill") }
             };
+        }
+
+        public void PlayButtonClick(object sender, EventArgs e)
+        {
+            LoadSoundEffects();
+            SoundEffects?["select"]?.Play();
         }
     }
 }

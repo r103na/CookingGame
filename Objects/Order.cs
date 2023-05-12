@@ -27,8 +27,6 @@ public class Order : BaseSprite
     public List<string> TransladedIngredients;
 
     public List<IngredientItem> IngredientList;
-    public bool IsWrapped;
-    public bool IsGrilled;
 
     private readonly Vector2 _orderPosition = new(50, 120);
 
@@ -80,7 +78,15 @@ public class Order : BaseSprite
     private bool ForgotIngredient(List<Ingredient> currentIngredients) 
         => Ingredients.Any(ingredient => !currentIngredients.Contains(ingredient));
 
-    private bool NotGrilled() => true;
+    public string GetOrderReview(Shawarma shawarma)
+    {
+        var ingredient = shawarma.IngredientList.Select(x => x.Ingredient).ToList();
+        if (HasWrongIngredient(ingredient) && ForgotIngredient(ingredient)) return "Вы перепутали заказ?..";
+        if (HasWrongIngredient(ingredient)) return "Здесь что-то не то..";
+        if (ForgotIngredient(ingredient)) return "Чего-то не хватает..";
+        if (!shawarma.IsGrilled) return "Вы забыли поджарить...";
+        return "Спасибо!";
+    }
 
     public void LoadOrderFromJson()
     {

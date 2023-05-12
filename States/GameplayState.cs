@@ -26,9 +26,9 @@ public class GameplayState : BaseState
     private Text _orderNameText;
 
     private float _waitTime;
-    private float waitToGive;
-    private bool _waitingToGive;
+    private float _waitToGive;
     private float _grillTime;
+    private float _waitToClick = 0.5f;
 
     private int _customerWaitTime = 1;
 
@@ -42,7 +42,9 @@ public class GameplayState : BaseState
 
     private float _cameraLerp;
 
-    private SpriteFont font;
+    private SpriteFont _font;
+
+    private ImageObject _shawarmaOnCounter;
     #endregion
 
     public override void LoadContent()
@@ -54,11 +56,12 @@ public class GameplayState : BaseState
         _scoreManager.ScoreIncreased += ChangeScoreText;
         _scoreManager.ScoreDecreased += ChangeScoreText;
 
-        font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
-        _scoreText = new Text(font, $"Деньги: {_scoreManager.Score}", new Vector2(45, 550));
-        _orderCountText = new Text(font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
-        _orderText = new Text(font, "", new Vector2(340, 105));
-        _orderNameText = new Text(font, "", new Vector2(65, 135));
+        _font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
+        _scoreText = new Text(_font, $"Деньги: {_scoreManager.Score}", new Vector2(45, 550));
+        _orderCountText = new Text(_font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
+        _orderText = new Text(_font, "", new Vector2(340, 105));
+        _orderNameText = new Text(_font, "", new Vector2(65, 135));
+        _shawarmaOnCounter = new ImageObject(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
 
         _tip = new Tip(LoadTexture("gui/tip"), InputManager.MousePosition);
         _patienceBar = new PatienceBar(LoadTexture("gui/patiencebar1"));
@@ -82,11 +85,11 @@ public class GameplayState : BaseState
 
         foreach (var button in GameObjects.OfType<ClickableSprite>())
         {
-            button.Clicked += (_, _) =>
-            {
-                SoundManager.SoundEffects?["select"].Play();
-            };
+            button.Clicked += SoundManager.PlayButtonClick;
         }
+
+        Updated += WaitToClick;
+        Updated += WaitForCustomer;
     }
 
     public override void Update(GameTime gameTime)
@@ -94,44 +97,7 @@ public class GameplayState : BaseState
         UpdateTime(gameTime);
 
         OnUpdated(null, EventArgs.Empty);
-        WaitForCustomer();
 
-        if (_waitingToGive)
-        {
-            RemoveDialogueBox();
-            ChangeText(ref _orderText, "");
-            AddScoreToOrder();
-            waitToGive += ElapsedTime;
-            if (waitToGive is >= 0.8f and <= 2.25f)
-            {
-                AddDialogueBox(null, EventArgs.Empty);
-                if (_currentOrder != null)
-                {
-                    if (_currentOrder.Score >= 10)
-                    {
-                        if (_currentShawarma.IsGrilled)
-                        {
-                            ChangeText(ref _orderText, "Спасибо!");
-                        }
-                        else
-                        {
-                            ChangeText(ref _orderText, "Вы забыли поджарить...");
-                        }
-                    }
-                    else
-                    {
-                        _currentCustomer?.ChangeToMad();
-                        ChangeText(ref _orderText, "Что это?!");
-                    }
-                }
-            }
-            if (waitToGive >= 2.25f)
-            {
-                CookShawarma(null, EventArgs.Empty);
-                _waitingToGive = false;
-                waitToGive = 0;
-            }
-        }
 
         foreach (var item in GameObjects.OfType<IngredientItem>())
         {
@@ -212,6 +178,12 @@ public class GameplayState : BaseState
         Updated -= MoveCurrentShawarmaLeft;
         _currentShawarma = new Shawarma(LoadTexture("items/" + textureName));
         AddGameObject(_currentShawarma);
+    }
+
+    public void AddShawarmaToCounter(object sender, EventArgs e)
+    {
+        Updated -= AddShawarmaToCounter;
+        AddGameObject(_shawarmaOnCounter);
     }
 
     private void AddCustomer()
@@ -347,7 +319,7 @@ public class GameplayState : BaseState
     private void AddStats()
     {
         AddGameObject(new ImageObject(LoadTexture("gui/stats"), new Vector2(30, 500)));
-        AddText(new Text(font, "Статистика", new Vector2(45, 515)));
+        AddText(new Text(_font, "Статистика", new Vector2(45, 515)));
     }
 
     public void AddOrder(object sender, EventArgs e)
@@ -402,7 +374,7 @@ public class GameplayState : BaseState
 
         finishBtn.Clicked += (_, _) =>
         {
-            _waitingToGive = true;
+            Updated += WaitToGive;
             Updated -= MoveCurrentShawarmaDown;
             Updated -= MoveCurrentShawarmaUp;
         };
@@ -516,6 +488,8 @@ public class GameplayState : BaseState
         _currentOrder = null;
         _currentCustomer = null;
 
+        Updated += WaitForCustomer;
+
         ChangeText(ref _orderText, "");
     }
 
@@ -545,6 +519,11 @@ public class GameplayState : BaseState
         Updated -= MoveCurrentShawarmaUp;
         Updated -= MoveCurrentShawarmaLeft;
         Updated -= WaitForGrill;
+    }
+
+    private void RemoveShawarmaOnCounter()
+    {
+        RemoveGameObject(_shawarmaOnCounter);
     }
 
     private void ClearShawarmaIngredients()
@@ -605,7 +584,7 @@ public class GameplayState : BaseState
         for (var index = 0; index < _currentCustomer.Order.TransladedIngredients.Count; index++)
         {
             var ingredient = _currentCustomer.Order.TransladedIngredients[index];
-            var text = new Text(font, ingredient, new Vector2(65, 175 + index * 28));
+            var text = new Text(_font, ingredient, new Vector2(65, 175 + index * 28));
             ingredientsText.Add(text);
             AddText(text);
         }
@@ -687,18 +666,15 @@ public class GameplayState : BaseState
         _customerWaitTime = GetRandomWaitTime();
     }
 
-    private void WaitForCustomer()
+    private void WaitForCustomer(object sender, EventArgs e)
     {
-        if (_currentCustomer == null)
-        {
-            _waitTime += ElapsedTime;
+        _waitTime += ElapsedTime;
 
-            if (_waitTime >= _customerWaitTime)
-            {
-                AddCustomer();
-                _waitTime = 0;
-            }
-        }
+        if (!(_waitTime >= _customerWaitTime)) return;
+
+        AddCustomer();
+        _waitTime = 0;
+        Updated -= WaitForCustomer;
     }
 
     private static int GetRandomWaitTime()
@@ -762,6 +738,36 @@ public class GameplayState : BaseState
     }
     #endregion
 
+    private void WaitToGive(object sender, EventArgs e)
+    {
+        RemoveDialogueBox();
+        ChangeText(ref _orderText, "");
+        AddScoreToOrder();
+        Updated += AddShawarmaToCounter;
+
+        _waitToGive += ElapsedTime;
+        if (_waitToGive is >= 0.8f and <= 2.25f)
+        {
+            AddDialogueBox(null, EventArgs.Empty);
+            if (_currentOrder != null)
+            {
+                ChangeText(ref _orderText, _currentOrder.GetOrderReview(_currentShawarma));
+                if (_currentOrder.Score < 10)
+                {
+                    _currentCustomer?.ChangeToMad();
+                    ChangeText(ref _orderText, "Что это?!");
+                }
+            }
+        }
+        if (_waitToGive >= 2.25f)
+        {
+            RemoveShawarmaOnCounter();
+            CookShawarma(null, EventArgs.Empty);
+            Updated -= WaitToGive;
+            _waitToGive = 0;
+        }
+    }
+
     private void WaitForGrill(object sender, EventArgs e)
     {
         _grillTime += ElapsedTime;
@@ -772,6 +778,27 @@ public class GameplayState : BaseState
         Updated -= WaitForGrill;
         Updated += MoveCurrentShawarmaDown;
     }
+
+    private void WaitToClick(object sender, EventArgs e)
+    {
+        if (_waitToClick > 0f)
+        {
+            _waitToClick -= ElapsedTime;
+            foreach (var obj in GameObjects.OfType<ClickableSprite>())
+            {
+                obj.CanClick = false;
+            }
+        }
+        else
+        {
+            foreach (var obj in GameObjects.OfType<ClickableSprite>())
+            {
+                obj.CanClick = true;
+            }
+            Updated -= WaitToClick;
+        }
+    }
+
     private void SwitchToMenu(object sender, EventArgs e)
     {
         SwitchState(new MenuState());
@@ -779,7 +806,7 @@ public class GameplayState : BaseState
 
     private static string GetRandomCharacterName()
     {
-        var names = new[] { "Tonya", "Sonya" };
+        var names = new[] { "Tonya", "Sonya" }; // TODO добавить КОЛЮ СИНИЦИНА.
         var random = new Random();
         var randomNumber = random.Next(0, 2);
         return names[randomNumber];
