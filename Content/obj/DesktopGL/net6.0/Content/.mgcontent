@@ -14,6 +14,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonya.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/Tonyamad.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Fonts/MyFont.spritefont</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/alert.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/AlertButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/cookButton.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/dialogue_box.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/discardButton.png</File>
@@ -83,6 +85,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/select.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

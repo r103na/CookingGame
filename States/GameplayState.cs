@@ -79,6 +79,7 @@ public class GameplayState : BaseState
         AddGrillStation();
 
         AddGUI();
+        
         AddExtra();
 
         AddIngredientItems();
@@ -128,6 +129,12 @@ public class GameplayState : BaseState
         {
             SwitchState(new SplashState());
         }
+
+        if (_scoreManager.Score < 0)
+        {
+            AddAlert();
+        }
+
         if (_scoreManager.Score <= _scoreManager.MinScore)
         {
             SwitchState(new LoseState());
@@ -137,6 +144,10 @@ public class GameplayState : BaseState
     private void DecreaseScore(object sender, EventArgs e)
     {
         _scoreManager.DecreaseScore(10);
+        if (_scoreManager.Score < 0)
+        {
+            AddAlert();
+        }
         if (_scoreManager.Score <= _scoreManager.MinScore)
         {
             SwitchState(new LoseState());
@@ -180,7 +191,7 @@ public class GameplayState : BaseState
         AddGameObject(_currentShawarma);
     }
 
-    public void AddShawarmaToCounter(object sender, EventArgs e)
+    private void AddShawarmaToCounter(object sender, EventArgs e)
     {
         Updated -= AddShawarmaToCounter;
         AddGameObject(_shawarmaOnCounter);
@@ -352,6 +363,18 @@ public class GameplayState : BaseState
         AddGameObject(sb2);
         AddGameObject(sb3);
         AddGameObject(sb4);
+    }
+
+    private void AddAlert()
+    {
+        var alert = new Alert(LoadTexture("gui/alert"), LoadTexture("gui/alertbutton"));
+        alert.ConfirmButton.Clicked += (_, _) =>
+        {
+            RemoveGameObject(alert);
+            RemoveGameObject(alert.ConfirmButton);
+        };
+        AddGameObject(alert);
+        AddGameObject(alert.ConfirmButton);
     }
 
     private void AddGUI()

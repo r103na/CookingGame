@@ -104,3 +104,5 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\buttonClick.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\grill.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\grill1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\alert.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\AlertButton.xnb
