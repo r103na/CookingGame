@@ -31,7 +31,9 @@ namespace CookingGame.Managers
             {
                 { "select", _contentManager.Load<SoundEffect>("SFX/buttonClick") },
                 { "newCustomer", _contentManager.Load<SoundEffect>("SFX/newcustomer") },
-                {"grill", _contentManager.Load<SoundEffect>("SFX/grill") }
+                {"grill", _contentManager.Load<SoundEffect>("SFX/grill") }, 
+                {"win", _contentManager.Load<SoundEffect>("SFX/win")},
+                {"lose", _contentManager.Load<SoundEffect>("SFX/lose")}
             };
         }
 

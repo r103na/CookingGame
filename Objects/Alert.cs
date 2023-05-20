@@ -10,8 +10,8 @@ public class Alert : ClickableSprite
     public Alert(Texture2D texture, Texture2D buttonTexture)
     {
         Texture = texture;
-        Position = new Vector2(440, 260);
-        ConfirmButton = new Button(buttonTexture, new Vector2(560, 355));
+        Position = new Vector2(440, 1260);
+        ConfirmButton = new Button(buttonTexture, new Vector2(570, 1365));
         Layer = 10;
         ConfirmButton.Layer = 11;
     }

@@ -12,7 +12,7 @@ public class BaseSprite
     protected float Rotation = 0f;
     protected SpriteEffects Effects;
     protected Vector2 Center => new(Texture.Width / 2f, Texture.Height / 2f);
-    protected Vector2 Uhm => Position + Center;
+    protected Vector2 CenterPosition => Position + Center;
 
     public int Layer;
 
@@ -23,12 +23,18 @@ public class BaseSprite
 
     public void Render(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(Texture, Uhm, null, Color, Rotation, Center, 1, Effects, 0);
+        spriteBatch.Draw(Texture, CenterPosition, null, Color, Rotation, Center, 1, Effects, 0);
     }
 
     public void ChangeTexture(Texture2D texture)
     {
         Texture = texture;
+    }
+
+    public void ChangePositionSmoothly(Vector2 position, float amount)
+    {
+        Position.X = MathHelper.Lerp(Position.X, position.X, amount);
+        Position.Y = MathHelper.Lerp(Position.Y, position.Y, amount);
     }
 
 }

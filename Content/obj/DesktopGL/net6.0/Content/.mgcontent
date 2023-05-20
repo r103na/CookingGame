@@ -81,10 +81,14 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/buttonClick.wav</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/grill.wav</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/grill1.wav</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/lose.wav</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/newCustomer.wav</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/select.wav</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/win.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

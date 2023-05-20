@@ -80,6 +80,7 @@ public class Order : BaseSprite
 
     public string GetOrderReview(Shawarma shawarma)
     {
+        if (shawarma == null) return "Где шаурма?!!";
         var ingredient = shawarma.IngredientList.Select(x => x.Ingredient).ToList();
         if (HasWrongIngredient(ingredient) && ForgotIngredient(ingredient)) return "Вы перепутали заказ?..";
         if (HasWrongIngredient(ingredient)) return "Здесь что-то не то..";

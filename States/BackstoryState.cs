@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using CookingGame.Objects;
 using Microsoft.Xna.Framework;
@@ -9,17 +10,23 @@ public class BackstoryState : BaseState
 {
     private Queue<ImageObject> _backstoryImages = new();
     private ImageObject _currentImageObject;
+    private float waitNextImage;
     private bool IsBackstoryOver => _backstoryImages.Count == 0;
 
     public override void LoadContent()
     {
-        //var image = new ImageObject();
-        //LoadImage();
+        
     }
 
     public override void Update(GameTime gameTime)
     {
-            
+        UpdateTime(gameTime);
+        OnUpdated(null, EventArgs.Empty);
+    }
+
+    private void LoadImageQueue()
+    {
+        //_backstoryImages.Enqueue(new ImageObject());
     }
 
     public void LoadImage()
@@ -28,7 +35,7 @@ public class BackstoryState : BaseState
         AddGameObject(_currentImageObject);
     }
 
-    public void SwitchImage()
+    private void SwitchImage()
     {
         if (!IsBackstoryOver)
         {
@@ -40,4 +47,10 @@ public class BackstoryState : BaseState
             SwitchState(new GameplayState());
         }
     }
+
+    private void WaitForImage()
+    {
+
+    }
+
 }

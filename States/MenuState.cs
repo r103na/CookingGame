@@ -12,13 +12,12 @@ public class MenuState : BaseState
     public override void LoadContent()
     {
         SoundManager.LoadBackgroundMusic("music/menu");
-        //SoundManager.LoadSoundEffects();
+        SoundManager.LoadSoundEffects();
         
         _background = new ImageObject(LoadTexture("backgrounds/Menu"));
         _background.Clicked += SwitchToGameplay;
         _background.CanClick = false;
         AddGameObject(_background);
-
 
         Updated += WaitForStart;
     }

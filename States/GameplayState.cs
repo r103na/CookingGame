@@ -39,12 +39,13 @@ public class GameplayState : BaseState
     private Tip _tip;
     private PatienceBar _patienceBar;
     private BaseSprite _exclamation;
+    private Alert _alert;
 
     private float _cameraLerp;
 
     private SpriteFont _font;
 
-    private ImageObject _shawarmaOnCounter;
+    private ClickableSprite _shawarmaOnCounter;
     #endregion
 
     public override void LoadContent()
@@ -115,7 +116,7 @@ public class GameplayState : BaseState
 
     private void AddScoreToOrder()
     {
-        if (_currentOrder == null) return;
+        if (_currentOrder == null || _currentShawarma == null) return;
         var shawarmaIngredientList = _currentShawarma.IngredientList
             .Select(x => x.Ingredient)
             .ToList();
@@ -133,6 +134,7 @@ public class GameplayState : BaseState
         if (_scoreManager.Score < 0)
         {
             AddAlert();
+            Updated += MoveAlert;
         }
 
         if (_scoreManager.Score <= _scoreManager.MinScore)
@@ -194,7 +196,8 @@ public class GameplayState : BaseState
     private void AddShawarmaToCounter(object sender, EventArgs e)
     {
         Updated -= AddShawarmaToCounter;
-        AddGameObject(_shawarmaOnCounter);
+        if (GameObjects.All(x => x != _shawarmaOnCounter))
+            AddGameObject(_shawarmaOnCounter);
     }
 
     private void AddCustomer()
@@ -367,14 +370,24 @@ public class GameplayState : BaseState
 
     private void AddAlert()
     {
-        var alert = new Alert(LoadTexture("gui/alert"), LoadTexture("gui/alertbutton"));
-        alert.ConfirmButton.Clicked += (_, _) =>
+        _alert = new Alert(LoadTexture("gui/alert"), LoadTexture("gui/alertbutton"));
+        _alert.ConfirmButton.Clicked += (_, _) =>
         {
-            RemoveGameObject(alert);
-            RemoveGameObject(alert.ConfirmButton);
+            RemoveGameObject(_alert);
+            RemoveGameObject(_alert.ConfirmButton);
         };
-        AddGameObject(alert);
-        AddGameObject(alert.ConfirmButton);
+        AddGameObject(_alert);
+        AddGameObject(_alert.ConfirmButton);
+    }
+
+    private void MoveAlert(object sender, EventArgs e)
+    {
+        _alert.ChangePositionSmoothly(new Vector2(_alert.Position.X, 260), 5f * ElapsedTime);
+        _alert.ConfirmButton.Position.Y = _alert.Position.Y + 105;
+        if (_alert.Position.Y <= 280)
+        {
+            Updated -= MoveAlert;
+        };
     }
 
     private void AddGUI()
@@ -766,19 +779,18 @@ public class GameplayState : BaseState
         RemoveDialogueBox();
         ChangeText(ref _orderText, "");
         AddScoreToOrder();
-        Updated += AddShawarmaToCounter;
 
         _waitToGive += ElapsedTime;
         if (_waitToGive is >= 0.8f and <= 2.25f)
         {
             AddDialogueBox(null, EventArgs.Empty);
+            AddShawarmaToCounter(null, EventArgs.Empty);
             if (_currentOrder != null)
             {
                 ChangeText(ref _orderText, _currentOrder.GetOrderReview(_currentShawarma));
                 if (_currentOrder.Score < 10)
                 {
                     _currentCustomer?.ChangeToMad();
-                    ChangeText(ref _orderText, "Что это?!");
                 }
             }
         }
