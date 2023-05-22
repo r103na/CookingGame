@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 
 using CookingGame.Enum;
+using CookingGame.Managers;
 using CookingGame.Objects.Base;
 using CookingGame.States;
 
@@ -21,7 +22,6 @@ public class Order : BaseSprite
     public OrderState State;
     public int Score { get; set; }
     public string OrderText = "Flat bread, please";
-    public string OrderReviewText = "nice";
 
     public List<Ingredient> Ingredients = new();
     public List<string> TransladedIngredients;
@@ -31,8 +31,6 @@ public class Order : BaseSprite
     private readonly Vector2 _orderPosition = new(50, 120);
 
     public event EventHandler OrderCooked;
-
-    private const string Filepath = "C:\\Users\\user\\source\\repos\\CookingGame\\CookingGame\\Data\\recipes\\";
     #endregion
 
     public Order()
@@ -90,7 +88,8 @@ public class Order : BaseSprite
 
     public void LoadOrderFromJson()
     {
-        var filePath = Filepath + GetRandomOrder() + ".json";
+        var relativePath = Path.Combine("Data", "recipes", GetRandomOrder() + ".json");
+        var filePath = Path.Combine(PathManager.GetPath(), relativePath);
         var jsonString = File.ReadAllText(filePath);
         var orderData = JsonSerializer.Deserialize<OrderData>(jsonString);
         OrderName = orderData?.OrderName;
