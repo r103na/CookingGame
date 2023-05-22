@@ -21,7 +21,7 @@ public abstract class BaseState
 
     private const string FallbackTexture = "Empty";
     protected ContentManager ContentManager;
-    protected InputManager InputManager;
+    public InputManager InputManager;
     protected SoundManager SoundManager;
     public CameraManager CameraManager;
 
@@ -53,7 +53,7 @@ public abstract class BaseState
 
     public void HandleInput()
     {
-        InputManager.HandleInput(TransformMatrix, GameObjects.OfType<ClickableSprite>().ToList());
+        InputManager.HandleInput(TransformMatrix, GameObjects);
     }
 
     public event EventHandler<BaseState> OnStateSwitched;

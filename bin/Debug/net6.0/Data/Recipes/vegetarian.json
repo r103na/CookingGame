@@ -1,0 +1,18 @@
+{
+  "Dialogue": "Вегетарианскую, пожалуйста",
+  "OrderName": "Вегетарианская",
+  "Ingredients": [
+    "Sauce",
+    "Cabbage",
+    "Potato",
+    "Tomato",
+    "Cucumber"
+  ],
+  "Translation": [
+    "Соус",
+    "Капуста",
+    "Картофель",
+    "Помидоры",
+    "Огурцы"
+  ]
+}

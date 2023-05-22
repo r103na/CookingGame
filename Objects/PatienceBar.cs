@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace CookingGame.Objects;
 
-public class PatienceBar : ImageObject
+public class PatienceBar : ClickableImage
 {
     private readonly Vector2 _position = new(50, 400);
     public PatienceBar(Texture2D texture) : base(texture)

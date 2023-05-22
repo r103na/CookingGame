@@ -1,0 +1,14 @@
+{
+  "Dialogue": "Ненавижу овощи.",
+  "OrderName": "Без овощей",
+  "Ingredients": [
+    "Sauce",
+    "Chicken",
+    "Cheese"
+  ],
+  "Translation": [
+    "Соус",
+    "Курица",
+    "Сыр"
+  ]
+}

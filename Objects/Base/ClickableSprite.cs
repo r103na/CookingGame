@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.Objects.Base;
 
@@ -14,19 +15,6 @@ public abstract class ClickableSprite : BaseSprite
     public event EventHandler Released;
     public event EventHandler Hovered;
     public event EventHandler Unhovered;
-    #endregion
-
-    #region BOUNDS
-    protected int BoundX = 0;
-    protected int BoundY = 0;
-
-    protected Rectangle Bounds =>
-        new(
-            (int)Position.X - BoundX,
-            (int)Position.Y - BoundY,
-            Texture.Width + BoundX,
-            Texture.Height + BoundY);
-    public bool IsInBounds(Point mousePosition) => Bounds.Contains(mousePosition);
     #endregion
 
     #region INPUT HANDLERS
@@ -43,6 +31,7 @@ public abstract class ClickableSprite : BaseSprite
         if (IsInBounds(clickPosition))
         {
             OnHover();
+            Mouse.SetCursor(MouseCursor.Hand);
         }
     }
 

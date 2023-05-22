@@ -108,3 +108,13 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\AlertButton.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\win.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\lose.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\AllVeggies.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\cheesy.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\classic.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\flatbread.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\hachapuri.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\kebab.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\noveggies.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\spicy.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\vegetarian.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\settings\settings.json

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using CookingGame.States;
 using CookingGame.Enum;
 using System;
+using CookingGame.Managers;
 
 namespace CookingGame;
 
@@ -23,9 +24,12 @@ public class CookingGame : Game
     private float WindowAspect => Window.ClientBounds.Width / (float)Window.ClientBounds.Height;
     private float _nativeAspect;
 
+    private SettingsManager _settingsManager;
+
     public CookingGame()
     {
         _graphics = new GraphicsDeviceManager(this);
+        _settingsManager = new SettingsManager();
 
         Content.RootDirectory = "Content";
 
@@ -57,7 +61,7 @@ public class CookingGame : Game
     private void UpdateWindowBoxingRect(object sender, EventArgs e) // Updates windowBoxingRect
     {
         // Calculates dimensions of black bars on sides of screen
-        const float variance = 0.5f;
+        const float variance = 0f;
         int windowWidth, windowHeight;
         if (_graphics.IsFullScreen)
         {
@@ -82,6 +86,7 @@ public class CookingGame : Game
             //Larger output means wider than native, meaning side bars
             var presentWidth = (int)((windowHeight * _nativeAspect) + variance);
             var barWidth = (windowWidth - presentWidth) / 2;
+            _currentGameState.InputManager.ChangeOffsetX(barWidth);
             _windowBoxingRect = new Rectangle(barWidth, 0, presentWidth, windowHeight);
         }
     }

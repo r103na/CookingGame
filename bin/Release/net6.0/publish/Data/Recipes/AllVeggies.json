@@ -1,0 +1,17 @@
+{
+  "Dialogue": "Обожаю овощи!",
+  "OrderName": "Все овощи",
+  "Ingredients": [
+    "Sauce",
+    "Pepper",
+    "Cucumber",
+    "Tomato",
+    "Carrot",
+    "Onion",
+    "Cabbage",
+    "Potato"
+  ],
+  "Translation": [
+    "Овощи"
+  ]
+}

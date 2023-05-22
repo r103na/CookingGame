@@ -7,7 +7,7 @@ public class LoseState : BaseState
 {
     public override void LoadContent() 
     {
-        var background = new SplashImage(LoadTexture("backgrounds/loss"));
+        var background = new ClickableImage(LoadTexture("backgrounds/loss"));
         background.Clicked += (_, _) =>
         {
             SwitchState(new GameplayState());

@@ -1,11 +1,14 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using CookingGame.Objects.Base;
+using System;
+using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame.Objects;
 
-public class SplashImage : ClickableSprite
+public class SplashImage : BaseSprite
 {
+    public event EventHandler Hovered;
     public SplashImage(Texture2D texture)
     {
         Texture = texture;
@@ -14,5 +17,18 @@ public class SplashImage : ClickableSprite
     {
         Texture = texture;
         Position = position;
+    }
+
+    protected virtual void OnHovered()
+    {
+        Hovered?.Invoke(this, EventArgs.Empty);
+    }
+
+    public virtual void HandleHover(Point clickPosition)
+    {
+        if (IsInBounds(clickPosition))
+        {
+            Mouse.SetCursor(MouseCursor.Arrow);
+        }
     }
 }

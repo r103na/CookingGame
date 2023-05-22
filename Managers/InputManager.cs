@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CookingGame.Objects;
 using CookingGame.Objects.Base;
 
 using Microsoft.Xna.Framework;
@@ -11,23 +12,25 @@ public class InputManager
 {
     #region VARIABLES
     private List<ClickableSprite> _clickableSprites;
+    private List<SplashImage> _splashImages;
     public MouseState MouseState { get; private set; }
     public Vector2 MousePosition { get; private set; }
     private MouseState _lastMouseState;
     private Point _offset;
+    private int _offsetResized;
 
     public Point ScaledMousePosition;
     #endregion
 
     #region UPDATE
-    public void UpdateGameObjects(List<ClickableSprite> gameObjects)
+    public void UpdateGameObjects(List<BaseSprite> gameObjects)
     {
-        _clickableSprites = gameObjects;
+        _clickableSprites = gameObjects.OfType<ClickableSprite>().ToList();
+        _splashImages = gameObjects.OfType<SplashImage>().ToList();
     }
 
     public void UpdateStates()
     {
-
         _lastMouseState = MouseState;
         MouseState = Mouse.GetState();
         MousePosition = new Vector2(MouseState.X, MouseState.Y);
@@ -37,7 +40,7 @@ public class InputManager
     {
         var clientMouse = new Vector2(MouseState.X, MouseState.Y);
         var scaledMouseVector = Vector2.Transform(clientMouse, transform);
-        ScaledMousePosition = new Point((int)scaledMouseVector.X, (int)scaledMouseVector.Y) - _offset;
+        ScaledMousePosition = new Point((int)scaledMouseVector.X - _offsetResized / 2, (int)scaledMouseVector.Y) - _offset;
     }
 
     public void ChangeOffset(Point offsetPoint)
@@ -45,10 +48,15 @@ public class InputManager
         _offset = offsetPoint;
     }
 
+    public void ChangeOffsetX(int offset)
+    {
+        _offsetResized = offset;
+    }
+
     #endregion
 
     #region HANDLE INPUT
-    public void HandleInput(Matrix transform, List<ClickableSprite> gameObjects)
+    public void HandleInput(Matrix transform, List<BaseSprite> gameObjects)
     {
         UpdateMouseScale(transform);
         UpdateStates();
@@ -77,6 +85,7 @@ public class InputManager
     }
     public void HandleHover()
     {
+        _splashImages.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
         _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
     }
 

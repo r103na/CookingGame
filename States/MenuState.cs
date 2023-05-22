@@ -8,13 +8,13 @@ namespace CookingGame.States;
 public class MenuState : BaseState
 {
     private float _wait = 0.2f;
-    private ImageObject _background;
+    private ClickableImage _background;
     public override void LoadContent()
     {
         SoundManager.LoadBackgroundMusic("music/menu");
         SoundManager.LoadSoundEffects();
         
-        _background = new ImageObject(LoadTexture("backgrounds/Menu"));
+        _background = new ClickableImage(LoadTexture("backgrounds/Menu"));
         _background.Clicked += SwitchToGameplay;
         _background.CanClick = false;
         AddGameObject(_background);

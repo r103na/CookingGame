@@ -16,6 +16,19 @@ public class BaseSprite
 
     public int Layer;
 
+    #region BOUNDS
+    protected int BoundX = 0;
+    protected int BoundY = 0;
+
+    protected Rectangle Bounds =>
+        new(
+            (int)Position.X - BoundX,
+            (int)Position.Y - BoundY,
+            Texture.Width + BoundX,
+            Texture.Height + BoundY);
+    public bool IsInBounds(Point mousePosition) => Bounds.Contains(mousePosition);
+    #endregion
+
     protected Color Color = Color.White;
 
     public virtual void OnNotify(Events eventType) { }

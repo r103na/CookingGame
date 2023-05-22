@@ -46,7 +46,7 @@ public class GameplayState : BaseState
     private SpriteFont _font;
 
     private ClickableSprite _shawarmaOnCounter;
-    private bool alertUsed;
+    private bool _alertUsed;
     #endregion
 
     public override void LoadContent()
@@ -63,7 +63,7 @@ public class GameplayState : BaseState
         _orderCountText = new Text(_font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
         _orderText = new Text(_font, "", new Vector2(340, 105));
         _orderNameText = new Text(_font, "", new Vector2(65, 135));
-        _shawarmaOnCounter = new ImageObject(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
+        _shawarmaOnCounter = new ClickableImage(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
 
         _tip = new Tip(LoadTexture("gui/tip"), InputManager.MousePosition);
         _patienceBar = new PatienceBar(LoadTexture("gui/patiencebar1"));
@@ -123,10 +123,10 @@ public class GameplayState : BaseState
             SwitchState(new SplashState());
         }
 
-        if (_scoreManager.Score < 0 && !alertUsed)
+        if (_scoreManager.Score < 0 && !_alertUsed)
         {
             AddAlert();
-            alertUsed = true;
+            _alertUsed = true;
 
             Updated += MoveAlert;
         }
@@ -232,7 +232,7 @@ public class GameplayState : BaseState
 
     public void AddExclamationMark()
     {
-        _exclamation = new ImageObject(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
+        _exclamation = new ClickableImage(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
         AddGameObject(_exclamation);
     }
 
@@ -317,7 +317,7 @@ public class GameplayState : BaseState
     private void AddGrillStation()
     {
         var grill = new Grill(LoadTexture("items/grill"));
-        AddGameObject(new ImageObject(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
+        AddGameObject(new ClickableImage(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
         AddGameObject(grill);
     }
     #endregion
@@ -326,7 +326,7 @@ public class GameplayState : BaseState
 
     private void AddStats()
     {
-        AddGameObject(new ImageObject(LoadTexture("gui/stats"), new Vector2(30, 500)));
+        AddGameObject(new SplashImage(LoadTexture("gui/stats"), new Vector2(30, 500)));
         AddText(new Text(_font, "Статистика", new Vector2(45, 515)));
     }
 

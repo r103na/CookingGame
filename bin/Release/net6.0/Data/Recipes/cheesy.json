@@ -1,0 +1,18 @@
+{
+  "Dialogue": "Сырную, пожалуйста",
+  "OrderName": "Сырная",
+  "Ingredients": [
+    "Sauce",
+    "Cabbage",
+    "Chicken",
+    "Cheese",
+    "Tomato"
+  ],
+  "Translation": [
+    "Соус",
+    "Капуста",
+    "Курица",
+    "Сыр",
+    "Помидоры"
+  ]
+}
