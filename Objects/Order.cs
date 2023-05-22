@@ -85,8 +85,7 @@ public class Order : BaseSprite
         if (HasWrongIngredient(ingredient) && ForgotIngredient(ingredient)) return "Вы перепутали заказ?..";
         if (HasWrongIngredient(ingredient)) return "Здесь что-то не то..";
         if (ForgotIngredient(ingredient)) return "Чего-то не хватает..";
-        if (!shawarma.IsGrilled) return "Вы забыли поджарить...";
-        return "Спасибо!";
+        return !shawarma.IsGrilled ? "Вы забыли поджарить..." : "Спасибо!";
     }
 
     public void LoadOrderFromJson()

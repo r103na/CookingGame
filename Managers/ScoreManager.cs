@@ -7,7 +7,7 @@ public class ScoreManager
     #region VARIABLES
     public int Score { get; set; }
     public int OrderCount { get; set; }
-    public int MaxScore = 200;
+    public int MaxScore = 2000;
     public int MinScore = -200;
 
     public event EventHandler ScoreIncreased;
