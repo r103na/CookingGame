@@ -46,6 +46,7 @@ public class GameplayState : BaseState
     private SpriteFont _font;
 
     private ClickableSprite _shawarmaOnCounter;
+    private bool alertUsed;
     #endregion
 
     public override void LoadContent()
@@ -114,15 +115,6 @@ public class GameplayState : BaseState
 
     #region SCORE
 
-    private void AddScoreToOrder()
-    {
-        if (_currentOrder == null || _currentShawarma == null) return;
-        var shawarmaIngredientList = _currentShawarma.IngredientList
-            .Select(x => x.Ingredient)
-            .ToList();
-        _currentOrder.Score = _currentOrder.CheckIngredients(shawarmaIngredientList) * 10;
-    }
-
     private void IncreaseScore(object sender, EventArgs e)
     {
         _scoreManager.IncreaseScore(_currentOrder.Score);
@@ -131,9 +123,11 @@ public class GameplayState : BaseState
             SwitchState(new SplashState());
         }
 
-        if (_scoreManager.Score < 0)
+        if (_scoreManager.Score < 0 && !alertUsed)
         {
             AddAlert();
+            alertUsed = true;
+
             Updated += MoveAlert;
         }
 
@@ -778,7 +772,7 @@ public class GameplayState : BaseState
     {
         RemoveDialogueBox();
         ChangeText(ref _orderText, "");
-        AddScoreToOrder();
+        _currentOrder.AddOrderScore(_currentShawarma);
 
         _waitToGive += ElapsedTime;
         if (_waitToGive is >= 0.8f and <= 2.25f)

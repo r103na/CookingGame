@@ -61,6 +61,20 @@ public class Order : BaseSprite
         OrderCooked?.Invoke(this, EventArgs.Empty);
     }
 
+    public void AddOrderScore(Shawarma shawarma)
+    {
+        if (shawarma == null)
+        {
+            Score = -150;
+            return;
+        }
+        var ingredientList = shawarma.IngredientList.Select(x => x.Ingredient).ToList();
+        var score = CheckIngredients(ingredientList) * 10;
+        if (shawarma.IsGrilled) score += 30;
+        else score -= 30;
+        Score = score;
+    }
+
     public int CheckIngredients(List<Ingredient> currentIngredients)
     {
         var score = currentIngredients.Count(ingredient =>
