@@ -476,6 +476,30 @@
 /processorParam:TextureFormat=Color
 /build:GUI/wrapButton.png
 
+#begin Icon.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Icon.bmp
+
+#begin Icon.ico
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Icon.ico
+
 #begin Items/cabbage.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -901,12 +925,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SFX/grill1.wav
-
-#begin SFX/lose.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:SFX/lose.wav
 
 #begin SFX/lose.wav
 /importer:WavImporter

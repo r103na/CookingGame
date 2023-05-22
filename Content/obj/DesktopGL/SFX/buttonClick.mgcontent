@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/buttonClick.wav</SourceFile>
+  <SourceTime>2023-05-11T19:36:20.0068887+05:00</SourceTime>
+  <DestFile>C:/Users/user/source/repos/CookingGame/CookingGame/Content/bin/DesktopGL/SFX/buttonClick.xnb</DestFile>
+  <DestTime>2023-05-22T15:15:26.2575703+05:00</DestTime>
+  <Importer>WavImporter</Importer>
+  <ImporterTime>2022-07-26T16:44:56+05:00</ImporterTime>
+  <Processor>SoundEffectProcessor</Processor>
+  <ProcessorTime>2022-07-26T16:44:56+05:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

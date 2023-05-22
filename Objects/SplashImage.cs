@@ -8,7 +8,6 @@ namespace CookingGame.Objects;
 
 public class SplashImage : BaseSprite
 {
-    public event EventHandler Hovered;
     public SplashImage(Texture2D texture)
     {
         Texture = texture;
@@ -17,11 +16,6 @@ public class SplashImage : BaseSprite
     {
         Texture = texture;
         Position = position;
-    }
-
-    protected virtual void OnHovered()
-    {
-        Hovered?.Invoke(this, EventArgs.Empty);
     }
 
     public virtual void HandleHover(Point clickPosition)

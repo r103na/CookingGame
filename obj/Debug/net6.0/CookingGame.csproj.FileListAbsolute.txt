@@ -118,3 +118,4 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\spicy.json
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\vegetarian.json
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\settings\settings.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Icon.xnb

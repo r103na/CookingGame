@@ -43,6 +43,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/togrillbtn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/wrapBtn.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/GUI/wrapButton.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Icon.bmp</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Icon.ico</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/cabbage.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/CabbageStationItem.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/carrot.png</File>
@@ -87,6 +89,8 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/win.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

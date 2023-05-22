@@ -45,7 +45,7 @@ public class GameplayState : BaseState
 
     private SpriteFont _font;
 
-    private ClickableSprite _shawarmaOnCounter;
+    private SplashImage _shawarmaOnCounter;
     private bool _alertUsed;
     #endregion
 
@@ -63,7 +63,7 @@ public class GameplayState : BaseState
         _orderCountText = new Text(_font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
         _orderText = new Text(_font, "", new Vector2(340, 105));
         _orderNameText = new Text(_font, "", new Vector2(65, 135));
-        _shawarmaOnCounter = new ClickableImage(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
+        _shawarmaOnCounter = new SplashImage(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
 
         _tip = new Tip(LoadTexture("gui/tip"), InputManager.MousePosition);
         _patienceBar = new PatienceBar(LoadTexture("gui/patiencebar1"));
@@ -232,7 +232,7 @@ public class GameplayState : BaseState
 
     public void AddExclamationMark()
     {
-        _exclamation = new ClickableImage(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
+        _exclamation = new SplashImage(LoadTexture("gui/exclamation"), _currentCustomer.Position - new Vector2(-110, 100));
         AddGameObject(_exclamation);
     }
 
@@ -317,7 +317,7 @@ public class GameplayState : BaseState
     private void AddGrillStation()
     {
         var grill = new Grill(LoadTexture("items/grill"));
-        AddGameObject(new ClickableImage(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
+        AddGameObject(new SplashImage(LoadTexture("backgrounds/grillstation_bg"), new Vector2(1280, 0)));
         AddGameObject(grill);
     }
     #endregion
