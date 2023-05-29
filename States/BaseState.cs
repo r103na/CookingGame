@@ -24,6 +24,7 @@ public abstract class BaseState
     public InputManager InputManager;
     protected SoundManager SoundManager;
     public CameraManager CameraManager;
+    public SettingsManager SettingsManager;
 
     public Matrix TransformMatrix;
 
@@ -49,6 +50,11 @@ public abstract class BaseState
     public void UnloadContent()
     {
         ContentManager.Unload();
+    }
+
+    public void SetSettings(SettingsManager settings)
+    {
+        SettingsManager = settings;
     }
 
     public void HandleInput()

@@ -19,6 +19,12 @@ public class MenuState : BaseState
         _background.CanClick = false;
         AddGameObject(_background);
 
+        var settingsButton = new Button(LoadTexture("gui/stats"), new Vector2(640, 360));
+        settingsButton.Clicked += SwitchToSettings;
+        AddGameObject(settingsButton);
+
+        // TODO exit button
+
         Updated += WaitForStart;
     }
 
@@ -44,5 +50,10 @@ public class MenuState : BaseState
     private void SwitchToGameplay(object sender, EventArgs e)
     {
         SwitchState(new GameplayState());
+    }
+
+    private void SwitchToSettings(object sender, EventArgs e)
+    {
+        SwitchState(new SettingState());
     }
 }

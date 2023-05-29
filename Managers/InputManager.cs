@@ -68,7 +68,7 @@ public class InputManager
         HandleReleased();
     }
 
-    public void HandleLeftClick()
+    private void HandleLeftClick()
     {
         if (LeftMouseButton(true))
         {
@@ -76,25 +76,25 @@ public class InputManager
         }
     }
 
-    public void HandleHold()
+    private void HandleHold()
     {
         if (LeftMouseHeld())
         {
             _clickableSprites.ToList().ForEach(x => x.HandleHold(ScaledMousePosition));
         }
     }
-    public void HandleHover()
+    private void HandleHover()
     {
         _splashImages.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
         _clickableSprites.ToList().ForEach(x => x.HandleHover(ScaledMousePosition));
     }
 
-    public void HandleUnhover()
+    private void HandleUnhover()
     {
         _clickableSprites.ToList().ForEach(x => x.HandleUnhover(ScaledMousePosition));
     }
 
-    public void HandleReleased()
+    private void HandleReleased()
     {
         if (LeftMouseButtonReleased(true))
             _clickableSprites.ToList().ForEach(x => x.HandleRelease(ScaledMousePosition));

@@ -5,6 +5,7 @@ using CookingGame.States;
 using CookingGame.Enum;
 using System;
 using CookingGame.Managers;
+using Microsoft.Xna.Framework.Input;
 
 namespace CookingGame;
 
@@ -29,7 +30,7 @@ public class CookingGame : Game
     public CookingGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _settingsManager = new SettingsManager();
+        _settingsManager = new SettingsManager(_graphics);
 
         Content.RootDirectory = "Content";
 
@@ -41,6 +42,8 @@ public class CookingGame : Game
         Window.AllowUserResizing = true;
         Window.ClientSizeChanged += UpdateWindowBoxingRect;
         Window.Title = "Моя шаурма";
+
+        _graphics.IsFullScreen = _settingsManager.Settings.IsFullscreen;
 
         _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); 
         _nativeAspect = _nativeWindowRectangle.Width / (float)_nativeWindowRectangle.Height;
@@ -63,6 +66,7 @@ public class CookingGame : Game
         // Calculates dimensions of black bars on sides of screen
         const float variance = 0f;
         int windowWidth, windowHeight;
+
         if (_graphics.IsFullScreen)
         {
             windowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -121,6 +125,7 @@ public class CookingGame : Game
         _currentGameState = gameState;
         _currentGameState.Initialize(Content);
         _currentGameState.LoadContent();
+        _currentGameState.SetSettings(_settingsManager);
         _currentGameState.OnStateSwitched += CurrentGameState_OnStateSwitched;
         _currentGameState.OnEventNotification += CurrentGameState_OnEventNotification;
     }
@@ -147,6 +152,11 @@ public class CookingGame : Game
 
         _currentGameState.Update(gameTime);
         UpdateMousePosition();
+
+        if (Keyboard.GetState().IsKeyDown(Keys.E))
+        {
+            Exit();
+        }
 
     }
 

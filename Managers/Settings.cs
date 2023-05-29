@@ -1,23 +1,34 @@
 ﻿using System.IO;
 using System.Text.Json;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace CookingGame.Managers;
 
 public class SettingsManager
 {
     public Settings Settings;
+    private GraphicsDeviceManager _gDeviceManager;
 
-    public SettingsManager()
+    public SettingsManager(GraphicsDeviceManager graphicsDeviceManager)
     {
-        LoadSettings();
+        LoadSavedSettings();
+        _gDeviceManager = graphicsDeviceManager;
+        UpdateSettings();
     }
 
-    public void LoadSettings()
+    private void LoadSavedSettings()
     {
         var relativePath = Path.Combine("Data", "settings", "settings.json");
         var filePath = Path.Combine(PathManager.GetPath(), relativePath);
         var jsonString = File.ReadAllText(filePath);
         Settings = JsonSerializer.Deserialize<Settings>(jsonString);
+    }
+
+    public void UpdateSettings()
+    {
+        _gDeviceManager.IsFullScreen = Settings.IsFullscreen;
+        _gDeviceManager.ApplyChanges();
     }
 
     public void UpdateSoundVolume(int volume)
