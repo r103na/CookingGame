@@ -14,7 +14,7 @@ public class Button : ClickableSprite
 
         Hovered += (_, _) =>
         {
-            Color = Color.Brown;
+            Color = new Color(240,190,190);
         };
         Unhovered += (_, _) =>
         {

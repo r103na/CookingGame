@@ -77,6 +77,7 @@ public class CookingGame : Game
             windowHeight = Window.ClientBounds.Height;
         }
 
+        if (_graphics.IsFullScreen) return;
         if (WindowAspect <= _nativeAspect)
         {
             //Smaller output means taller than native, meaning top bars

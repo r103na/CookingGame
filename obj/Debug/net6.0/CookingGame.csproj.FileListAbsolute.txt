@@ -127,3 +127,8 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\playbtn.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\settingsbtn.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\yesbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\zhena.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\zhenamad.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\kolya.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\kolyamad.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\backbtn.xnb

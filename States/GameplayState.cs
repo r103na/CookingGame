@@ -45,7 +45,6 @@ public class GameplayState : BaseState
 
     private SpriteFont _font;
 
-    private SplashImage _shawarmaOnCounter;
     private bool _alertUsed;
     #endregion
 
@@ -63,7 +62,6 @@ public class GameplayState : BaseState
         _orderCountText = new Text(_font, $"Заказы: {_scoreManager.OrderCount}", new Vector2(45, 575));
         _orderText = new Text(_font, "", new Vector2(340, 105));
         _orderNameText = new Text(_font, "", new Vector2(65, 135));
-        _shawarmaOnCounter = new SplashImage(LoadTexture("items/wrappedShawarmaGrilled1"), new Vector2(400, 600));
 
         _tip = new Tip(LoadTexture("gui/tip"), InputManager.MousePosition);
         _patienceBar = new PatienceBar(LoadTexture("gui/patiencebar1"));
@@ -190,8 +188,6 @@ public class GameplayState : BaseState
     private void AddShawarmaToCounter(object sender, EventArgs e)
     {
         Updated -= AddShawarmaToCounter;
-        if (GameObjects.All(x => x != _shawarmaOnCounter))
-            AddGameObject(_shawarmaOnCounter);
     }
 
     private void AddCustomer()
@@ -551,10 +547,6 @@ public class GameplayState : BaseState
         Updated -= WaitForGrill;
     }
 
-    private void RemoveShawarmaOnCounter()
-    {
-        RemoveGameObject(_shawarmaOnCounter);
-    }
 
     private void ClearShawarmaIngredients()
     {
@@ -790,7 +782,6 @@ public class GameplayState : BaseState
         }
         if (_waitToGive >= 2.25f)
         {
-            RemoveShawarmaOnCounter();
             CookShawarma(null, EventArgs.Empty);
             Updated -= WaitToGive;
             _waitToGive = 0;
@@ -835,9 +826,9 @@ public class GameplayState : BaseState
 
     private static string GetRandomCharacterName()
     {
-        var names = new[] { "Tonya", "Sonya" }; // TODO добавить КОЛЮ СИНИЦИНА.
+        var names = new[] { "Tonya", "Sonya", "zhena", "kolya" };
         var random = new Random();
-        var randomNumber = random.Next(0, 2);
+        var randomNumber = random.Next(0, names.Length);
         return names[randomNumber];
     }
 }

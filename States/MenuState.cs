@@ -9,7 +9,6 @@ namespace CookingGame.States;
 
 public class MenuState : BaseState
 {
-    private float _wait = 0.2f;
     private SplashImage _background;
     public override void LoadContent()
     {
@@ -19,9 +18,9 @@ public class MenuState : BaseState
         _background = new SplashImage(LoadTexture("backgrounds/Menu"));
         AddGameObject(_background);
 
-        var playbtn = new Button(LoadTexture("gui/playbtn"), new Vector2(510, 340));
-        var settingsButton = new Button(LoadTexture("gui/settingsbtn"), new Vector2(510, 440));
-        var exitbtn = new Button(LoadTexture("gui/exitbtn"), new Vector2(560, 540));
+        var playbtn = new Button(LoadTexture("gui/playbtn"), new Vector2(500, 340));
+        var settingsButton = new Button(LoadTexture("gui/settingsbtn"), new Vector2(500, 440));
+        var exitbtn = new Button(LoadTexture("gui/exitbtn"), new Vector2(550, 540));
 
         settingsButton.Clicked += SwitchToSettings;
         playbtn.Clicked += SwitchToGameplay;

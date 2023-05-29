@@ -31,6 +31,8 @@ public class SettingState : BaseState
         SubscribeButtons();
         AddGameObjects();
 
+        SoundManager.LoadBackgroundMusic("music/menu");
+
         foreach (var button in GameObjects.OfType<ClickableSprite>())
         {
             button.Clicked += SoundManager.PlayButtonClick;
@@ -40,7 +42,7 @@ public class SettingState : BaseState
     private void InitializeObjects()
     {
         _font = ContentManager.Load<SpriteFont>("Fonts/MyFont");
-        _returnButton = new Button(LoadTexture("gui/stats"), new Vector2(0, 560));
+        _returnButton = new Button(LoadTexture("gui/backbtn"), new Vector2(560, 600));
 
         _musicVolumeDownButton = new Button(LoadTexture("gui/arrowdown"), new Vector2(560, 240));
         _musicVolumeUpButton = new Button(LoadTexture("gui/arrowup"), new Vector2(700, 240));
