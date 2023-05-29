@@ -41,14 +41,14 @@ public class Order : BaseSprite
         IngredientList = new List<IngredientItem>();
     }
 
-    public void Take()
-    {
-        State.Take();
-    }
-
     public void AddTexture(Texture2D texture)
     {
         Texture = texture;
+    }
+
+    public void Take()
+    {
+        State.Take();
     }
 
     public void Cook()
