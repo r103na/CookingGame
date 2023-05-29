@@ -61,6 +61,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/Menu.png
 
+#begin Backgrounds/settingsbg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/settingsbg.png
+
 #begin Backgrounds/win.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -152,6 +164,30 @@
 /processorParam:TextureFormat=Color
 /build:GUI/AlertButton.png
 
+#begin GUI/ArrowDown.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/ArrowDown.png
+
+#begin GUI/ArrowUp.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/ArrowUp.png
+
 #begin GUI/cookButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -211,6 +247,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/exclamation.png
+
+#begin GUI/exitbtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/exitbtn.png
 
 #begin GUI/flatbreadIcon_cheesy.png
 /importer:TextureImporter
@@ -283,6 +331,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/menu_btn.png
+
+#begin GUI/nobtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/nobtn.png
 
 #begin GUI/patiencebar1.png
 /importer:TextureImporter
@@ -404,6 +464,18 @@
 /processorParam:TextureFormat=Color
 /build:GUI/patiencebar9.png
 
+#begin GUI/playbtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/playbtn.png
+
 #begin GUI/returnButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -415,6 +487,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/returnButton.png
+
+#begin GUI/settingsbtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/settingsbtn.png
 
 #begin GUI/stats.png
 /importer:TextureImporter
@@ -475,6 +559,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/wrapButton.png
+
+#begin GUI/yesbtn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:GUI/yesbtn.png
 
 #begin Icon.bmp
 /importer:TextureImporter

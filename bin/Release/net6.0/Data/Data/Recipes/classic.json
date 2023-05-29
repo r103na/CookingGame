@@ -1,0 +1,18 @@
+{
+  "Dialogue": "Классическую, пожалуйста",
+  "OrderName": "Классическая",
+  "Ingredients": [
+    "Sauce",
+    "Cabbage",
+    "Tomato",
+    "Cucumber",
+    "Chicken"
+  ],
+  "Translation": [
+    "Соус",
+    "Капуста",
+    "Курица",
+    "Помидоры",
+    "Огурцы"
+  ]
+}

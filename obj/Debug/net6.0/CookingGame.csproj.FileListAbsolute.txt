@@ -119,3 +119,11 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\Recipes\vegetarian.json
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Data\settings\settings.json
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Icon.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Backgrounds\settingsbg.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\ArrowDown.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\ArrowUp.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\exitbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\nobtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\playbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\settingsbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\yesbtn.xnb

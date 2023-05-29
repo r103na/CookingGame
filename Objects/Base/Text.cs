@@ -6,19 +6,19 @@ namespace CookingGame.Objects;
 public class Text
 {
     public SpriteFont Font { get; }
-    private readonly string _text;
+    public string StringText;
     public Vector2 Position { get; }
     public Color color = new Color(82, 28, 32);
 
-    public Text(SpriteFont font, string text, Vector2 position)
+    public Text(SpriteFont font, string stringText, Vector2 position)
     {
         Font = font;
-        _text = text;
+        StringText = stringText;
         Position = position;
     }
 
     public void Render(SpriteBatch spriteBatch)
     {
-        spriteBatch.DrawString(Font, _text, Position, color);
+        spriteBatch.DrawString(Font, StringText, Position, color);
     }
 }

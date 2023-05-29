@@ -30,7 +30,6 @@ public class CookingGame : Game
     public CookingGame()
     {
         _graphics = new GraphicsDeviceManager(this);
-        _settingsManager = new SettingsManager(_graphics);
 
         Content.RootDirectory = "Content";
 
@@ -42,7 +41,7 @@ public class CookingGame : Game
         Window.AllowUserResizing = true;
         Window.ClientSizeChanged += UpdateWindowBoxingRect;
         Window.Title = "Моя шаурма";
-
+        _settingsManager = new SettingsManager(_graphics);
         _graphics.IsFullScreen = _settingsManager.Settings.IsFullscreen;
 
         _nativeWindowRectangle = new Rectangle(0, 0, ResolutionWidth, ResolutionHeight); 
@@ -123,9 +122,9 @@ public class CookingGame : Game
     {
         _currentGameState?.UnloadContent();
         _currentGameState = gameState;
+        _currentGameState.SetSettings(_settingsManager);
         _currentGameState.Initialize(Content);
         _currentGameState.LoadContent();
-        _currentGameState.SetSettings(_settingsManager);
         _currentGameState.OnStateSwitched += CurrentGameState_OnStateSwitched;
         _currentGameState.OnEventNotification += CurrentGameState_OnEventNotification;
     }

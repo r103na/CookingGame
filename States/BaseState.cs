@@ -71,6 +71,16 @@ public abstract class BaseState
         OnStateSwitched?.Invoke(this, gameState);
     }
 
+    protected void NotifyEvent(Events eventType, object argument = null)
+    {
+        OnEventNotification?.Invoke(this, eventType);
+
+        foreach (var gameObject in GameObjects)
+        {
+            gameObject.OnNotify(eventType);
+        }
+    }
+
     protected void AddGameObject(BaseSprite gameObject)
     {
         GameObjects.Add(gameObject);

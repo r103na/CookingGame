@@ -1,0 +1,20 @@
+{
+  "Dialogue": "Острую, пожалуйста",
+  "OrderName": "Острая",
+  "Ingredients": [
+    "Sauce",
+    "Onion",
+    "Chicken",
+    "Carrot",
+    "Tomato",
+    "Pepper"
+  ],
+  "Translation": [
+    "Соус",
+    "Лук",
+    "Курица",
+    "Морковь",
+    "Помидоры",
+    "Перец"
+  ]
+}

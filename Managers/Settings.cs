@@ -1,14 +1,14 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text.Json;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace CookingGame.Managers;
 
 public class SettingsManager
 {
     public Settings Settings;
-    private GraphicsDeviceManager _gDeviceManager;
+    private readonly GraphicsDeviceManager _gDeviceManager;
 
     public SettingsManager(GraphicsDeviceManager graphicsDeviceManager)
     {
@@ -17,12 +17,22 @@ public class SettingsManager
         UpdateSettings();
     }
 
-    private void LoadSavedSettings()
+    private static string GetSettingsPath()
     {
         var relativePath = Path.Combine("Data", "settings", "settings.json");
-        var filePath = Path.Combine(PathManager.GetPath(), relativePath);
-        var jsonString = File.ReadAllText(filePath);
+        return Path.Combine(PathManager.GetPath(), relativePath);
+    }
+
+    public void LoadSavedSettings()
+    {
+        var jsonString = File.ReadAllText(GetSettingsPath());
         Settings = JsonSerializer.Deserialize<Settings>(jsonString);
+    }
+
+    public void SaveSettings()
+    {
+        var settingsJson = JsonSerializer.Serialize(Settings);
+        File.WriteAllText(GetSettingsPath(), settingsJson);
     }
 
     public void UpdateSettings()
@@ -33,22 +43,23 @@ public class SettingsManager
 
     public void UpdateSoundVolume(int volume)
     {
-        Settings.SoundVolume = volume;
+        Settings.SoundVolume += volume;
     }
     public void UpdateMusicVolume(int volume)
     {
-        Settings.MusicVolume = volume;
+        Settings.MusicVolume += volume;
     }
 
-    public void UpdateFullscreen(bool fullscreen)
+    public void UpdateFullscreen(bool value)
     {
-        Settings.IsFullscreen = fullscreen;
+        Settings.IsFullscreen = value;
     }
 }
 
+[Serializable]
 public class Settings
 {
-    public int SoundVolume = 100;
-    public int MusicVolume = 100;
-    public bool IsFullscreen = false;
+    public int SoundVolume { get; set; }
+    public int MusicVolume { get; set; }
+    public bool IsFullscreen { get; set; }
 }
