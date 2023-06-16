@@ -40,7 +40,7 @@ public abstract class BaseState
         ContentManager = contentManager;
         CameraManager = new CameraManager();
         InputManager = new InputManager();
-        SoundManager = new SoundManager(contentManager);
+        SoundManager = new SoundManager(contentManager, SettingsManager);
         Gametime = new GameTime();
     }
 

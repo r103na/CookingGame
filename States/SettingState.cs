@@ -64,12 +64,14 @@ public class SettingState : BaseState
             if (SettingsManager.Settings.SoundVolume <= 0) return;
             SettingsManager.UpdateSoundVolume(-5);
             _soundVolumeText.StringText = SettingsManager.Settings.SoundVolume.ToString();
+            SettingsManager.UpdateMusicSettings(SoundManager);
         };
         _soundVolumeUpButton.Clicked += (_, _) =>
         {
             if (SettingsManager.Settings.SoundVolume >= 100 ) return;
             SettingsManager.UpdateSoundVolume(5);
             _soundVolumeText.StringText = SettingsManager.Settings.SoundVolume.ToString();
+            SettingsManager.UpdateMusicSettings(SoundManager);
         };
 
         _musicVolumeDownButton.Clicked += (_, _) =>
@@ -77,12 +79,14 @@ public class SettingState : BaseState
             if (SettingsManager.Settings.MusicVolume <= 0) return;
             SettingsManager.UpdateMusicVolume(-5);
             _musicVolumeText.StringText = SettingsManager.Settings.MusicVolume.ToString();
+            SettingsManager.UpdateMusicSettings(SoundManager);
         };
         _musicVolumeUpButton.Clicked += (_, _) =>
         {
             if (SettingsManager.Settings.MusicVolume >= 100) return;
             SettingsManager.UpdateMusicVolume(5);
             _musicVolumeText.StringText = SettingsManager.Settings.MusicVolume.ToString();
+            SettingsManager.UpdateMusicSettings(SoundManager);
         };
 
         _yesButton.Clicked += _yesButton_Clicked;

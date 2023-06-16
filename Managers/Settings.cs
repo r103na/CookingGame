@@ -16,6 +16,11 @@ public class SettingsManager
         _gDeviceManager = graphicsDeviceManager;
         UpdateSettings();
     }
+    public SettingsManager()
+    {
+        LoadSavedSettings();
+        UpdateSettings();
+    }
 
     private static string GetSettingsPath()
     {
@@ -39,6 +44,11 @@ public class SettingsManager
     {
         _gDeviceManager.IsFullScreen = Settings.IsFullscreen;
         _gDeviceManager.ApplyChanges();
+    }
+
+    public void UpdateMusicSettings(SoundManager soundManager)
+    {
+        soundManager.LoadSettings();
     }
 
     public void UpdateSoundVolume(int volume)

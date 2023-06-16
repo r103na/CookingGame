@@ -1106,6 +1106,12 @@
 /processorParam:Quality=Best
 /build:SFX/newCustomer.wav
 
+#begin SFX/sauce.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SFX/sauce.wav
+
 #begin SFX/select.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

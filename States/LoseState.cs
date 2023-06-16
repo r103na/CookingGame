@@ -13,7 +13,7 @@ public class LoseState : BaseState
             SwitchState(new GameplayState());
         };
         AddGameObject(background);
-        SoundManager.SoundEffects["lose"].Play();
+        SoundManager.PlaySound("lose");
 
     }
 

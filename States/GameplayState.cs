@@ -119,7 +119,7 @@ public class GameplayState : BaseState
         _scoreManager.IncreaseScore(_currentOrder.Score);
         if (_scoreManager.Score >= _scoreManager.MaxScore)
         {
-            SwitchState(new SplashState());
+            SwitchState(new WinState());
         }
 
         if (_scoreManager.Score < 0 && !_alertUsed)
@@ -219,7 +219,7 @@ public class GameplayState : BaseState
         AddExclamationMark();
         AddPatienceBar();
 
-        SoundManager.SoundEffects["newCustomer"].Play();
+        SoundManager.PlaySound("newCustomer");
     }
 
     public void AddPatienceBar()
@@ -263,6 +263,7 @@ public class GameplayState : BaseState
         sauce.Released += (_, _) =>
         {
             if (_currentShawarma == null) return;
+            SoundManager.PlaySound("sauce");
             var tomatPos = new Point((int)sauce.Position.X, (int)sauce.Position.Y + 120);
             if (_currentShawarma.IsInBounds(tomatPos))
             {
@@ -394,10 +395,6 @@ public class GameplayState : BaseState
             new Vector2(1320, 660));
         var grillBtn = new Button(LoadTexture("gui/grillBtn"),
             new Vector2(1910, 460));
-        var wrapBtn = new Button(LoadTexture("gui/wrapBtn"),
-            new Vector2(1320, 460));
-
-        wrapBtn.Clicked += WrapShawarma;
 
         finishBtn.Clicked += (_, _) =>
         {
@@ -422,7 +419,7 @@ public class GameplayState : BaseState
         {
             if (_currentShawarma == null) return;
             if (!_currentShawarma.IsWrapped) return;
-            SoundManager.SoundEffects["grill"].Play();
+            SoundManager.PlaySound("grill");
             Updated += MoveCurrentShawarmaUp;
             Updated += WaitForGrill;
             _currentShawarma.Grill();
@@ -444,7 +441,6 @@ public class GameplayState : BaseState
         AddGameObject(discardButton);
         AddGameObject(returnBtn);
         AddGameObject(grillBtn);
-        AddGameObject(wrapBtn);
         AddShawarmaButton();
         AddStats();
     }
@@ -777,8 +773,8 @@ public class GameplayState : BaseState
         _waitToGive += ElapsedTime;
         if (_waitToGive is >= 0.8f and <= 2.25f)
         {
+            if (_currentCustomer == null) return;
             AddDialogueBox(null, EventArgs.Empty);
-            AddShawarmaToCounter(null, EventArgs.Empty);
             if (_currentOrder != null)
             {
                 ChangeText(ref _orderText, _currentOrder.GetOrderReview(_currentShawarma));
@@ -788,12 +784,11 @@ public class GameplayState : BaseState
                 }
             }
         }
-        if (_waitToGive >= 2.25f)
-        {
-            CookShawarma(null, EventArgs.Empty);
-            Updated -= WaitToGive;
-            _waitToGive = 0;
-        }
+
+        if (!(_waitToGive >= 2.25f)) return;
+        CookShawarma(null, EventArgs.Empty);
+        Updated -= WaitToGive;
+        _waitToGive = 0;
     }
 
     private void WaitForGrill(object sender, EventArgs e)
