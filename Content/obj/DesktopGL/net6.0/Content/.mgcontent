@@ -9,6 +9,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/loss.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/Menu.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/settingsbg.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/tutorial.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/visitorStationBg.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Backgrounds/win.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Characters/kolya.png</File>
@@ -104,6 +105,7 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/win.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

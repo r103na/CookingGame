@@ -48,7 +48,7 @@ public class MenuState : BaseState
 
     private void SwitchToGameplay(object sender, EventArgs e)
     {
-        SwitchState(new GameplayState());
+        SwitchState(new TutorialState());
     }
 
     private void SwitchToSettings(object sender, EventArgs e)
