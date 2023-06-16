@@ -73,6 +73,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/settingsbg.png
 
+#begin Backgrounds/visitorStationBg.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/visitorStationBg.png
+
 #begin Backgrounds/win.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -740,7 +752,7 @@
 /processorParam:TextureFormat=Color
 /build:Items/cucumber.png
 
-#begin Items/Flatbread.png
+#begin Items/Flatbread1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -750,7 +762,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Items/Flatbread.png
+/build:Items/Flatbread1.png
 
 #begin Items/Flatbread2.png
 /importer:TextureImporter

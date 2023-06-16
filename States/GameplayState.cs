@@ -69,6 +69,7 @@ public class GameplayState : BaseState
         _dialogueBox = new SplashImage(LoadTexture("gui/dialogue_box"), new Vector2(320, 80));
 
         AddGameObject(new SplashImage(LoadTexture("backgrounds/GameplayState")));
+        AddGameObject(new SplashImage(LoadTexture("backgrounds/visitorStationBg"), new Vector2(235, 0)));
         AddText(_scoreText);
         AddText(_orderCountText);
         AddText(_orderText);
@@ -175,13 +176,13 @@ public class GameplayState : BaseState
     #endregion
 
     #region ADD OBJECTS
-    private void AddShawarma(string textureName)
+    private void AddShawarma(int flatbreadType)
     {
         if (_currentShawarma != null) return;
         Updated -= MoveCurrentShawarmaUp;
         Updated -= MoveCurrentShawarmaDown;
         Updated -= MoveCurrentShawarmaLeft;
-        _currentShawarma = new Shawarma(LoadTexture("items/" + textureName));
+        _currentShawarma = new Shawarma(LoadTexture("items/flatbread" + flatbreadType), flatbreadType);
         AddGameObject(_currentShawarma);
     }
 
@@ -345,13 +346,13 @@ public class GameplayState : BaseState
     private void AddShawarmaButton()
     {
         var sb1 = new Button(LoadTexture("gui/flatbreadIcon"), new Vector2(900, 673));
-        sb1.Clicked += (_, _) => AddShawarma("flatbread");
+        sb1.Clicked += (_, _) => AddShawarma(1);
         var sb2 = new Button(LoadTexture("gui/flatbreadIcon_garlic"), new Vector2(900 + 60, 673));
-        sb2.Clicked += (_, _) => AddShawarma("flatbread3");
+        sb2.Clicked += (_, _) => AddShawarma(2);
         var sb3 = new Button(LoadTexture("gui/flatbreadIcon_cheesy"), new Vector2(900 + 120, 673));
-        sb3.Clicked += (_, _) => AddShawarma("flatbread2");
+        sb3.Clicked += (_, _) => AddShawarma(3);
         var sb4 = new Button(LoadTexture("gui/flatbreadIcon_red"), new Vector2(900 + 180, 673));
-        sb4.Clicked += (_, _) => AddShawarma("flatbread4");
+        sb4.Clicked += (_, _) => AddShawarma(4);
         AddGameObject(sb1);
         AddGameObject(sb2);
         AddGameObject(sb3);
@@ -400,6 +401,10 @@ public class GameplayState : BaseState
 
         finishBtn.Clicked += (_, _) =>
         {
+            if (_currentShawarma != null)
+            {
+                if (!_currentShawarma.IsWrapped) return;
+            }
             Updated += WaitToGive;
             Updated -= MoveCurrentShawarmaDown;
             Updated -= MoveCurrentShawarmaUp;
@@ -415,9 +420,12 @@ public class GameplayState : BaseState
         menuBtn.Clicked += SwitchToMenu;
         grillBtn.Clicked += (_, _) =>
         {
+            if (_currentShawarma == null) return;
+            if (!_currentShawarma.IsWrapped) return;
             SoundManager.SoundEffects["grill"].Play();
             Updated += MoveCurrentShawarmaUp;
             Updated += WaitForGrill;
+            _currentShawarma.Grill();
         };
 
         discardButton.Clicked += RemoveCurrentShawarma;
@@ -764,7 +772,7 @@ public class GameplayState : BaseState
     {
         RemoveDialogueBox();
         ChangeText(ref _orderText, "");
-        _currentOrder.AddOrderScore(_currentShawarma);
+        _currentOrder?.AddOrderScore(_currentShawarma);
 
         _waitToGive += ElapsedTime;
         if (_waitToGive is >= 0.8f and <= 2.25f)

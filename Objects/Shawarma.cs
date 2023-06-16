@@ -12,12 +12,13 @@ public class Shawarma : ClickableSprite
     public List<IngredientItem> IngredientList = new();
     public bool IsWrapped;
     public bool IsGrilled;
-    public string FlatbreadType;
+    public int FlatbreadType;
 
-    public Shawarma(Texture2D texture)
+    public Shawarma(Texture2D texture, int flatbreadType)
     {
         Texture = texture;
         Position = new Vector2(920, 430);
+        FlatbreadType = flatbreadType;
     }
 
     public void ChangePosition()

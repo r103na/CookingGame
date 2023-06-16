@@ -40,7 +40,7 @@ public class InputManager
     {
         var clientMouse = new Vector2(MouseState.X, MouseState.Y);
         var scaledMouseVector = Vector2.Transform(clientMouse, transform);
-        ScaledMousePosition = new Point((int)scaledMouseVector.X - _offsetResized / 2, (int)scaledMouseVector.Y) - _offset;
+        ScaledMousePosition = new Point((int)scaledMouseVector.X + _offsetResized, (int)scaledMouseVector.Y) - _offset;
     }
 
     public void ChangeOffset(Point offsetPoint)

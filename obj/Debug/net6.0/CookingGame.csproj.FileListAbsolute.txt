@@ -132,3 +132,5 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Char
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\kolya.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Characters\kolyamad.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\backbtn.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Flatbread1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Backgrounds\visitorStationBg.xnb
