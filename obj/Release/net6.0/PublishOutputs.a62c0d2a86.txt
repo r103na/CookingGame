@@ -14,6 +14,8 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Co
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\loss.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\Menu.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\settingsbg.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\tutorial.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\visitorStationBg.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backgrounds\win.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backstory1.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Backstory2.xnb
@@ -72,6 +74,7 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Co
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\cookingtable.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\cucumber.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Flatbread.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Flatbread1.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Flatbread2.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Flatbread3.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Flatbread4.xnb
@@ -95,8 +98,14 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Co
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\stationitem_tomato.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\Table.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\tomato.xnb
-C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarma.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarma1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarma2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarma3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarma4.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarmagrilled1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarmagrilled2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarmagrilled3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Items\wrappedShawarmagrilled4.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Music\gameplay.ogg
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Music\gameplay.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/Music\menu.ogg
@@ -106,6 +115,7 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Co
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\grill1.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\lose.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\newCustomer.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\sauce.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\select.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\Content/SFX\win.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\publish\CookingGame.dll

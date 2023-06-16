@@ -186,11 +186,6 @@ public class GameplayState : BaseState
         AddGameObject(_currentShawarma);
     }
 
-    private void AddShawarmaToCounter(object sender, EventArgs e)
-    {
-        Updated -= AddShawarmaToCounter;
-    }
-
     private void AddCustomer()
     {
         var name = GetRandomCharacterName();
@@ -348,9 +343,9 @@ public class GameplayState : BaseState
     {
         var sb1 = new Button(LoadTexture("gui/flatbreadIcon"), new Vector2(900, 673));
         sb1.Clicked += (_, _) => AddShawarma(1);
-        var sb2 = new Button(LoadTexture("gui/flatbreadIcon_garlic"), new Vector2(900 + 60, 673));
+        var sb2 = new Button(LoadTexture("gui/flatbreadIcon_cheesy"), new Vector2(900 + 60, 673));
         sb2.Clicked += (_, _) => AddShawarma(2);
-        var sb3 = new Button(LoadTexture("gui/flatbreadIcon_cheesy"), new Vector2(900 + 120, 673));
+        var sb3 = new Button(LoadTexture("gui/flatbreadIcon_garlic"), new Vector2(900 + 120, 673));
         sb3.Clicked += (_, _) => AddShawarma(3);
         var sb4 = new Button(LoadTexture("gui/flatbreadIcon_red"), new Vector2(900 + 180, 673));
         sb4.Clicked += (_, _) => AddShawarma(4);
@@ -398,10 +393,7 @@ public class GameplayState : BaseState
 
         finishBtn.Clicked += (_, _) =>
         {
-            if (_currentShawarma != null)
-            {
-                if (!_currentShawarma.IsWrapped) return;
-            }
+            if (_currentShawarma is { IsWrapped: false }) return;
             Updated += WaitToGive;
             Updated -= MoveCurrentShawarmaDown;
             Updated -= MoveCurrentShawarmaUp;
@@ -417,8 +409,7 @@ public class GameplayState : BaseState
         menuBtn.Clicked += SwitchToMenu;
         grillBtn.Clicked += (_, _) =>
         {
-            if (_currentShawarma == null) return;
-            if (!_currentShawarma.IsWrapped) return;
+            if (_currentShawarma is not { IsWrapped: true }) return;
             SoundManager.PlaySound("grill");
             Updated += MoveCurrentShawarmaUp;
             Updated += WaitForGrill;
@@ -739,7 +730,7 @@ public class GameplayState : BaseState
     private void WrapShawarma(object sender, EventArgs e)
     {
         _currentShawarma.Wrap();
-        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarma"));
+        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarma" + _currentShawarma.FlatbreadType));
         _currentShawarma.ChangePosition();
         ClearShawarmaIngredients();
     }
@@ -796,7 +787,7 @@ public class GameplayState : BaseState
         _grillTime += ElapsedTime;
         if (!(_grillTime >= 3f)) return;
         _currentShawarma.Grill();
-        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarmagrilled1"));
+        _currentShawarma.ChangeTexture(LoadTexture("items/wrappedshawarmagrilled" + _currentShawarma.FlatbreadType));
         _grillTime = 0;
         Updated -= WaitForGrill;
         Updated += MoveCurrentShawarmaDown;

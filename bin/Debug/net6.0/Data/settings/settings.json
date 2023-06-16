@@ -1,1 +1,5 @@
-{"SoundVolume":45,"MusicVolume":75,"IsFullscreen":false}
+{
+  "SoundVolume": 100,
+  "MusicVolume": 100,
+  "IsFullscreen": false
+}

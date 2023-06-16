@@ -91,8 +91,14 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/stationitem_tomato.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/Table.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/tomato.png</File>
-    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma1.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma2.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma3.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarma4.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarmagrilled1.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarmagrilled2.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarmagrilled3.png</File>
+    <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Items/wrappedShawarmagrilled4.png</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Music/gameplay.mp3</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/Music/menu.mp3</File>
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/buttonClick.wav</File>
@@ -105,6 +111,12 @@
     <File>C:/Users/user/source/repos/CookingGame/CookingGame/Content/SFX/win.wav</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

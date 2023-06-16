@@ -70,7 +70,6 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\It
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\stationitem_tomato.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\Table.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\tomato.xnb
-C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarma.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarmagrilled1.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Music\gameplay.ogg
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Music\gameplay.xnb
@@ -132,3 +131,14 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\GU
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\GUI\yesbtn.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Icon.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Data\settings\settings.json
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Backgrounds\tutorial.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Backgrounds\visitorStationBg.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\Flatbread1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarma1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarma2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarma3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarma4.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarmagrilled2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarmagrilled3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\Items\wrappedShawarmagrilled4.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Release\net6.0\Content\SFX\sauce.xnb

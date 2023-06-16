@@ -83,7 +83,6 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\Flatbread4.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\returnButton.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\grill.xnb
-C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\wrapButton.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\grillBtn.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\GUI\wrapBtn.xnb
@@ -136,3 +135,10 @@ C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Item
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Backgrounds\visitorStationBg.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\SFX\sauce.xnb
 C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Backgrounds\tutorial.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma1.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarmagrilled2.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarma4.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarmagrilled3.xnb
+C:\Users\user\source\repos\CookingGame\CookingGame\bin\Debug\net6.0\Content\Items\wrappedShawarmagrilled4.xnb
